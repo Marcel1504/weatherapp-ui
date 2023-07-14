@@ -1,0 +1,8 @@
+{
+  "abort": "Abort",
+  "error_noConnection": "Failed to connect to the weather app",
+  "page_current": "Current",
+  "page_review": "Review",
+  "page_stations": "Stations",
+  "station_unnamed": "Unnamed station"
+}

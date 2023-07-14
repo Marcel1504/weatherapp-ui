@@ -1,0 +1,8 @@
+{
+  "abort": "Abbrechen",
+  "error_noConnection": "Es konnte keine Verbindung zur Wetter-App hergestellt werden",
+  "page_current": "Aktuell",
+  "page_review": "Rückblick",
+  "page_stations": "Stationen",
+  "station_unnamed": "Unbenannte Station"
+}
