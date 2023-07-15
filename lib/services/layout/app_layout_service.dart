@@ -40,6 +40,6 @@ class AppLayoutService {
   }
 
   double maxWidth() {
-    return 500;
+    return 750;
   }
 }

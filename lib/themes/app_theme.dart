@@ -19,6 +19,7 @@ abstract class AppTheme {
           surface: surfaceColor(),
           onSurface: onSurfaceColor()),
       scaffoldBackgroundColor: backgroundColor(),
+      dividerColor: surfaceColor(),
       appBarTheme: AppBarTheme(
           backgroundColor: Colors.transparent,
           foregroundColor: onBackgroundColor(),

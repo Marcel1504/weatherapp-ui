@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:weatherapp_ui/fragments/button/app_rounded_icon_button.dart';
+import 'package:weatherapp_ui/fragments/station/list/app_station_list_fragment.dart';
 import 'package:weatherapp_ui/pages/app_root_page.dart';
 import 'package:weatherapp_ui/providers/station/app_station_provider.dart';
 import 'package:weatherapp_ui/services/layout/app_layout_service.dart';
@@ -17,16 +17,12 @@ class AppHomePage extends StatefulWidget {
 
 class _AppHomePageState extends State<AppHomePage> {
   int _selectedIndex = 0;
-  late List<Widget> _bodyWidgets;
+  late List<Widget> _bodyPages;
 
   @override
   void initState() {
     super.initState();
-    _bodyWidgets = [
-      _test(),
-      Text("Test 2", key: ValueKey(2)),
-      Text("Test 3", key: ValueKey(3))
-    ];
+    _bodyPages = [Container(), Container(), const AppStationListFragment()];
   }
 
   @override
@@ -37,24 +33,9 @@ class _AppHomePageState extends State<AppHomePage> {
         bottomNavigationBar: _bottomNavigationBar(context));
   }
 
-  Widget _test() {
-    return Row(
-      children: [
-        AppRoundIconButtonComponent(
-          primary: false,
-          icon: Icons.refresh,
-        ),
-        AppRoundIconButtonComponent(
-          primary: true,
-          icon: Icons.refresh,
-        ),
-      ],
-    );
-  }
-
   AppBar _appBar(BuildContext context) {
     return AppBar(
-      title: Consumer<AppStationProvider>(builder: (c, provider, widget) {
+      title: Consumer<AppStationProvider>(builder: (context, provider, widget) {
         return Text(provider.selectedStation?.name ??
             AppLocalizations.of(context)!.station_unnamed);
       }),
@@ -64,10 +45,25 @@ class _AppHomePageState extends State<AppHomePage> {
     );
   }
 
+  List<Widget> _appBarActions(BuildContext context) {
+    return [
+      SizedBox(
+        width: 55,
+        height: 55,
+        child: InkWell(
+          onTap: () => _refresh(context),
+          customBorder:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(55)),
+          child: const Icon(Icons.refresh),
+        ),
+      )
+    ];
+  }
+
   Widget _body(BuildContext context) {
     return AnimatedSwitcher(
       duration: const Duration(milliseconds: 250),
-      child: _bodyWidgets[_selectedIndex],
+      child: _bodyPages[_selectedIndex],
     );
   }
 
@@ -95,21 +91,6 @@ class _AppHomePageState extends State<AppHomePage> {
           currentIndex: _selectedIndex,
           onTap: _onBottomNavigationTapped),
     );
-  }
-
-  List<Widget> _appBarActions(BuildContext context) {
-    return [
-      SizedBox(
-        width: 55,
-        height: 55,
-        child: InkWell(
-          onTap: () => _refresh(context),
-          customBorder:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(55)),
-          child: const Icon(Icons.refresh),
-        ),
-      )
-    ];
   }
 
   void _onBottomNavigationTapped(int index) {

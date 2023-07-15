@@ -4,5 +4,14 @@
   "page_current": "Aktuell",
   "page_review": "Rückblick",
   "page_stations": "Stationen",
-  "station_unnamed": "Unbenannte Station"
+  "station_last_activity": "zuletzt aktiv vor {duration}",
+  "station_last_activity_unknown": "letzte Aktivität unbekannt",
+  "station_selection": "Stationsauswahl",
+  "station_unnamed": "Unbenannte Station",
+  "term_currently": "Aktuell",
+  "term_day_short": "T",
+  "term_hour_short": "h",
+  "term_minute_short": "min",
+  "term_month_short": "M",
+  "term_second_short": "s"
 }
