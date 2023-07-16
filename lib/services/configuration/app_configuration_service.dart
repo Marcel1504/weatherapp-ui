@@ -14,6 +14,25 @@ class AppConfigurationService {
     return defaultTargetPlatform == TargetPlatform.android;
   }
 
+  Future<void> saveSelectedStationCode(String code) {
+    return _setString("selectedStationCode", code);
+  }
+
+  Future<String?> getSelectedStationCode() {
+    return _getString("selectedStationCode");
+  }
+
+  Future<void> _setString(String property, String value) async {
+    SharedPreferences p = await SharedPreferences.getInstance();
+    p.setString(property, value);
+  }
+
+  Future<String?> _getString(String property) async {
+    SharedPreferences p = await SharedPreferences.getInstance();
+    String? b = p.getString(property);
+    return b;
+  }
+
   Future<void> _setBool(String property, bool value) async {
     SharedPreferences p = await SharedPreferences.getInstance();
     p.setBool(property, value);

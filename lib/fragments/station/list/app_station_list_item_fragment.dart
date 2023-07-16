@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 import 'package:weatherapp_ui/dto/response/station/app_station_response_dto.dart';
 import 'package:weatherapp_ui/enums/app_station_type_enum.dart';
+import 'package:weatherapp_ui/providers/station/app_station_provider.dart';
 import 'package:weatherapp_ui/services/layout/app_layout_service.dart';
 import 'package:weatherapp_ui/services/time/app_time_service.dart';
 import 'package:weatherapp_ui/themes/app_icons.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AppStationListItemFragment extends StatelessWidget {
   final AppStationResponseDto? station;
@@ -23,6 +25,7 @@ class AppStationListItemFragment extends StatelessWidget {
         color: Theme.of(context).colorScheme.onBackground,
       ),
       tileColor: Colors.transparent,
+      onTap: () => _selectStation(context, station),
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -73,5 +76,10 @@ class AppStationListItemFragment extends StatelessWidget {
           style: layoutService.appTextStyle(context,
               size: "s", color: "background", withOpacity: true)),
     );
+  }
+
+  void _selectStation(BuildContext context, AppStationResponseDto? station) {
+    Provider.of<AppStationProvider>(context, listen: false)
+        .changeSelectedStation(station?.code);
   }
 }

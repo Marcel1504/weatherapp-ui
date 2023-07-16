@@ -1,5 +1,4 @@
 {
-  "abort": "Abbrechen",
   "error_noConnection": "Es konnte keine Verbindung zur Wetter-App hergestellt werden",
   "page_current": "Aktuell",
   "page_review": "Rückblick",
@@ -13,5 +12,9 @@
   "term_hour_short": "h",
   "term_minute_short": "min",
   "term_month_short": "M",
-  "term_second_short": "s"
+  "term_second_short": "s",
+  "weather_wind_direction_east": "O",
+  "weather_wind_direction_north": "N",
+  "weather_wind_direction_south": "S",
+  "weather_wind_direction_west": "W"
 }

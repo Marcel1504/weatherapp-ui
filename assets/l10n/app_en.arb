@@ -1,5 +1,4 @@
 {
-  "abort": "Abort",
   "error_noConnection": "Failed to connect to the weather app",
   "page_current": "Current",
   "page_review": "Review",
@@ -13,5 +12,9 @@
   "term_hour_short": "h",
   "term_minute_short": "min",
   "term_month_short": "M",
-  "term_second_short": "s"
+  "term_second_short": "s",
+  "weather_wind_direction_east": "E",
+  "weather_wind_direction_north": "N",
+  "weather_wind_direction_south": "S",
+  "weather_wind_direction_west": "W"
 }

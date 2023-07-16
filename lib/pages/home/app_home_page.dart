@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:weatherapp_ui/fragments/data/current/app_current_data_fragment.dart';
 import 'package:weatherapp_ui/fragments/station/list/app_station_list_fragment.dart';
 import 'package:weatherapp_ui/pages/app_root_page.dart';
 import 'package:weatherapp_ui/providers/station/app_station_provider.dart';
@@ -16,14 +17,7 @@ class AppHomePage extends StatefulWidget {
 }
 
 class _AppHomePageState extends State<AppHomePage> {
-  int _selectedIndex = 0;
-  late List<Widget> _bodyPages;
-
-  @override
-  void initState() {
-    super.initState();
-    _bodyPages = [Container(), Container(), const AppStationListFragment()];
-  }
+  int _selectedIndex = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +34,7 @@ class _AppHomePageState extends State<AppHomePage> {
             AppLocalizations.of(context)!.station_unnamed);
       }),
       titleTextStyle: AppLayoutService().appTextStyle(context,
-          size: "l", color: "background", withOpacity: true),
+          size: "m", color: "background", withOpacity: true),
       actions: _appBarActions(context),
     );
   }
@@ -62,9 +56,17 @@ class _AppHomePageState extends State<AppHomePage> {
 
   Widget _body(BuildContext context) {
     return AnimatedSwitcher(
-      duration: const Duration(milliseconds: 250),
-      child: _bodyPages[_selectedIndex],
+      duration: const Duration(milliseconds: 500),
+      child: _bodyPages(context)[_selectedIndex],
     );
+  }
+
+  List<Widget> _bodyPages(BuildContext context) {
+    return [
+      Container(),
+      const AppCurrentDataFragment(),
+      const AppStationListFragment()
+    ];
   }
 
   Widget _bottomNavigationBar(BuildContext context) {

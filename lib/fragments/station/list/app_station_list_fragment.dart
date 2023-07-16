@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:weatherapp_ui/fragments/station/list/app_station_list_item_fragment.dart';
 import 'package:weatherapp_ui/providers/station/app_station_provider.dart';
 import 'package:weatherapp_ui/services/layout/app_layout_service.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AppStationListFragment extends StatelessWidget {
   const AppStationListFragment({super.key});
@@ -23,15 +22,13 @@ class AppStationListFragment extends StatelessWidget {
 
   Widget _list(BuildContext context, AppStationProvider provider,
       AppLayoutService layoutService) {
-    return Expanded(
-      child: ListView.separated(
-          itemBuilder: (context, index) => AppStationListItemFragment(
-                station: provider.stations[index],
-                isSelected: provider.stations[index].code ==
-                    provider.selectedStation?.code,
-              ),
-          separatorBuilder: (a, b) => const Divider(),
-          itemCount: provider.stations.length),
-    );
+    return ListView.separated(
+        itemBuilder: (context, index) => AppStationListItemFragment(
+              station: provider.stations[index],
+              isSelected: provider.stations[index].code ==
+                  provider.selectedStation?.code,
+            ),
+        separatorBuilder: (a, b) => const Divider(),
+        itemCount: provider.stations.length);
   }
 }
