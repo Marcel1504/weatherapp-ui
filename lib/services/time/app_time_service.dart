@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:intl/intl.dart';
 
 class AppTimeService {
   String? transformISODateTimeString(BuildContext context, String? dateTime,
@@ -69,5 +69,12 @@ class AppTimeService {
       return "${duration.inDays}${localizations!.term_day_short}";
     }
     return "${duration.inDays ~/ 30}${localizations!.term_month_short}";
+  }
+
+  String? transformISODateTimeStringToCurrentDuration(
+      BuildContext context, String? dateTime) {
+    DateTime? start = parseDateTimeString(dateTime);
+    DateTime end = DateTime.now();
+    return transformToDurationText(context, start, end);
   }
 }

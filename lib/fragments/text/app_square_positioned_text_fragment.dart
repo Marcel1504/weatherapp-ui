@@ -60,7 +60,7 @@ class AppSquarePositionedTextFragment extends StatelessWidget {
       children: [
         Icon(
           icon,
-          color: color,
+          color: color.withOpacity(0.7),
           size: squareSize * (textDensity / 100),
         ),
         _text()
