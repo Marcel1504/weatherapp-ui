@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:weatherapp_ui/dto/response/station/app_station_response_dto.dart';
 import 'package:weatherapp_ui/fragments/data/current/weather/app_weather_current_data_display_fragment.dart';
-import 'package:weatherapp_ui/fragments/data/current/weather/app_weather_current_data_rain_fragment.dart';
+import 'package:weatherapp_ui/fragments/data/current/weather/app_weather_current_data_duration_fragment.dart';
 import 'package:weatherapp_ui/fragments/loading/app_loading_fragment.dart';
 import 'package:weatherapp_ui/providers/data/single/impl/app_weather_single_data_provider.dart';
 

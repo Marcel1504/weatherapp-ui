@@ -4,6 +4,17 @@ abstract class AppTheme {
   ThemeData get() {
     return ThemeData(
         fontFamily: "Lato",
+        textTheme: TextTheme(
+          bodySmall: TextStyle(
+              color: onBackgroundColor().withOpacity(0.7), fontSize: 14),
+          bodyMedium: TextStyle(
+              color: onBackgroundColor().withOpacity(0.7), fontSize: 18),
+          bodyLarge: TextStyle(
+              color: onBackgroundColor().withOpacity(0.7), fontSize: 22),
+          headlineSmall: TextStyle(color: onBackgroundColor(), fontSize: 14),
+          headlineMedium: TextStyle(color: onBackgroundColor(), fontSize: 18),
+          headlineLarge: TextStyle(color: onBackgroundColor(), fontSize: 22),
+        ),
         colorScheme: ColorScheme(
             background: backgroundColor(),
             brightness: brightness(),
@@ -21,7 +32,8 @@ abstract class AppTheme {
         scaffoldBackgroundColor: backgroundColor(),
         listTileTheme: const ListTileThemeData(
             tileColor: Colors.transparent, contentPadding: EdgeInsets.all(10)),
-        dividerTheme: DividerThemeData(color: surfaceColor(), space: 0),
+        dividerTheme:
+            DividerThemeData(color: surfaceColor(), space: 0, thickness: 1),
         appBarTheme: AppBarTheme(
             backgroundColor: Colors.transparent,
             foregroundColor: onBackgroundColor(),

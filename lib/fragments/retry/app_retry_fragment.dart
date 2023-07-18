@@ -23,8 +23,7 @@ class AppRetryFragment extends StatelessWidget {
           child: Text(
             AppLocalizations.of(context)!.error_noConnection,
             textAlign: TextAlign.center,
-            style: layoutService.appTextStyle(context,
-                size: "m", color: "background", withOpacity: true),
+            style: Theme.of(context).textTheme.bodyMedium,
           ),
         ),
         AppRoundIconButtonComponent(

@@ -58,10 +58,13 @@ class AppSquarePositionedTextFragment extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Icon(
-          icon,
-          color: color.withOpacity(0.7),
-          size: squareSize * (textDensity / 100),
+        Padding(
+          padding: EdgeInsets.only(bottom: squareSize * 0.008),
+          child: Icon(
+            icon,
+            color: color.withOpacity(0.7),
+            size: squareSize * (textDensity / 100),
+          ),
         ),
         _text()
       ],

@@ -24,6 +24,7 @@ class AppIconTextFragment extends StatelessWidget {
               Icon(
                 icon,
                 color: color?.withOpacity(0.7),
+                size: size,
               ),
               Padding(
                 padding:

@@ -14,14 +14,14 @@ class AppRootPage extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: Consumer<AppStationProvider>(
-          builder: (c, provider, widget) {
+          builder: (context, provider, widget) {
             if (!provider.isLoading && provider.hasLoadingError) {
-              return _initializationError(c);
+              return _initializationError(context);
             }
             if (provider.isLoading) {
               return _loading();
             }
-            Future.delayed(Duration.zero, () => _success(c));
+            Future.delayed(Duration.zero, () => _success(context));
             return Container();
           },
         ),

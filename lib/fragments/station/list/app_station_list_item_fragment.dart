@@ -58,8 +58,7 @@ class AppStationListItemFragment extends StatelessWidget {
   Widget _stationNameText(BuildContext context, AppStationResponseDto? station,
       AppLayoutService layoutService) {
     return Text(station?.name ?? "",
-        style: layoutService.appTextStyle(context,
-            size: "m", color: "background"));
+        style: Theme.of(context).textTheme.headlineMedium);
   }
 
   Widget _stationLastActivityText(BuildContext context,
@@ -73,8 +72,7 @@ class AppStationListItemFragment extends StatelessWidget {
           duration != null
               ? AppLocalizations.of(context)!.station_last_activity(duration)
               : AppLocalizations.of(context)!.station_last_activity_unknown,
-          style: layoutService.appTextStyle(context,
-              size: "s", color: "background", withOpacity: true)),
+          style: Theme.of(context).textTheme.bodyMedium),
     );
   }
 
