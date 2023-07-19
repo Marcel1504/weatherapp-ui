@@ -3,6 +3,7 @@
   "page_current": "Aktuell",
   "page_review": "Rückblick",
   "page_stations": "Stationen",
+  "soil_deepness": "Tiefe",
   "station_last_activity": "zuletzt aktiv vor {duration}",
   "station_last_activity_unknown": "letzte Aktivität unbekannt",
   "station_selection": "Stationsauswahl",

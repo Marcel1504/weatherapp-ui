@@ -5,6 +5,7 @@ import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:weatherapp_ui/fragments/data/current/app_current_data_fragment.dart';
 import 'package:weatherapp_ui/fragments/station/list/app_station_list_fragment.dart';
 import 'package:weatherapp_ui/pages/app_root_page.dart';
+import 'package:weatherapp_ui/providers/data/single/impl/app_soil_single_data_provider.dart';
 import 'package:weatherapp_ui/providers/data/single/impl/app_weather_single_data_provider.dart';
 import 'package:weatherapp_ui/providers/station/app_station_provider.dart';
 import 'package:weatherapp_ui/themes/app_icons.dart';
@@ -102,6 +103,8 @@ class _AppHomePageState extends State<AppHomePage> {
 
   void _refresh(BuildContext context) {
     Provider.of<AppWeatherSingleDataProvider>(context, listen: false)
+        .markForReset();
+    Provider.of<AppSoilSingleDataProvider>(context, listen: false)
         .markForReset();
     Navigator.pushReplacement(
         context,

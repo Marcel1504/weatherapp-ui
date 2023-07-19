@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:weatherapp_ui/dto/response/data/single/app_weather_single_data_response_dto.dart';
 import 'package:weatherapp_ui/services/layout/app_layout_service.dart';
 import 'package:weatherapp_ui/services/time/app_time_service.dart';
 
-class AppWeatherCurrentDataRainFragment extends StatelessWidget {
-  final AppWeatherSingleDataResponseDto? weather;
+class AppCurrentDurationTextFragment extends StatelessWidget {
+  final String? timestamp;
 
-  const AppWeatherCurrentDataRainFragment({super.key, this.weather});
+  const AppCurrentDurationTextFragment({super.key, this.timestamp});
 
   @override
   Widget build(BuildContext context) {
     String? duration = AppTimeService()
-        .transformISODateTimeStringToCurrentDuration(
-            context, weather?.timestamp);
+        .transformISODateTimeStringToCurrentDuration(context, timestamp);
     AppLayoutService layoutService = AppLayoutService();
     return duration != null
         ? Padding(

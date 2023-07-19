@@ -3,6 +3,7 @@
   "page_current": "Current",
   "page_review": "Review",
   "page_stations": "Stations",
+  "soil_deepness": "Deepness",
   "station_last_activity": "last active {duration} ago",
   "station_last_activity_unknown": "last activity unknown",
   "station_selection": "Station selection",
