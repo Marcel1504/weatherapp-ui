@@ -2,7 +2,7 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:weatherapp_ui/dto/response/data/single/app_weather_single_data_response_dto.dart';
+import 'package:weatherapp_ui/dto/response/data/single/weather/app_weather_single_data_response_dto.dart';
 import 'package:weatherapp_ui/fragments/text/app_square_positioned_text_fragment.dart';
 import 'package:weatherapp_ui/services/color/app_color_service.dart';
 import 'package:weatherapp_ui/services/layout/app_layout_service.dart';

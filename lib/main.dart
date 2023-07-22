@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:provider/provider.dart';
 import 'package:weatherapp_ui/pages/app_root_page.dart';
-import 'package:weatherapp_ui/providers/app_providers.dart' as app_providers;
+import 'package:weatherapp_ui/providers/app_provider.dart';
 import 'package:weatherapp_ui/themes/app_theme_dark.dart';
 import 'package:weatherapp_ui/themes/app_theme_light.dart';
 
@@ -17,7 +17,7 @@ class WeatherApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: app_providers.get(),
+      providers: AppProvider().get(),
       child: MaterialApp(
         title: 'Wetter-App',
         theme: AppThemeLight().get(),

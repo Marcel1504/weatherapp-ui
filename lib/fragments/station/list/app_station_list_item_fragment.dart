@@ -72,7 +72,7 @@ class AppStationListItemFragment extends StatelessWidget {
           duration != null
               ? AppLocalizations.of(context)!.station_last_activity(duration)
               : AppLocalizations.of(context)!.station_last_activity_unknown,
-          style: Theme.of(context).textTheme.bodyMedium),
+          style: Theme.of(context).textTheme.bodySmall),
     );
   }
 

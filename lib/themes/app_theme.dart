@@ -15,6 +15,14 @@ abstract class AppTheme {
           headlineMedium: TextStyle(color: onBackgroundColor(), fontSize: 18),
           headlineLarge: TextStyle(color: onBackgroundColor(), fontSize: 22),
         ),
+        chipTheme: ChipThemeData(
+            selectedColor: secondaryColor(),
+            elevation: 0,
+            side: BorderSide.none,
+            pressElevation: 0,
+            padding: const EdgeInsets.all(10),
+            backgroundColor: surfaceColor(),
+            labelStyle: TextStyle(fontSize: 16, color: onSurfaceColor())),
         colorScheme: ColorScheme(
             background: backgroundColor(),
             brightness: brightness(),
