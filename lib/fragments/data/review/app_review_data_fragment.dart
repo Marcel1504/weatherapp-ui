@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
-import 'package:weatherapp_ui/dto/response/station/app_station_response_dto.dart';
 import 'package:weatherapp_ui/enums/app_calendar_enum.dart';
-import 'package:weatherapp_ui/fragments/data/review/app_review_data_list_fragment.dart';
+import 'package:weatherapp_ui/enums/app_station_type_enum.dart';
+import 'package:weatherapp_ui/fragments/data/review/list/app_soil_review_data_list_fragment.dart';
+import 'package:weatherapp_ui/fragments/data/review/list/app_weather_review_data_list_fragment.dart';
 import 'package:weatherapp_ui/providers/station/app_station_provider.dart';
 import 'package:weatherapp_ui/services/layout/app_layout_service.dart';
 
@@ -18,39 +20,59 @@ class _AppReviewDataFragmentState extends State<AppReviewDataFragment> {
 
   @override
   Widget build(BuildContext context) {
-    AppLayoutService layoutService = AppLayoutService();
-
     return Consumer<AppStationProvider>(builder: (context, provider, widget) {
-      return Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.all(layoutService.betweenItemPadding()),
-            child: Row(
-                children: _getChoiceChips(provider.selectedStation)
-                    .map((c) => Padding(
-                          padding: EdgeInsets.only(
-                              right: layoutService.betweenItemPadding()),
-                          child: c,
-                        ))
-                    .toList()),
+      return Center(
+        child: ConstrainedBox(
+          constraints: BoxConstraints(maxWidth: AppLayoutService().maxWidth()),
+          child: Column(
+            children: [_header(context, provider), _body(provider)],
           ),
-          Expanded(
-              child: AppReviewDataListFragment(
-            station: provider.selectedStation,
-            type: _selectedChoice,
-          ))
-        ],
+        ),
       );
     });
   }
 
-  List<Widget> _getChoiceChips(AppStationResponseDto? station) {
+  Widget _header(BuildContext context, AppStationProvider provider) {
     _selectedChoice ??= AppCalendarEnum.DAY;
-    return [
-      _choiceChip("Tage", AppCalendarEnum.DAY),
-      _choiceChip("Monate", AppCalendarEnum.MONTH),
-      _choiceChip("Jahre", AppCalendarEnum.YEAR),
+    List<Widget> choiceChips = [
+      _choiceChip(AppLocalizations.of(context)!.term_days, AppCalendarEnum.DAY),
+      _choiceChip(
+          AppLocalizations.of(context)!.term_months, AppCalendarEnum.MONTH),
+      _choiceChip(
+          AppLocalizations.of(context)!.term_years, AppCalendarEnum.YEAR),
     ];
+    return Padding(
+      padding: EdgeInsets.all(AppLayoutService().betweenItemPadding()),
+      child: Row(
+          children: choiceChips
+              .map((c) => Padding(
+                    padding: EdgeInsets.only(
+                        right: AppLayoutService().betweenItemPadding()),
+                    child: c,
+                  ))
+              .toList()),
+    );
+  }
+
+  Widget _body(AppStationProvider provider) {
+    Widget? body;
+    switch (provider.selectedStation?.type) {
+      case AppStationTypeEnum.WEATHER:
+        body = AppWeatherReviewDataListFragment(
+          station: provider.selectedStation,
+          type: _selectedChoice,
+        );
+        break;
+      case AppStationTypeEnum.SOIL:
+        body = AppSoilReviewDataListFragment(
+          station: provider.selectedStation,
+          type: _selectedChoice,
+        );
+        break;
+      default:
+        body = Container();
+    }
+    return Expanded(child: body);
   }
 
   ChoiceChip _choiceChip(String label, AppCalendarEnum type) {

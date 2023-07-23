@@ -22,7 +22,8 @@ class AppStationListItemFragment extends StatelessWidget {
     return ListTile(
       leading: Icon(
         _leadingIcon(station?.type),
-        color: Theme.of(context).colorScheme.onBackground,
+        size: 30,
+        color: Theme.of(context).colorScheme.onBackground.withOpacity(0.7),
       ),
       tileColor: Colors.transparent,
       onTap: () => _selectStation(context, station),
@@ -63,9 +64,8 @@ class AppStationListItemFragment extends StatelessWidget {
 
   Widget _stationLastActivityText(BuildContext context,
       AppStationResponseDto? station, AppLayoutService layoutService) {
-    AppTimeService timeService = AppTimeService();
-    String? duration = timeService.transformToDurationText(context,
-        timeService.parseDateTimeString(station?.lastActivity), DateTime.now());
+    String? duration = AppTimeService().transformISOTimeStringToCurrentDuration(
+        context, station?.lastActivity);
     return Padding(
       padding: EdgeInsets.only(top: layoutService.betweenItemPadding() / 2),
       child: Text(

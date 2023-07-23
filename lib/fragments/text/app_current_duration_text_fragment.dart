@@ -11,7 +11,7 @@ class AppCurrentDurationTextFragment extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String? duration = AppTimeService()
-        .transformISODateTimeStringToCurrentDuration(context, timestamp);
+        .transformISOTimeStringToCurrentDuration(context, timestamp);
     AppLayoutService layoutService = AppLayoutService();
     return duration != null
         ? Padding(

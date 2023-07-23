@@ -185,8 +185,7 @@ class AppWeatherCurrentDataDisplayFragment extends StatelessWidget {
     Color color = Theme.of(context).colorScheme.onBackground;
     if (weather?.lastRain != null) {
       String? duration = AppTimeService()
-          .transformISODateTimeStringToCurrentDuration(
-              context, weather?.lastRain);
+          .transformISOTimeStringToCurrentDuration(context, weather?.lastRain);
       if (duration != null) {
         rainText =
             AppLocalizations.of(context)!.weather_last_rain_duration(duration);
