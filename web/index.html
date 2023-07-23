@@ -9,7 +9,7 @@
   <!-- iOS meta tags & icons -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="weatherapp_ui">
+  <meta content="Wetter-App" name="apple-mobile-web-app-title">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
   <!-- Favicon -->
@@ -21,12 +21,33 @@
   <script>
     // The value below is injected by flutter build, do not touch.
     var serviceWorkerVersion = null;
+
   </script>
   <!-- This script adds the flutter initialization JS code -->
   <script src="flutter.js" defer></script>
+
+  <style>
+    .app-image {
+      margin: 0;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin-right: -50%;
+      transform: translate(-50%, -50%);
+    }
+    .app-background {
+      @media (prefers-color-scheme: dark) {
+        background: #1C1C1C;
+      }
+      @media (prefers-color-scheme: light) {
+        background: #E9E9E9;
+      }
+    }
+
+  </style>
 </head>
-<body>
-  <script>
+<body class="app-background">
+<script>
     window.addEventListener('load', function(ev) {
       // Download main.dart.js
       _flutter.loader.loadEntrypoint({
@@ -43,13 +64,7 @@
   </script>
 </body>
 <img src="icons/Icon-loading.svg"
-     style="margin: 0;
-     position: absolute;
-     top: 50%;
-     left: 50%;
-     margin-right: -50%;
-     transform: translate(-50%, -50%)"
+     class="app-image"
      height="50"
      width="50"/>
-</body>
 </html>
