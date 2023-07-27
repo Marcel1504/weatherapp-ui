@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:weatherapp_ui/fragments/button/app_rounded_icon_button.dart';
+import 'package:weatherapp_ui/fragments/button/app_round_icon_button.dart';
 import 'package:weatherapp_ui/services/layout/app_layout_service.dart';
 
 class AppRetryFragment extends StatelessWidget {

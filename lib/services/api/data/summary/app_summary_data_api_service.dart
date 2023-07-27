@@ -7,7 +7,7 @@ abstract class AppSummaryDataApiService<LIST extends AppListResponseDto,
     FILTER> {
   Future<LIST?> getNext(String? stationCode, int page, FILTER? filter) async {
     Response res = await get(AppApiService().restUrl(
-        "${getBaseEndpoint()}?station=$stationCode&page=$page&size=50${buildFilterQuery(filter)}"));
+        "${getBaseEndpoint()}?station=$stationCode&page=$page&size=25${buildFilterQuery(filter)}"));
     return res.statusCode == 200 ? convert(res.body) : null;
   }
 

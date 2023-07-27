@@ -2,13 +2,13 @@ import 'package:weatherapp_ui/enums/app_weather_sort_enum.dart';
 
 class AppWeatherFilterModel {
   AppWeatherSortEnum sort;
-  String? startDate;
-  String? endDate;
+  String? startDay;
+  String? endDay;
   String? year;
 
   AppWeatherFilterModel(
-      {this.startDate,
-      this.endDate,
+      {this.startDay,
+      this.endDay,
       this.year,
       this.sort = AppWeatherSortEnum.LATEST});
 }

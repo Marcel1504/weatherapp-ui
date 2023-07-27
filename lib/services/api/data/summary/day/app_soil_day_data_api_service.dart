@@ -8,7 +8,17 @@ class AppSoilDayApiService extends AppSummaryDataApiService<
     AppSoilSummaryDataListResponseDto, AppSoilFilterModel> {
   @override
   String buildFilterQuery(AppSoilFilterModel? filter) {
-    return "";
+    String filterString = "";
+    if (filter?.sort != null) {
+      filterString += "&sort=${filter?.sort.name}";
+    }
+    if (filter?.startDay != null) {
+      filterString += "&startDay=${filter?.startDay}";
+    }
+    if (filter?.endDay != null) {
+      filterString += "&endDay=${filter?.endDay}";
+    }
+    return filterString;
   }
 
   @override

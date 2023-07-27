@@ -8,12 +8,12 @@ abstract class AppTheme {
           bodySmall: TextStyle(
               color: onBackgroundColor().withOpacity(0.7), fontSize: 14),
           bodyMedium: TextStyle(
-              color: onBackgroundColor().withOpacity(0.7), fontSize: 18),
+              color: onBackgroundColor().withOpacity(0.7), fontSize: 16),
           bodyLarge: TextStyle(
-              color: onBackgroundColor().withOpacity(0.7), fontSize: 22),
+              color: onBackgroundColor().withOpacity(0.7), fontSize: 18),
           headlineSmall: TextStyle(color: onBackgroundColor(), fontSize: 14),
-          headlineMedium: TextStyle(color: onBackgroundColor(), fontSize: 18),
-          headlineLarge: TextStyle(color: onBackgroundColor(), fontSize: 22),
+          headlineMedium: TextStyle(color: onBackgroundColor(), fontSize: 16),
+          headlineLarge: TextStyle(color: onBackgroundColor(), fontSize: 18),
         ),
         chipTheme: ChipThemeData(
             selectedColor: secondaryColor(),
@@ -42,6 +42,13 @@ abstract class AppTheme {
             tileColor: Colors.transparent, contentPadding: EdgeInsets.all(10)),
         dividerTheme:
             DividerThemeData(color: surfaceColor(), space: 0, thickness: 1),
+        dialogTheme: DialogTheme(
+            actionsPadding: const EdgeInsets.all(20),
+            titleTextStyle: TextStyle(
+                color: onBackgroundColor().withOpacity(0.7), fontSize: 18),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+            backgroundColor: backgroundColor()),
         appBarTheme: AppBarTheme(
             backgroundColor: Colors.transparent,
             foregroundColor: onBackgroundColor(),

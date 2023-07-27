@@ -8,7 +8,14 @@ class AppSoilMonthApiService extends AppSummaryDataApiService<
     AppSoilSummaryDataListResponseDto, AppSoilFilterModel> {
   @override
   String buildFilterQuery(AppSoilFilterModel? filter) {
-    return "";
+    String filterString = "";
+    if (filter?.sort != null) {
+      filterString += "&sort=${filter?.sort.name}";
+    }
+    if (filter?.year != null) {
+      filterString += "&year=${filter?.year}";
+    }
+    return filterString;
   }
 
   @override

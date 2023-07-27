@@ -34,6 +34,18 @@ class AppTimeService {
     return null;
   }
 
+  String? transformDateTime(BuildContext context, DateTime? dateTime,
+      {String pattern = "dd.MM.yyyy, HH:mm:ss"}) {
+    try {
+      if (dateTime != null) {
+        DateFormat output =
+            DateFormat(pattern, Localizations.localeOf(context).languageCode);
+        return output.format(dateTime);
+      }
+    } on Exception catch (_) {}
+    return null;
+  }
+
   DateTime? parseTimeString(String? dateTime,
       {String pattern = isoTimePattern}) {
     try {

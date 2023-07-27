@@ -2,13 +2,13 @@ import 'package:weatherapp_ui/enums/app_soil_sort_enum.dart';
 
 class AppSoilFilterModel {
   AppSoilSortEnum sort;
-  String? startDate;
-  String? endDate;
+  String? startDay;
+  String? endDay;
   String? year;
 
   AppSoilFilterModel(
-      {this.startDate,
-      this.endDate,
+      {this.startDay,
+      this.endDay,
       this.year,
       this.sort = AppSoilSortEnum.LATEST});
 }

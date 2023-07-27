@@ -8,7 +8,14 @@ class AppWeatherMonthApiService extends AppSummaryDataApiService<
     AppWeatherSummaryDataListResponseDto, AppWeatherFilterModel> {
   @override
   String buildFilterQuery(AppWeatherFilterModel? filter) {
-    return "";
+    String filterString = "";
+    if (filter?.sort != null) {
+      filterString += "&sort=${filter?.sort.name}";
+    }
+    if (filter?.year != null) {
+      filterString += "&year=${filter?.year}";
+    }
+    return filterString;
   }
 
   @override

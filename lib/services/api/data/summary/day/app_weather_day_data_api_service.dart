@@ -8,7 +8,17 @@ class AppWeatherDayApiService extends AppSummaryDataApiService<
     AppWeatherSummaryDataListResponseDto, AppWeatherFilterModel> {
   @override
   String buildFilterQuery(AppWeatherFilterModel? filter) {
-    return "";
+    String filterString = "";
+    if (filter?.sort != null) {
+      filterString += "&sort=${filter?.sort.name}";
+    }
+    if (filter?.startDay != null) {
+      filterString += "&startDay=${filter?.startDay}";
+    }
+    if (filter?.endDay != null) {
+      filterString += "&endDay=${filter?.endDay}";
+    }
+    return filterString;
   }
 
   @override

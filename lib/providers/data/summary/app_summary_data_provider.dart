@@ -7,6 +7,7 @@ abstract class AppSummaryDataProvider<LIST extends AppListResponseDto, DATA,
   List<DATA> _data = [];
   bool _loading = false;
   bool _reset = true;
+  bool _resetFilter = true;
   int _page = 0;
   bool _hasNext = true;
   String? _stationCode;
@@ -19,6 +20,9 @@ abstract class AppSummaryDataProvider<LIST extends AppListResponseDto, DATA,
   void loadInitialByStationCode(String? stationCode,
       {bool notifyLoadStart = false}) {
     if (_reset || (stationCode != _stationCode)) {
+      if (_resetFilter || (stationCode != _stationCode)) {
+        _filter = null;
+      }
       _data = [];
       _page = 0;
       _hasNext = true;
@@ -29,9 +33,13 @@ abstract class AppSummaryDataProvider<LIST extends AppListResponseDto, DATA,
 
   void setFilter({required FILTER filter}) {
     _filter = filter;
+    markForReset(resetFilter: false);
   }
 
-  void markForReset() {
+  void markForReset({bool resetFilter = true}) {
+    if (resetFilter) {
+      _resetFilter = true;
+    }
     _reset = true;
   }
 
@@ -52,6 +60,7 @@ abstract class AppSummaryDataProvider<LIST extends AppListResponseDto, DATA,
         _hasNext = list?.hasNext ?? false;
         _loading = false;
         _reset = false;
+        _resetFilter = false;
         _page++;
         notifyListeners();
       }).catchError((_) {
@@ -62,6 +71,8 @@ abstract class AppSummaryDataProvider<LIST extends AppListResponseDto, DATA,
   }
 
   bool get loading => _loading;
+
+  FILTER? get filter => _filter;
 
   List<DATA> get data => _data;
 }
