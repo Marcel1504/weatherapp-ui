@@ -15,6 +15,9 @@ abstract class AppTheme {
           headlineMedium: TextStyle(color: onBackgroundColor(), fontSize: 16),
           headlineLarge: TextStyle(color: onBackgroundColor(), fontSize: 18),
         ),
+        scrollbarTheme: ScrollbarThemeData(
+            thumbColor: MaterialStateProperty.all(primaryColor()),
+            thickness: MaterialStateProperty.all(10)),
         chipTheme: ChipThemeData(
             selectedColor: secondaryColor(),
             elevation: 0,

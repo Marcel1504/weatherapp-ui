@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:weatherapp_ui/dto/response/station/app_station_response_dto.dart';
 import 'package:weatherapp_ui/enums/app_calendar_enum.dart';
+import 'package:weatherapp_ui/fragments/data/review/detail/app_weather_review_detail_data_fragment.dart';
 import 'package:weatherapp_ui/fragments/data/review/list/app_review_data_list_fragment.dart';
 import 'package:weatherapp_ui/fragments/data/review/list/item/app_weather_review_data_list_item_fragment.dart';
+import 'package:weatherapp_ui/pages/data/detail/app_detail_data_page.dart';
 import 'package:weatherapp_ui/providers/data/summary/day/app_weather_day_data_provider.dart';
 import 'package:weatherapp_ui/providers/data/summary/month/app_weather_month_data_provider.dart';
 import 'package:weatherapp_ui/providers/data/summary/year/app_weather_year_data_provider.dart';
@@ -41,8 +43,9 @@ class AppWeatherReviewDataListFragment extends StatelessWidget {
               data: d,
               time: d.day,
               timeInputPattern: AppTimeService.isoDayPattern,
-              timeOutputPattern: "dd.MM.yyyy",
-              onTap: () => _openDetailPage(d.day)),
+              timeOutputPattern: AppTimeService.prettyDayPattern,
+              onTap: () =>
+                  _openDetailPage(context, d.day, AppCalendarEnum.DAY)),
           provider: provider,
           station: station,
         );
@@ -58,8 +61,9 @@ class AppWeatherReviewDataListFragment extends StatelessWidget {
               data: d,
               time: "${d.year}-${d.month}",
               timeInputPattern: AppTimeService.isoMonthPattern,
-              timeOutputPattern: "MMMM yyyy",
-              onTap: () => _openDetailPage("${d.year}-${d.month}")),
+              timeOutputPattern: AppTimeService.prettyMonthPattern,
+              onTap: () => _openDetailPage(
+                  context, "${d.year}-${d.month}", AppCalendarEnum.MONTH)),
           provider: provider,
           station: station,
         );
@@ -75,8 +79,9 @@ class AppWeatherReviewDataListFragment extends StatelessWidget {
               data: d,
               time: d.year,
               timeInputPattern: AppTimeService.isoYearPattern,
-              timeOutputPattern: "yyyy",
-              onTap: () => _openDetailPage(d.year)),
+              timeOutputPattern: AppTimeService.prettyYearPattern,
+              onTap: () =>
+                  _openDetailPage(context, d.year, AppCalendarEnum.YEAR)),
           provider: provider,
           station: station,
         );
@@ -84,5 +89,21 @@ class AppWeatherReviewDataListFragment extends StatelessWidget {
     );
   }
 
-  void _openDetailPage(String? time) {}
+  void _openDetailPage(
+      BuildContext context, String? time, AppCalendarEnum type) {
+    AppTimeService timeService = AppTimeService();
+    String? title = timeService.transformTimeString(context, time,
+        inputPattern: timeService.getIsoPatternForCalendarEnum(type)!,
+        outputPattern: timeService.getPrettyPatternForCalendarEnum(type)!);
+    Navigator.push(
+        context,
+        PageRouteBuilder(
+          pageBuilder: (context, animation1, animation2) => AppDetailDataPage(
+              title: title,
+              child: AppWeatherReviewDetailDataFragment(
+                time: time,
+                type: type,
+              )),
+        ));
+  }
 }
