@@ -71,7 +71,7 @@ class _AppReviewDataFragmentState extends State<AppReviewDataFragment> {
     return Padding(
       padding: EdgeInsets.only(
           left: layoutService.betweenItemPadding(),
-          bottom: layoutService.betweenItemPadding() * 2),
+          bottom: layoutService.betweenItemPadding() * 1.2),
       child: AppRoundIconButtonComponent(
         icon: Icons.filter_alt,
         size: 18,

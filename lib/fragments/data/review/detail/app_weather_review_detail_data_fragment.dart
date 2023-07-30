@@ -116,9 +116,9 @@ class _AppWeatherReviewDetailDataFragmentState
         AppLocalizations.of(context)!.chart_unit_max,
         AppLocalizations.of(context)!.chart_unit_min
       ],
+      noDataText: AppLocalizations.of(context)!.chart_no_data_humidity,
       lineGradient: (context, list) => AppColorService()
-          .valueListLinearGradient(context, list, 20, 100, Colors.purple,
-              lowestSaturation: 0.2),
+          .valueListLinearGradient(context, list, 20, 100, Colors.purple),
     );
   }
 
@@ -138,9 +138,9 @@ class _AppWeatherReviewDetailDataFragmentState
         AppLocalizations.of(context)!.chart_unit_max,
         AppLocalizations.of(context)!.chart_unit_min
       ],
+      noDataText: AppLocalizations.of(context)!.chart_no_data_pressure,
       lineGradient: (context, list) => AppColorService()
-          .valueListLinearGradient(context, list, 900, 1100, Colors.lightBlue,
-              lowestSaturation: 0.2),
+          .valueListLinearGradient(context, list, 950, 1050, Colors.lightBlue),
     );
   }
 
@@ -156,9 +156,9 @@ class _AppWeatherReviewDetailDataFragmentState
       valueTitles: [
         AppLocalizations.of(context)!.chart_unit_max,
       ],
+      noDataText: AppLocalizations.of(context)!.chart_no_data_wind,
       lineGradient: (context, list) => AppColorService()
-          .valueListLinearGradient(context, list, 0, 30, Colors.red,
-              lowestSaturation: 0.5),
+          .valueListLinearGradient(context, list, 0, 40, Colors.red),
     );
   }
 
@@ -178,9 +178,9 @@ class _AppWeatherReviewDetailDataFragmentState
         AppLocalizations.of(context)!.chart_unit_max,
         AppLocalizations.of(context)!.chart_unit_min,
       ],
+      noDataText: AppLocalizations.of(context)!.chart_no_data_solar_radiation,
       lineGradient: (context, list) => AppColorService()
-          .valueListLinearGradient(context, list, 0, 500, Colors.orange,
-              lowestSaturation: 0.5),
+          .valueListLinearGradient(context, list, 0, 1000, Colors.orange),
     );
   }
 

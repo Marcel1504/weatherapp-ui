@@ -37,15 +37,18 @@ class _AppLineChartFragmentState extends State<AppLineChartFragment> {
   @override
   Widget build(BuildContext context) {
     if (widget.labels.isEmpty ||
-        widget.valueLists.any((list) => list.isEmpty) ||
+        widget.valueLists.any((list) => list.none((v) => v != null)) ||
         widget.valueTitles.isEmpty) {
       return Center(
-        child: Text(widget.noDataText ?? ""),
+        child: Text(widget.noDataText ?? "",
+            style: Theme.of(context).textTheme.bodyMedium,
+            textAlign: TextAlign.center),
       );
     }
     return Column(
       children: [
         AppChoiceChipListFragment(
+            primary: false,
             onTap: (i) => setState(() => _selectedChartIndex = i),
             titles: widget.valueTitles),
         Expanded(
@@ -70,8 +73,8 @@ class _AppLineChartFragmentState extends State<AppLineChartFragment> {
   Widget _chartRoot(BuildContext context) {
     double minValue = _minValue().toDouble();
     double maxValue = _maxValue().toDouble();
-    double maxY = (maxValue.ceil() + 1);
-    double minY = (minValue.floor() - 1);
+    double maxY = maxValue.ceilToDouble();
+    double minY = minValue.floorToDouble();
 
     return LineChart(LineChartData(
         lineTouchData: _lineTouchData(context),
@@ -186,7 +189,7 @@ class _AppLineChartFragmentState extends State<AppLineChartFragment> {
       getTitlesWidget: (i, meta) => SideTitleWidget(
         axisSide: meta.axisSide,
         child: Text(
-          "$i ${widget.valueUnit}",
+          i.toStringAsFixed(1),
           style: Theme.of(context).textTheme.bodySmall,
         ),
       ),

@@ -36,7 +36,9 @@ class _AppBarChartFragmentState extends State<AppBarChartFragment> {
         widget.values.isEmpty ||
         widget.values.every((r) => r == 0)) {
       return Center(
-        child: Text(widget.noDataText ?? ""),
+        child: Text(widget.noDataText ?? "",
+            style: Theme.of(context).textTheme.bodyMedium,
+            textAlign: TextAlign.center),
       );
     }
     return Scrollbar(

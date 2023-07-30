@@ -44,7 +44,10 @@ class _AppReviewDetailDataFragmentState
     AppLayoutService layoutService = AppLayoutService();
     return Expanded(
         child: Padding(
-      padding: EdgeInsets.all(layoutService.betweenItemPadding()),
+      padding: EdgeInsets.only(
+          bottom: layoutService.betweenItemPadding(),
+          left: layoutService.betweenItemPadding(),
+          right: layoutService.betweenItemPadding()),
       child: widget.chartWidgets[_selectedChartIndex],
     ));
   }

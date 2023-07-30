@@ -61,16 +61,15 @@ class AppColorService {
   LinearGradient valueLinearGradient(BuildContext context, double? value,
       double lowest, double highest, Color base) {
     Color topColor = valueToColor(context,
-        0.5 + (_percentageInValueRange(value, highest, lowest) * 0.5), base);
+        0.2 + (_percentageInValueRange(value, highest, lowest) * 0.8), base);
     return LinearGradient(
-        colors: [valueToColor(context, 0.5, base), topColor],
+        colors: [valueToColor(context, 0.2, base), topColor],
         begin: Alignment.bottomCenter,
         end: Alignment.topCenter);
   }
 
   LinearGradient valueListLinearGradient(BuildContext context,
-      List<double?> values, double lowest, double highest, Color base,
-      {double lowestSaturation = 0.5}) {
+      List<double?> values, double lowest, double highest, Color base) {
     double? maxValue;
     double? minValue;
     for (double? v in values) {
@@ -83,18 +82,10 @@ class AppColorService {
     }
     minValue = minValue != null && minValue >= lowest ? minValue : lowest;
     maxValue = maxValue != null && maxValue <= highest ? maxValue : highest;
-    Color bottomColor = valueToColor(
-        context,
-        lowestSaturation +
-            (_percentageInValueRange(minValue, highest, lowest) *
-                (1.0 - lowestSaturation)),
-        base);
-    Color topColor = valueToColor(
-        context,
-        lowestSaturation +
-            (_percentageInValueRange(maxValue, highest, lowest) *
-                (1.0 - lowestSaturation)),
-        base);
+    Color bottomColor = valueToColor(context,
+        0.2 + (_percentageInValueRange(minValue, highest, lowest) * 0.8), base);
+    Color topColor = valueToColor(context,
+        0.2 + (_percentageInValueRange(maxValue, highest, lowest) * 0.8), base);
     return LinearGradient(
         colors: [bottomColor, topColor],
         begin: Alignment.bottomCenter,
