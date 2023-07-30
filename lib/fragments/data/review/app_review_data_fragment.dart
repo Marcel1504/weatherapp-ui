@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:weatherapp_ui/enums/app_calendar_enum.dart';
 import 'package:weatherapp_ui/enums/app_station_type_enum.dart';
 import 'package:weatherapp_ui/fragments/button/app_round_icon_button.dart';
+import 'package:weatherapp_ui/fragments/chip/app_choice_chip_list_fragment.dart';
 import 'package:weatherapp_ui/fragments/data/review/filter/app_soil_review_data_filter_fragment.dart';
 import 'package:weatherapp_ui/fragments/data/review/filter/app_weather_review_data_filter_fragment.dart';
 import 'package:weatherapp_ui/fragments/data/review/list/app_soil_review_data_list_fragment.dart';
@@ -19,17 +20,26 @@ class AppReviewDataFragment extends StatefulWidget {
 }
 
 class _AppReviewDataFragmentState extends State<AppReviewDataFragment> {
-  AppCalendarEnum? _selectedChoice;
+  int _selectedTimeIndex = 0;
+  List<String> _timeTitles = [];
+  List<AppCalendarEnum> _timeTypes = [];
 
   @override
   Widget build(BuildContext context) {
+    _timeTitles = [
+      AppLocalizations.of(context)!.term_days,
+      AppLocalizations.of(context)!.term_months,
+      AppLocalizations.of(context)!.term_years,
+    ];
+    _timeTypes = [
+      AppCalendarEnum.DAY,
+      AppCalendarEnum.MONTH,
+      AppCalendarEnum.YEAR
+    ];
     return Consumer<AppStationProvider>(builder: (context, provider, widget) {
       return Center(
-        child: ConstrainedBox(
-          constraints: BoxConstraints(maxWidth: AppLayoutService().maxWidth()),
-          child: Column(
-            children: [_header(context, provider), _body(provider)],
-          ),
+        child: Column(
+          children: [_header(context, provider), _body(provider)],
         ),
       );
     });
@@ -48,33 +58,20 @@ class _AppReviewDataFragmentState extends State<AppReviewDataFragment> {
   }
 
   Widget _headerChoices(BuildContext context, AppStationProvider provider) {
-    _selectedChoice ??= AppCalendarEnum.DAY;
-    List<Widget> choiceChips = [
-      _choiceChip(AppLocalizations.of(context)!.term_days, AppCalendarEnum.DAY),
-      _choiceChip(
-          AppLocalizations.of(context)!.term_months, AppCalendarEnum.MONTH),
-      _choiceChip(
-          AppLocalizations.of(context)!.term_years, AppCalendarEnum.YEAR),
-    ];
     return Expanded(
-      child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: Row(
-            children: choiceChips
-                .map((c) => Padding(
-                      padding: EdgeInsets.only(
-                          right: AppLayoutService().betweenItemPadding()),
-                      child: c,
-                    ))
-                .toList()),
-      ),
-    );
+        child: AppChoiceChipListFragment(
+      titles: _timeTitles,
+      onTap: (i) => setState(() => _selectedTimeIndex = i),
+    ));
   }
 
   Widget _headerFilterButton(
       BuildContext context, AppStationProvider provider) {
+    AppLayoutService layoutService = AppLayoutService();
     return Padding(
-      padding: EdgeInsets.only(left: AppLayoutService().betweenItemPadding()),
+      padding: EdgeInsets.only(
+          left: layoutService.betweenItemPadding(),
+          bottom: layoutService.betweenItemPadding() * 2),
       child: AppRoundIconButtonComponent(
         icon: Icons.filter_alt,
         size: 18,
@@ -90,13 +87,13 @@ class _AppReviewDataFragmentState extends State<AppReviewDataFragment> {
       case AppStationTypeEnum.WEATHER:
         body = AppWeatherReviewDataListFragment(
           station: provider.selectedStation,
-          type: _selectedChoice,
+          type: _timeTypes[_selectedTimeIndex],
         );
         break;
       case AppStationTypeEnum.SOIL:
         body = AppSoilReviewDataListFragment(
           station: provider.selectedStation,
-          type: _selectedChoice,
+          type: _timeTypes[_selectedTimeIndex],
         );
         break;
       default:
@@ -105,37 +102,19 @@ class _AppReviewDataFragmentState extends State<AppReviewDataFragment> {
     return Expanded(child: body);
   }
 
-  ChoiceChip _choiceChip(String label, AppCalendarEnum type) {
-    bool isSelected = type == _selectedChoice;
-    return ChoiceChip(
-      label: Text(label,
-          style: TextStyle(
-            color: Theme.of(context)
-                .chipTheme
-                .labelStyle!
-                .color!
-                .withOpacity(isSelected ? 1 : 0.7),
-          )),
-      selected: isSelected,
-      onSelected: (_) => setState(() {
-        _selectedChoice = type;
-      }),
-    );
-  }
-
   void _openFilterDialog(BuildContext context, AppStationProvider provider) {
     Widget? child;
     switch (provider.selectedStation?.type) {
       case AppStationTypeEnum.WEATHER:
         child = AppWeatherReviewDataFilterFragment(
           station: provider.selectedStation,
-          type: _selectedChoice,
+          type: _timeTypes[_selectedTimeIndex],
         );
         break;
       case AppStationTypeEnum.SOIL:
         child = AppSoilReviewDataFilterFragment(
           station: provider.selectedStation,
-          type: _selectedChoice,
+          type: _timeTypes[_selectedTimeIndex],
         );
         break;
       default:

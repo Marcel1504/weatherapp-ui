@@ -1,6 +1,5 @@
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:weatherapp_ui/fragments/chip/app_choice_chip_fragment.dart';
+import 'package:weatherapp_ui/fragments/chip/app_choice_chip_list_fragment.dart';
 import 'package:weatherapp_ui/services/layout/app_layout_service.dart';
 
 class AppReviewDetailDataFragment extends StatefulWidget {
@@ -29,39 +28,15 @@ class _AppReviewDetailDataFragmentState
   }
 
   Widget _header() {
-    return ConstrainedBox(
-      constraints: BoxConstraints(maxWidth: AppLayoutService().maxWidth()),
-      child: Padding(
-        padding: EdgeInsets.all(AppLayoutService().betweenItemPadding()),
-        child: Row(
-          children: [
-            _headerChoices(),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _headerChoices() {
-    List<AppChoiceChipFragment> choiceChips = widget.chartTitles
-        .mapIndexed((index, title) => AppChoiceChipFragment(
-              selected: _selectedChartIndex == index,
-              text: title,
-              onTap: () => setState(() => _selectedChartIndex = index),
-            ))
-        .toList();
-    return Expanded(
-      child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: Row(
-            children: choiceChips
-                .map((c) => Padding(
-                      padding: EdgeInsets.only(
-                          right: AppLayoutService().betweenItemPadding()),
-                      child: c,
-                    ))
-                .toList()),
-      ),
+    AppLayoutService layoutService = AppLayoutService();
+    return Padding(
+      padding: EdgeInsets.only(
+          top: layoutService.betweenItemPadding(),
+          left: layoutService.betweenItemPadding(),
+          right: layoutService.betweenItemPadding()),
+      child: AppChoiceChipListFragment(
+          titles: widget.chartTitles,
+          onTap: (i) => setState(() => _selectedChartIndex = i)),
     );
   }
 

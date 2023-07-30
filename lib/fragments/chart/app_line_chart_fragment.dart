@@ -1,27 +1,32 @@
 import 'package:collection/collection.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:weatherapp_ui/services/color/app_color_service.dart';
+import 'package:weatherapp_ui/fragments/chip/app_choice_chip_list_fragment.dart';
 
-class AppReviewDetailTemperatureChartFragment extends StatefulWidget {
-  final List<List<double?>> temperatureLists;
-  final List<String> temperatureListTitles;
-  final List<String> timeLabels;
+class AppLineChartFragment extends StatefulWidget {
+  final List<List<double?>> valueLists;
+  final List<String> valueTitles;
+  final List<String> labels;
+  final String? noDataText;
+  final String? valueUnit;
+  final LinearGradient Function(BuildContext, List<double?>) lineGradient;
 
-  const AppReviewDetailTemperatureChartFragment(
+  const AppLineChartFragment(
       {super.key,
-      required this.temperatureLists,
-      required this.temperatureListTitles,
-      required this.timeLabels});
+      required this.valueLists,
+      required this.valueTitles,
+      required this.labels,
+      this.noDataText,
+      required this.lineGradient,
+      this.valueUnit});
 
   @override
-  State<AppReviewDetailTemperatureChartFragment> createState() =>
-      _AppReviewDetailTemperatureChartFragmentState();
+  State<AppLineChartFragment> createState() => _AppLineChartFragmentState();
 }
 
-class _AppReviewDetailTemperatureChartFragmentState
-    extends State<AppReviewDetailTemperatureChartFragment> {
+class _AppLineChartFragmentState extends State<AppLineChartFragment> {
   late ScrollController _scrollController;
+  int _selectedChartIndex = 0;
 
   @override
   void initState() {
@@ -31,31 +36,42 @@ class _AppReviewDetailTemperatureChartFragmentState
 
   @override
   Widget build(BuildContext context) {
-    if (widget.timeLabels.isEmpty ||
-        widget.temperatureLists.any((list) => list.isEmpty) ||
-        widget.temperatureListTitles.isEmpty) {
-      return Container();
+    if (widget.labels.isEmpty ||
+        widget.valueLists.any((list) => list.isEmpty) ||
+        widget.valueTitles.isEmpty) {
+      return Center(
+        child: Text(widget.noDataText ?? ""),
+      );
     }
-    return Scrollbar(
-      thumbVisibility: true,
-      controller: _scrollController,
-      child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        controller: _scrollController,
-        child: SizedBox(
-          height: double.maxFinite,
-          width: 50 * widget.timeLabels.length.toDouble(),
-          child: _chartRoot(context),
+    return Column(
+      children: [
+        AppChoiceChipListFragment(
+            onTap: (i) => setState(() => _selectedChartIndex = i),
+            titles: widget.valueTitles),
+        Expanded(
+          child: Scrollbar(
+            thumbVisibility: true,
+            controller: _scrollController,
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              controller: _scrollController,
+              child: SizedBox(
+                height: double.maxFinite,
+                width: 50 * widget.labels.length.toDouble(),
+                child: _chartRoot(context),
+              ),
+            ),
+          ),
         ),
-      ),
+      ],
     );
   }
 
   Widget _chartRoot(BuildContext context) {
-    double maxTemp = _getMaxTemperature().toDouble();
-    double minTemp = _getMinTemperature().toDouble();
-    double maxY = (maxTemp.ceil() + 1);
-    double minY = (minTemp.floor() - 1);
+    double minValue = _minValue().toDouble();
+    double maxValue = _maxValue().toDouble();
+    double maxY = (maxValue.ceil() + 1);
+    double minY = (minValue.floor() - 1);
 
     return LineChart(LineChartData(
         lineTouchData: _lineTouchData(context),
@@ -69,18 +85,18 @@ class _AppReviewDetailTemperatureChartFragmentState
                     .colorScheme
                     .onBackground
                     .withOpacity(0.4))),
-        borderData: _getBorderData(context),
+        borderData: _borderData(context),
         titlesData: _titlesData(context),
         lineBarsData: _lineBarsData(context),
         minX: 1,
-        maxX: widget.timeLabels.length.toDouble(),
+        maxX: widget.labels.length.toDouble(),
         minY: minY,
         maxY: maxY));
   }
 
-  double _getMinTemperature() {
+  double _minValue() {
     double? min;
-    for (List<double?> list in widget.temperatureLists) {
+    for (List<double?> list in widget.valueLists) {
       for (double? t in list) {
         if (min == null || (t != null && t < min)) {
           min = t;
@@ -90,9 +106,9 @@ class _AppReviewDetailTemperatureChartFragmentState
     return min ?? -30;
   }
 
-  double _getMaxTemperature() {
+  double _maxValue() {
     double? max;
-    for (List<double?> list in widget.temperatureLists) {
+    for (List<double?> list in widget.valueLists) {
       for (double? t in list) {
         if (max == null || (t != null && t > max)) {
           max = t;
@@ -102,7 +118,7 @@ class _AppReviewDetailTemperatureChartFragmentState
     return max ?? 40;
   }
 
-  FlBorderData _getBorderData(BuildContext context) {
+  FlBorderData _borderData(BuildContext context) {
     BorderSide side = BorderSide(
         color: Theme.of(context).colorScheme.onBackground.withOpacity(0.7));
     return FlBorderData(border: Border(bottom: side, top: side));
@@ -112,7 +128,7 @@ class _AppReviewDetailTemperatureChartFragmentState
     return LineTouchData(
       handleBuiltInTouches: true,
       getTouchedSpotIndicator: (_, list) =>
-          _getTouchedSpotIndicatorDataList(context, list),
+          _touchedSpotIndicatorDataList(context, list),
       touchTooltipData: LineTouchTooltipData(
           fitInsideHorizontally: true,
           fitInsideVertically: true,
@@ -124,13 +140,12 @@ class _AppReviewDetailTemperatureChartFragmentState
   List<LineTooltipItem> _toolTipItems(
       BuildContext context, List<LineBarSpot> spots) {
     return spots
-        .mapIndexed((index, s) => LineTooltipItem(
-            "${s.y} °C (${widget.temperatureListTitles[index]})",
+        .mapIndexed((index, s) => LineTooltipItem("${s.y} ${widget.valueUnit}",
             Theme.of(context).textTheme.headlineMedium!))
         .toList();
   }
 
-  List<TouchedSpotIndicatorData> _getTouchedSpotIndicatorDataList(
+  List<TouchedSpotIndicatorData> _touchedSpotIndicatorDataList(
       BuildContext context, List<int> list) {
     return list
         .map((e) => TouchedSpotIndicatorData(
@@ -157,7 +172,7 @@ class _AppReviewDetailTemperatureChartFragmentState
       topTitles: AxisTitles(
           sideTitles: SideTitles(
         showTitles: true,
-        reservedSize: 30,
+        reservedSize: 10,
         getTitlesWidget: (i, meta) => Container(),
       )),
       leftTitles: AxisTitles(
@@ -168,7 +183,13 @@ class _AppReviewDetailTemperatureChartFragmentState
 
   SideTitles _temperatureTitles(BuildContext context) {
     return SideTitles(
-      getTitlesWidget: (i, meta) => _sideTitleWidget(context, i, meta),
+      getTitlesWidget: (i, meta) => SideTitleWidget(
+        axisSide: meta.axisSide,
+        child: Text(
+          "$i ${widget.valueUnit}",
+          style: Theme.of(context).textTheme.bodySmall,
+        ),
+      ),
       reservedSize: 60,
       showTitles: true,
     );
@@ -178,49 +199,34 @@ class _AppReviewDetailTemperatureChartFragmentState
     return SideTitles(
       showTitles: true,
       reservedSize: 60,
-      getTitlesWidget: (i, meta) => _bottomTitleWidget(context, i, meta),
-    );
-  }
-
-  Widget _bottomTitleWidget(BuildContext context, double i, TitleMeta meta) {
-    return SideTitleWidget(
-      axisSide: meta.axisSide,
-      angle: 1,
-      child: Text(
-        widget.timeLabels[i.toInt() - 1],
-        style: Theme.of(context).textTheme.bodySmall,
-      ),
-    );
-  }
-
-  Widget _sideTitleWidget(BuildContext context, double i, TitleMeta meta) {
-    return SideTitleWidget(
-      axisSide: meta.axisSide,
-      child: Text(
-        "$i °C",
-        style: Theme.of(context).textTheme.bodySmall,
+      interval: 1,
+      getTitlesWidget: (i, meta) => SideTitleWidget(
+        axisSide: meta.axisSide,
+        angle: 1,
+        child: Text(
+          widget.labels[i.toInt() - 1],
+          style: Theme.of(context).textTheme.bodySmall,
+        ),
       ),
     );
   }
 
   List<LineChartBarData> _lineBarsData(BuildContext context) {
-    AppColorService colorService = AppColorService();
-    return widget.temperatureLists
-        .map((list) => LineChartBarData(
-              isCurved: true,
-              preventCurveOverShooting: true,
-              color: Colors.blue,
-              barWidth: 2,
-              gradient: colorService.getTemperatureColoredLineGradient(
-                  context, list, 10),
-              isStrokeCapRound: false,
-              dotData: FlDotData(show: false),
-              belowBarData: BarAreaData(show: false),
-              spots: list
-                  .where((t) => t != null)
-                  .mapIndexed((index, t) => FlSpot(index.toDouble() + 1, t!))
-                  .toList(),
-            ))
-        .toList();
+    List<double?> list = widget.valueLists[_selectedChartIndex];
+    return [
+      LineChartBarData(
+        isCurved: true,
+        preventCurveOverShooting: true,
+        barWidth: 4,
+        gradient: widget.lineGradient.call(context, list),
+        isStrokeCapRound: false,
+        dotData: FlDotData(show: false),
+        belowBarData: BarAreaData(show: false),
+        spots: list
+            .where((t) => t != null)
+            .mapIndexed((index, t) => FlSpot(index.toDouble() + 1, t!))
+            .toList(),
+      )
+    ];
   }
 }

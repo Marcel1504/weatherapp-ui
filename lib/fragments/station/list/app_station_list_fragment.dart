@@ -13,9 +13,7 @@ class AppStationListFragment extends StatelessWidget {
 
     return Consumer<AppStationProvider>(builder: (context, provider, widget) {
       return Center(
-        child: ConstrainedBox(
-            constraints: BoxConstraints(maxWidth: layoutService.maxWidth()),
-            child: _list(context, provider, layoutService)),
+        child: _list(context, provider, layoutService),
       );
     });
   }
