@@ -226,8 +226,8 @@ class _AppLineChartFragmentState extends State<AppLineChartFragment> {
         dotData: FlDotData(show: false),
         belowBarData: BarAreaData(show: false),
         spots: list
-            .where((t) => t != null)
-            .mapIndexed((index, t) => FlSpot(index.toDouble() + 1, t!))
+            .mapIndexed((index, t) =>
+                t != null ? FlSpot(index.toDouble() + 1, t) : FlSpot.nullSpot)
             .toList(),
       )
     ];

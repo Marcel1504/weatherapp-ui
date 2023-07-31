@@ -3,7 +3,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
 class AppBarChartFragment extends StatefulWidget {
-  final List<double> values;
+  final List<double?> values;
   final List<String> labels;
   final String? valueUnit;
   final String? noDataText;
@@ -69,8 +69,8 @@ class _AppBarChartFragmentState extends State<AppBarChartFragment> {
 
   double _maxValue() {
     double? max;
-    for (double v in widget.values) {
-      if (max == null || v > max) {
+    for (double? v in widget.values) {
+      if (max == null || (v != null && v > max)) {
         max = v;
       }
     }
@@ -144,7 +144,8 @@ class _AppBarChartFragmentState extends State<AppBarChartFragment> {
       int index,
       BarChartRodData rodData,
       int index2) {
-    return BarTooltipItem("${rodData.toY}\n${widget.valueUnit}",
+    return BarTooltipItem(
+        rodData.toY != 0 ? "${rodData.toY}\n${widget.valueUnit}" : "",
         Theme.of(context).textTheme.headlineSmall!);
   }
 
@@ -155,10 +156,10 @@ class _AppBarChartFragmentState extends State<AppBarChartFragment> {
             x: index + 1,
             barRods: [
               BarChartRodData(
-                  toY: widget.values[index],
+                  toY: widget.values[index] ?? 0,
                   width: 15,
                   gradient: widget.barGradient
-                      .call(context, widget.values[index], _maxValue()))
+                      .call(context, widget.values[index] ?? 0, _maxValue()))
             ]))
         .toList();
   }

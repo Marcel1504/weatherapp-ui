@@ -60,4 +60,6 @@ abstract class AppDetailDataProvider<LIST extends AppListResponseDto, DATA,
   bool get loading => _loading;
 
   List<DATA> get data => _data;
+
+  String? get time => _time;
 }

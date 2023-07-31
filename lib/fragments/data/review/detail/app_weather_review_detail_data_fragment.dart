@@ -1,6 +1,8 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
+import 'package:weatherapp_ui/dto/response/data/summary/weather/app_weather_summary_data_response_dto.dart';
 import 'package:weatherapp_ui/enums/app_calendar_enum.dart';
 import 'package:weatherapp_ui/fragments/chart/app_bar_chart_fragment.dart';
 import 'package:weatherapp_ui/fragments/chart/app_line_chart_fragment.dart';
@@ -15,8 +17,7 @@ class AppWeatherReviewDetailDataFragment extends StatefulWidget {
   final String? time;
   final AppCalendarEnum type;
 
-  const AppWeatherReviewDetailDataFragment(
-      {super.key, this.time, required this.type});
+  const AppWeatherReviewDetailDataFragment({super.key, this.time, required this.type});
 
   @override
   State<AppWeatherReviewDetailDataFragment> createState() =>
@@ -25,6 +26,9 @@ class AppWeatherReviewDetailDataFragment extends StatefulWidget {
 
 class _AppWeatherReviewDetailDataFragmentState
     extends State<AppWeatherReviewDetailDataFragment> {
+  List<String> timeLabelsISO = [];
+  List<String> timeLabelsPretty = [];
+
   @override
   void initState() {
     super.initState();
@@ -40,6 +44,7 @@ class _AppWeatherReviewDetailDataFragmentState
   Widget build(BuildContext context) {
     return Consumer<AppWeatherDetailDataProvider>(
       builder: (context, provider, widget) {
+        _setTimeLabels(provider);
         return !provider.loading
             ? AppReviewDetailDataFragment(chartTitles: [
                 AppLocalizations.of(context)!.chart_title_temperature,
@@ -51,30 +56,29 @@ class _AppWeatherReviewDetailDataFragmentState
               ], chartWidgets: [
                 _getTemperatureChart(context, provider),
                 _getRainChart(context, provider),
-                _getHumidityChart(context, provider),
-                _getPressureChart(context, provider),
-                _getWindChart(context, provider),
-                _getSolarRadiationChart(context, provider)
-              ])
+          _getHumidityChart(context, provider),
+          _getPressureChart(context, provider),
+          _getWindChart(context, provider),
+          _getSolarRadiationChart(context, provider)
+        ])
             : const Center(
-                child: AppLoadingFragment(
-                  size: 30,
-                ),
-              );
+          child: AppLoadingFragment(
+            size: 30,
+          ),
+        );
       },
     );
   }
 
-  Widget _getTemperatureChart(
-      BuildContext context, AppWeatherDetailDataProvider provider) {
+  Widget _getTemperatureChart(BuildContext context, AppWeatherDetailDataProvider provider) {
     return AppLineChartFragment(
       key: const ValueKey(1),
       valueUnit: "°C",
-      labels: _timeLabels(provider),
+      labels: timeLabelsPretty,
       valueLists: [
-        provider.data.map((d) => d.temperatureAvg).toList(),
-        provider.data.map((d) => d.temperatureMax).toList(),
-        provider.data.map((d) => d.temperatureMin).toList(),
+        _valuesFilledForTimeLabels(provider, (d) => d?.temperatureAvg),
+        _valuesFilledForTimeLabels(provider, (d) => d?.temperatureMax),
+        _valuesFilledForTimeLabels(provider, (d) => d?.temperatureMin),
       ],
       valueTitles: [
         AppLocalizations.of(context)!.chart_unit_avg,
@@ -87,11 +91,10 @@ class _AppWeatherReviewDetailDataFragmentState
     );
   }
 
-  Widget _getRainChart(
-      BuildContext context, AppWeatherDetailDataProvider provider) {
+  Widget _getRainChart(BuildContext context, AppWeatherDetailDataProvider provider) {
     return AppBarChartFragment(
-      labels: _timeLabels(provider),
-      values: provider.data.map((d) => d.rainTotal ?? 0).toList(),
+      labels: timeLabelsPretty,
+      values: _valuesFilledForTimeLabels(provider, (d) => d?.rainTotal),
       valueUnit: "l/m²",
       noDataText: AppLocalizations.of(context)!.chart_no_data_rain,
       barGradient: (context, value, maxValue) => AppColorService()
@@ -100,16 +103,15 @@ class _AppWeatherReviewDetailDataFragmentState
     );
   }
 
-  Widget _getHumidityChart(
-      BuildContext context, AppWeatherDetailDataProvider provider) {
+  Widget _getHumidityChart(BuildContext context, AppWeatherDetailDataProvider provider) {
     return AppLineChartFragment(
       key: const ValueKey(2),
       valueUnit: "%",
-      labels: _timeLabels(provider),
+      labels: timeLabelsPretty,
       valueLists: [
-        provider.data.map((d) => d.humidityAvg).toList(),
-        provider.data.map((d) => d.humidityMax?.toDouble()).toList(),
-        provider.data.map((d) => d.humidityMin?.toDouble()).toList(),
+        _valuesFilledForTimeLabels(provider, (d) => d?.humidityAvg),
+        _valuesFilledForTimeLabels(provider, (d) => d?.humidityMax?.toDouble()),
+        _valuesFilledForTimeLabels(provider, (d) => d?.humidityMin?.toDouble()),
       ],
       valueTitles: [
         AppLocalizations.of(context)!.chart_unit_avg,
@@ -122,16 +124,15 @@ class _AppWeatherReviewDetailDataFragmentState
     );
   }
 
-  Widget _getPressureChart(
-      BuildContext context, AppWeatherDetailDataProvider provider) {
+  Widget _getPressureChart(BuildContext context, AppWeatherDetailDataProvider provider) {
     return AppLineChartFragment(
       key: const ValueKey(3),
       valueUnit: "hpa",
-      labels: _timeLabels(provider),
+      labels: timeLabelsPretty,
       valueLists: [
-        provider.data.map((d) => d.pressureAvg).toList(),
-        provider.data.map((d) => d.pressureMax).toList(),
-        provider.data.map((d) => d.pressureMin).toList(),
+        _valuesFilledForTimeLabels(provider, (d) => d?.pressureAvg),
+        _valuesFilledForTimeLabels(provider, (d) => d?.pressureMax),
+        _valuesFilledForTimeLabels(provider, (d) => d?.pressureMin),
       ],
       valueTitles: [
         AppLocalizations.of(context)!.chart_unit_avg,
@@ -144,14 +145,13 @@ class _AppWeatherReviewDetailDataFragmentState
     );
   }
 
-  Widget _getWindChart(
-      BuildContext context, AppWeatherDetailDataProvider provider) {
+  Widget _getWindChart(BuildContext context, AppWeatherDetailDataProvider provider) {
     return AppLineChartFragment(
       key: const ValueKey(4),
       valueUnit: "km/h",
-      labels: _timeLabels(provider),
+      labels: timeLabelsPretty,
       valueLists: [
-        provider.data.map((d) => d.windMax).toList(),
+        _valuesFilledForTimeLabels(provider, (d) => d?.windMax),
       ],
       valueTitles: [
         AppLocalizations.of(context)!.chart_unit_max,
@@ -162,16 +162,15 @@ class _AppWeatherReviewDetailDataFragmentState
     );
   }
 
-  Widget _getSolarRadiationChart(
-      BuildContext context, AppWeatherDetailDataProvider provider) {
+  Widget _getSolarRadiationChart(BuildContext context, AppWeatherDetailDataProvider provider) {
     return AppLineChartFragment(
       key: const ValueKey(5),
       valueUnit: "w/m²",
-      labels: _timeLabels(provider),
+      labels: timeLabelsPretty,
       valueLists: [
-        provider.data.map((d) => d.solarRadiationAvg).toList(),
-        provider.data.map((d) => d.solarRadiationMax).toList(),
-        provider.data.map((d) => d.solarRadiationMin).toList(),
+        _valuesFilledForTimeLabels(provider, (d) => d?.solarRadiationAvg),
+        _valuesFilledForTimeLabels(provider, (d) => d?.solarRadiationMax),
+        _valuesFilledForTimeLabels(provider, (d) => d?.solarRadiationMin),
       ],
       valueTitles: [
         AppLocalizations.of(context)!.chart_unit_avg,
@@ -184,25 +183,55 @@ class _AppWeatherReviewDetailDataFragmentState
     );
   }
 
-  List<String> _timeLabels(AppWeatherDetailDataProvider provider) {
-    return provider.data.map((d) {
-      AppTimeService timeService = AppTimeService();
-      String? time;
-      switch (widget.type) {
-        case AppCalendarEnum.DAY:
-          time = timeService.transformTimeString(context, d.hour,
-              inputPattern: "HH", outputPattern: "HH:'00'");
-          break;
-        case AppCalendarEnum.MONTH:
-          time = timeService.transformTimeString(context, d.day,
-              inputPattern: "yyyy-MM-dd", outputPattern: "dd.MM");
-          break;
-        case AppCalendarEnum.YEAR:
-          time = timeService.transformTimeString(context, d.month,
-              inputPattern: "MM", outputPattern: "MMM");
-          break;
-      }
-      return time ?? "?";
-    }).toList();
+  void _setTimeLabels(AppWeatherDetailDataProvider provider) {
+    AppTimeService timeService = AppTimeService();
+    switch (widget.type) {
+      case AppCalendarEnum.DAY:
+        timeLabelsISO = timeService.getISOHoursOfDay();
+        timeLabelsPretty = timeLabelsISO
+            .map((t) =>
+                timeService.transformTimeString(context, t,
+                    inputPattern: "HH", outputPattern: "HH:'00'") ??
+                "?")
+            .toList();
+        break;
+      case AppCalendarEnum.MONTH:
+        timeLabelsISO = timeService.getISODaysOfMonth(
+            provider.time!.substring(0, 4), provider.time!.substring(5, 7));
+        timeLabelsPretty = timeLabelsISO
+            .map((t) =>
+                timeService.transformTimeString(context, t,
+                    inputPattern: "yyyy-MM-dd", outputPattern: "dd.MM") ??
+                "?")
+            .toList();
+        break;
+      case AppCalendarEnum.YEAR:
+        timeLabelsISO = timeService.getISOMonthsOfYear();
+        timeLabelsPretty = timeLabelsISO
+            .map((t) =>
+                timeService.transformTimeString(context, t,
+                    inputPattern: "MM", outputPattern: "MMM") ??
+                "?")
+            .toList();
+        break;
+    }
+  }
+
+  List<double?> _valuesFilledForTimeLabels(
+      AppWeatherDetailDataProvider provider,
+      double? Function(AppWeatherSummaryDataResponseDto?) map) {
+    return timeLabelsISO
+        .map((t) {
+          switch (widget.type) {
+            case AppCalendarEnum.DAY:
+              return provider.data.firstWhereOrNull((d) => d.hour == t);
+            case AppCalendarEnum.MONTH:
+              return provider.data.firstWhereOrNull((d) => d.day == t);
+            case AppCalendarEnum.YEAR:
+              return provider.data.firstWhereOrNull((d) => d.month == t);
+          }
+        })
+        .map((d) => map.call(d))
+        .toList();
   }
 }

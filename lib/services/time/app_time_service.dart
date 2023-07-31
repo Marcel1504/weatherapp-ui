@@ -125,4 +125,30 @@ class AppTimeService {
         return null;
     }
   }
+
+  List<String> getISOHoursOfDay() {
+    List<String> labels = [];
+    for (int i = 0; i < 24; i++) {
+      labels.add(i < 10 ? "0$i" : "$i");
+    }
+    return labels;
+  }
+
+  List<String> getISODaysOfMonth(String isoYear, String isoMonth) {
+    List<String> labels = [];
+    int daysOfMonth = DateUtils.getDaysInMonth(int.tryParse(isoYear) ?? 2020,
+        int.tryParse(isoMonth) ?? DateTime.january);
+    for (int i = 1; i <= daysOfMonth; i++) {
+      labels.add("$isoYear-$isoMonth-${i < 10 ? "0$i" : "$i"}");
+    }
+    return labels;
+  }
+
+  List<String> getISOMonthsOfYear() {
+    List<String> labels = [];
+    for (int i = 1; i <= 12; i++) {
+      labels.add(i < 10 ? "0$i" : "$i");
+    }
+    return labels;
+  }
 }
