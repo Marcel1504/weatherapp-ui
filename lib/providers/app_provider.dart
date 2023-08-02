@@ -11,12 +11,16 @@ import 'package:weatherapp_ui/providers/data/summary/month/app_weather_month_dat
 import 'package:weatherapp_ui/providers/data/summary/year/app_soil_year_data_provider.dart';
 import 'package:weatherapp_ui/providers/data/summary/year/app_weather_year_data_provider.dart';
 import 'package:weatherapp_ui/providers/station/app_station_provider.dart';
+import 'package:weatherapp_ui/providers/ventilation/app_ventilation_provider.dart';
 
 class AppProvider {
   List<ChangeNotifierProvider> get() {
     return [
       ChangeNotifierProvider<AppStationProvider>(
         create: (context) => AppStationProvider(),
+      ),
+      ChangeNotifierProvider<AppVentilationProvider>(
+        create: (context) => AppVentilationProvider(),
       ),
 
       // Weather

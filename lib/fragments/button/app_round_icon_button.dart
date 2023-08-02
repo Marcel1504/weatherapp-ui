@@ -13,12 +13,10 @@ class AppRoundIconButtonComponent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: primary
-          ? Theme.of(context).colorScheme.secondary
-          : Theme.of(context).colorScheme.surface,
+      color: _getButtonColor(context),
       shape: const CircleBorder(),
       child: InkWell(
-        onTap: () => action?.call(),
+        onTap: action != null ? () => action?.call() : null,
         borderRadius: BorderRadius.circular(size.toDouble()),
         child: Padding(
           padding: EdgeInsets.all(size / 2),
@@ -32,9 +30,17 @@ class AppRoundIconButtonComponent extends StatelessWidget {
     );
   }
 
+  Color _getButtonColor(BuildContext context) {
+    Color base = primary
+        ? Theme.of(context).colorScheme.secondary
+        : Theme.of(context).colorScheme.surface;
+    return action != null ? base : base.withOpacity(0.2);
+  }
+
   Color _getIconColor(BuildContext context) {
-    return primary
+    Color base = primary
         ? Theme.of(context).colorScheme.onSecondary
         : Theme.of(context).colorScheme.onSurface;
+    return action != null ? base : base.withOpacity(0.2);
   }
 }
