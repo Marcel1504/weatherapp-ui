@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:weatherapp_ui/services/layout/app_layout_service.dart';
 
-class AppReviewDataFilterSortFragment extends StatelessWidget {
+class AppReviewDataSortFragment extends StatelessWidget {
   final String? title;
   final bool selected;
   final IconData? icon;
   final VoidCallback? onTap;
 
-  const AppReviewDataFilterSortFragment(
+  const AppReviewDataSortFragment(
       {super.key, this.title, this.selected = false, this.onTap, this.icon});
 
   @override

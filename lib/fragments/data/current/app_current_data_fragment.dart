@@ -6,6 +6,8 @@ import 'package:weatherapp_ui/enums/app_station_type_enum.dart';
 import 'package:weatherapp_ui/fragments/button/app_round_icon_button.dart';
 import 'package:weatherapp_ui/fragments/data/current/app_soil_current_data_display_fragment.dart';
 import 'package:weatherapp_ui/fragments/data/current/app_weather_current_data_display_fragment.dart';
+import 'package:weatherapp_ui/fragments/dialog/data/export/app_soil_export_data_dialog_fragment.dart';
+import 'package:weatherapp_ui/fragments/dialog/data/export/app_weather_export_data_dialog_fragment.dart';
 import 'package:weatherapp_ui/fragments/loading/app_loading_fragment.dart';
 import 'package:weatherapp_ui/pages/ventilation/app_ventilation_stepper_page.dart';
 import 'package:weatherapp_ui/providers/data/single/app_single_data_provider.dart';
@@ -49,7 +51,9 @@ class AppCurrentDataFragment extends StatelessWidget {
                 ),
             {
               AppIcons.ventilation: () =>
-                  _openPage(context, const AppVentilationStepperPage())
+                  _openPage(context, const AppVentilationStepperPage()),
+              Icons.mail: () => _openExportDialog(
+                  context, const AppWeatherExportDataDialogFragment())
             });
       },
     );
@@ -66,7 +70,10 @@ class AppCurrentDataFragment extends StatelessWidget {
             (p) => AppSoilCurrentDataDisplayFragment(
                   soil: p.latest,
                 ),
-            {});
+            {
+              Icons.mail: () => _openExportDialog(
+                  context, const AppSoilExportDataDialogFragment())
+            });
       },
     );
   }
@@ -139,5 +146,9 @@ class AppCurrentDataFragment extends StatelessWidget {
         PageRouteBuilder(
           pageBuilder: (context, animation1, animation2) => page,
         ));
+  }
+
+  void _openExportDialog(BuildContext context, Widget dialog) {
+    showDialog(context: context, builder: (context) => dialog);
   }
 }

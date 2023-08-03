@@ -1,30 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:weatherapp_ui/fragments/button/app_round_icon_button.dart';
+import 'package:weatherapp_ui/fragments/dialog/app_dialog_fragment.dart';
 import 'package:weatherapp_ui/services/layout/app_layout_service.dart';
 import 'package:weatherapp_ui/services/time/app_time_service.dart';
 
-class AppReviewDataFilterDatePickerFragment extends StatefulWidget {
-  final String? title;
+class AppPickerYearFragment extends StatefulWidget {
   final Function(DateTime?)? onSelected;
-  final DateTime? initialDate;
+  final DateTime? initialYear;
 
-  const AppReviewDataFilterDatePickerFragment(
-      {super.key, this.onSelected, this.title, this.initialDate});
+  const AppPickerYearFragment({super.key, this.onSelected, this.initialYear});
 
   @override
-  State<AppReviewDataFilterDatePickerFragment> createState() =>
-      _AppReviewDataFilterDatePickerFragmentState();
+  State<AppPickerYearFragment> createState() => _AppPickerYearFragmentState();
 }
 
-class _AppReviewDataFilterDatePickerFragmentState
-    extends State<AppReviewDataFilterDatePickerFragment> {
+class _AppPickerYearFragmentState extends State<AppPickerYearFragment> {
   DateTime? _selected;
 
   @override
   void initState() {
     super.initState();
-    _selected = widget.initialDate;
+    _selected = widget.initialYear;
   }
 
   @override
@@ -64,14 +61,14 @@ class _AppReviewDataFilterDatePickerFragmentState
               padding: EdgeInsets.only(
                   bottom: AppLayoutService().betweenItemPadding() * 0.5),
               child: Text(
-                widget.title ?? "",
+                AppLocalizations.of(context)!.filter_value_year,
                 style: Theme.of(context).textTheme.headlineSmall,
               ),
             ),
             Text(
-              AppTimeService().transformDateTime(context, _selected,
-                      pattern: "dd. MMMM yyyy") ??
-                  AppLocalizations.of(context)!.filter_title_no_day_selected,
+              AppTimeService()
+                      .transformDateTime(context, _selected, pattern: "yyyy") ??
+                  "Kein Jahr gewählt",
               style: Theme.of(context).textTheme.bodySmall,
             ),
           ],
@@ -80,32 +77,46 @@ class _AppReviewDataFilterDatePickerFragmentState
     );
   }
 
+  void _yearSelected(DateTime newYear) {
+    setState(() {
+      _selected = newYear;
+      widget.onSelected?.call(_selected);
+    });
+  }
+
   Widget _clearButton(TextStyle style) {
     return _selected != null
         ? AppRoundIconButtonComponent(
             primary: false,
             icon: Icons.clear,
             size: (style.fontSize! * 1).toInt(),
-            action: () => setState(() => _selectDate(null)),
+            action: () => setState(() => _selectYear(null)),
           )
         : Container();
   }
 
-  void _showPicker() async {
+  void _showPicker() {
     DateTime? now = DateTime.now();
-    DateTime? newDate = await showDatePicker(
+    showDialog(
         context: context,
-        initialDate: now,
-        firstDate: DateTime.parse("2018-01-01"),
-        lastDate: now);
-    if (newDate != null) {
-      setState(() => _selectDate(newDate));
-    }
+        builder: (context) => AppDialogFragment(
+              height: 300,
+              width: 300,
+              child: YearPicker(
+                firstDate: DateTime.parse("2018-01-01"),
+                onChanged: (DateTime newYear) {
+                  _yearSelected(newYear);
+                  Navigator.pop(context);
+                },
+                lastDate: now,
+                selectedDate: _selected ?? DateTime.now(),
+              ),
+            ));
   }
 
-  void _selectDate(DateTime? newDate) {
+  void _selectYear(DateTime? newYear) {
     setState(() {
-      _selected = newDate;
+      _selected = newYear;
       widget.onSelected?.call(_selected);
     });
   }

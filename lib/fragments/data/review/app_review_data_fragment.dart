@@ -5,10 +5,10 @@ import 'package:weatherapp_ui/enums/app_calendar_enum.dart';
 import 'package:weatherapp_ui/enums/app_station_type_enum.dart';
 import 'package:weatherapp_ui/fragments/button/app_round_icon_button.dart';
 import 'package:weatherapp_ui/fragments/chip/app_choice_chip_list_fragment.dart';
-import 'package:weatherapp_ui/fragments/data/review/filter/app_soil_review_data_filter_fragment.dart';
-import 'package:weatherapp_ui/fragments/data/review/filter/app_weather_review_data_filter_fragment.dart';
 import 'package:weatherapp_ui/fragments/data/review/list/app_soil_review_data_list_fragment.dart';
 import 'package:weatherapp_ui/fragments/data/review/list/app_weather_review_data_list_fragment.dart';
+import 'package:weatherapp_ui/fragments/dialog/data/filter/app_soil_data_filter_dialog_fragment.dart';
+import 'package:weatherapp_ui/fragments/dialog/data/filter/app_weather_data_filter_dialog_fragment.dart';
 import 'package:weatherapp_ui/providers/station/app_station_provider.dart';
 import 'package:weatherapp_ui/services/layout/app_layout_service.dart';
 
@@ -106,13 +106,13 @@ class _AppReviewDataFragmentState extends State<AppReviewDataFragment> {
     Widget? child;
     switch (provider.selectedStation?.type) {
       case AppStationTypeEnum.WEATHER:
-        child = AppWeatherReviewDataFilterFragment(
+        child = AppWeatherDataFilterDialogFragment(
           station: provider.selectedStation,
           type: _timeTypes[_selectedTimeIndex],
         );
         break;
       case AppStationTypeEnum.SOIL:
-        child = AppSoilReviewDataFilterFragment(
+        child = AppSoilDataFilterDialogFragment(
           station: provider.selectedStation,
           type: _timeTypes[_selectedTimeIndex],
         );

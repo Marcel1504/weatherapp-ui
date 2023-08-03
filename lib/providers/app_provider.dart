@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import 'package:weatherapp_ui/providers/data/detail/app_soil_detail_data_provider.dart';
 import 'package:weatherapp_ui/providers/data/detail/app_weather_detail_data_provider.dart';
+import 'package:weatherapp_ui/providers/data/export/app_soil_export_data_provider.dart';
+import 'package:weatherapp_ui/providers/data/export/app_weather_export_data_provider.dart';
 import 'package:weatherapp_ui/providers/data/single/impl/app_soil_single_data_provider.dart';
 import 'package:weatherapp_ui/providers/data/single/impl/app_weather_single_data_provider.dart';
 import 'package:weatherapp_ui/providers/data/summary/day/app_soil_day_data_provider.dart';
@@ -39,6 +41,9 @@ class AppProvider {
       ChangeNotifierProvider<AppWeatherDetailDataProvider>(
         create: (context) => AppWeatherDetailDataProvider(),
       ),
+      ChangeNotifierProvider<AppWeatherExportDataProvider>(
+        create: (context) => AppWeatherExportDataProvider(),
+      ),
 
       // Soil
       ChangeNotifierProvider<AppSoilSingleDataProvider>(
@@ -55,6 +60,9 @@ class AppProvider {
       ),
       ChangeNotifierProvider<AppSoilDetailDataProvider>(
         create: (context) => AppSoilDetailDataProvider(),
+      ),
+      ChangeNotifierProvider<AppSoilExportDataProvider>(
+        create: (context) => AppSoilExportDataProvider(),
       ),
     ];
   }

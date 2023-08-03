@@ -44,6 +44,11 @@ abstract class AppTheme {
             surface: surfaceColor(),
             onSurface: onSurfaceColor()),
         scaffoldBackgroundColor: backgroundColor(),
+        inputDecorationTheme: InputDecorationTheme(
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(50),
+          ),
+        ),
         listTileTheme: const ListTileThemeData(
             tileColor: Colors.transparent, contentPadding: EdgeInsets.all(10)),
         dividerTheme:

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:weatherapp_ui/services/layout/app_layout_service.dart';
 
-class AppReviewDataFilterHeaderFragment extends StatelessWidget {
+class AppHeaderTextFragment extends StatelessWidget {
   final String title;
 
-  const AppReviewDataFilterHeaderFragment({super.key, required this.title});
+  const AppHeaderTextFragment({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {
