@@ -4,6 +4,7 @@ import 'package:weatherapp_ui/services/layout/app_layout_service.dart';
 
 class AppDialogFragment extends StatelessWidget {
   final String? title;
+  final bool titlePrimary;
   final Widget child;
   final double? height;
   final double? width;
@@ -17,12 +18,20 @@ class AppDialogFragment extends StatelessWidget {
       this.title,
       this.height = double.maxFinite,
       this.width = double.maxFinite,
-      this.onClose});
+      this.onClose,
+      this.titlePrimary = false});
 
   @override
   Widget build(BuildContext context) {
+    Color titleColor = titlePrimary
+        ? Theme.of(context).colorScheme.primary
+        : Theme.of(context).textTheme.bodyMedium!.color!;
     return AlertDialog(
-      title: Text(title ?? ""),
+      title: Text(title ?? "",
+          style: Theme.of(context)
+              .textTheme
+              .bodyLarge!
+              .copyWith(color: titleColor)),
       content: ConstrainedBox(
           constraints: BoxConstraints(maxWidth: AppLayoutService().maxWidth()),
           child: SizedBox(height: height, width: width, child: child)),
@@ -32,14 +41,16 @@ class AppDialogFragment extends StatelessWidget {
 
   List<Widget> _buttons(BuildContext context) {
     return [
-      AppRoundIconButtonComponent(
-        primary: false,
-        icon: Icons.close,
-        action: () {
-          onClose?.call();
-          Navigator.of(context).pop();
-        },
-      ),
+      onClose != null
+          ? AppRoundIconButtonComponent(
+              primary: false,
+              icon: Icons.close,
+              action: () {
+                onClose?.call();
+                Navigator.of(context).pop();
+              },
+            )
+          : Container(),
       onAccept != null
           ? AppRoundIconButtonComponent(
               icon: Icons.check,

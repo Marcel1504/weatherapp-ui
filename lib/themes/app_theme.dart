@@ -43,7 +43,7 @@ abstract class AppTheme {
             onBackground: onBackgroundColor(),
             surface: surfaceColor(),
             onSurface: onSurfaceColor()),
-        scaffoldBackgroundColor: backgroundColor(),
+        scaffoldBackgroundColor: Colors.transparent,
         inputDecorationTheme: InputDecorationTheme(
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(50),

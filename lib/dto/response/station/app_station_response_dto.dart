@@ -16,7 +16,7 @@ class AppStationResponseDto {
   double? longitude;
   int? altitude;
   String? lastActivity;
-  List<AppStationMediaResponseDto>? stationImageUrls;
+  AppStationMediaResponseDto? latestStationMedia;
 
   factory AppStationResponseDto.fromJson(Map<String, dynamic> json) =>
       _$AppStationResponseDtoFromJson(json);

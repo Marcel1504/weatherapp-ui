@@ -4,7 +4,9 @@ import 'package:provider/provider.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:weatherapp_ui/fragments/data/current/app_current_data_fragment.dart';
 import 'package:weatherapp_ui/fragments/data/review/app_review_data_fragment.dart';
+import 'package:weatherapp_ui/fragments/scaffold/app_scaffold_fragment.dart';
 import 'package:weatherapp_ui/fragments/station/list/app_station_list_fragment.dart';
+import 'package:weatherapp_ui/fragments/station/media/app_station_media_fragment.dart';
 import 'package:weatherapp_ui/pages/app_root_page.dart';
 import 'package:weatherapp_ui/providers/app_provider.dart';
 import 'package:weatherapp_ui/providers/station/app_station_provider.dart';
@@ -22,7 +24,7 @@ class _AppHomePageState extends State<AppHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return AppScaffoldFragment(
         appBar: _appBar(context),
         body: _body(context),
         bottomNavigationBar: _bottomNavigationBar(context));
@@ -65,6 +67,7 @@ class _AppHomePageState extends State<AppHomePage> {
     return [
       const AppReviewDataFragment(),
       const AppCurrentDataFragment(),
+      const AppStationMediaFragment(),
       const AppStationListFragment()
     ];
   }
@@ -86,6 +89,9 @@ class _AppHomePageState extends State<AppHomePage> {
             SalomonBottomBarItem(
                 icon: const Icon(Icons.trending_up),
                 title: Text(AppLocalizations.of(context)!.page_current)),
+            SalomonBottomBarItem(
+                icon: const Icon(Icons.image),
+                title: Text(AppLocalizations.of(context)!.page_media)),
             SalomonBottomBarItem(
                 icon: const Icon(AppIcons.station),
                 title: Text(AppLocalizations.of(context)!.page_stations))

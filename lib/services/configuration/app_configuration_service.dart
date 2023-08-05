@@ -22,6 +22,14 @@ class AppConfigurationService {
     return _getString("selectedStationCode");
   }
 
+  Future<void> saveWelcomeInfoShown() {
+    return _setBool("welcomeInfoShown", true);
+  }
+
+  Future<bool?> getWelcomeInfoShown() {
+    return _getBool("welcomeInfoShown");
+  }
+
   Future<void> _setString(String property, String value) async {
     SharedPreferences p = await SharedPreferences.getInstance();
     p.setString(property, value);

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:weatherapp_ui/fragments/loading/app_loading_fragment.dart';
 import 'package:weatherapp_ui/fragments/retry/app_retry_fragment.dart';
+import 'package:weatherapp_ui/fragments/scaffold/app_scaffold_fragment.dart';
 import 'package:weatherapp_ui/pages/home/app_home_page.dart';
 import 'package:weatherapp_ui/providers/station/app_station_provider.dart';
 
@@ -11,7 +12,7 @@ class AppRootPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Provider.of<AppStationProvider>(context, listen: false).load();
-    return Scaffold(
+    return AppScaffoldFragment(
       body: Center(
         child: Consumer<AppStationProvider>(
           builder: (context, provider, widget) {
@@ -21,8 +22,8 @@ class AppRootPage extends StatelessWidget {
             if (provider.isLoading) {
               return _loading();
             }
-            Future.delayed(Duration.zero, () => _success(context));
-            return Container();
+            Future.delayed(Duration.zero, () => _openHomePage(context));
+            return const Scaffold();
           },
         ),
       ),
@@ -42,7 +43,7 @@ class AppRootPage extends StatelessWidget {
                 .load(notifyLoadStart: true));
   }
 
-  void _success(BuildContext context) {
+  void _openHomePage(BuildContext context) {
     Navigator.pushReplacement(
         context,
         PageRouteBuilder(

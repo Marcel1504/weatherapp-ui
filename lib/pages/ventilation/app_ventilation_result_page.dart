@@ -3,6 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:weatherapp_ui/enums/app_ventilation_indicator_enum.dart';
 import 'package:weatherapp_ui/fragments/loading/app_loading_fragment.dart';
+import 'package:weatherapp_ui/fragments/scaffold/app_scaffold_fragment.dart';
 import 'package:weatherapp_ui/fragments/text/app_data_text_fragment.dart';
 import 'package:weatherapp_ui/providers/ventilation/app_ventilation_provider.dart';
 import 'package:weatherapp_ui/services/layout/app_layout_service.dart';
@@ -13,7 +14,7 @@ class AppVentilationResultPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return AppScaffoldFragment(
       appBar: _appBar(context),
       body: _body(context),
     );

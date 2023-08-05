@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:weatherapp_ui/fragments/button/app_round_icon_button.dart';
+import 'package:weatherapp_ui/services/datepicker/app_datepicker_service.dart';
 import 'package:weatherapp_ui/services/layout/app_layout_service.dart';
 import 'package:weatherapp_ui/services/time/app_time_service.dart';
 
@@ -28,20 +29,15 @@ class _AppPickerDayFragmentState extends State<AppPickerDayFragment> {
   @override
   Widget build(BuildContext context) {
     TextStyle style = Theme.of(context).textTheme.headlineSmall!;
-    return Material(
-      color: Colors.transparent,
-      child: InkWell(
-        onTap: () => _showPicker(),
-        child: ListTile(
-          leading: Icon(
-            Icons.calendar_month,
-            color: Theme.of(context).textTheme.bodySmall!.color,
-          ),
-          title: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [_text(style), _clearButton(style)]),
-        ),
+    return ListTile(
+      onTap: () => _showPicker(),
+      leading: Icon(
+        Icons.calendar_month,
+        color: Theme.of(context).textTheme.bodySmall!.color,
       ),
+      title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [_text(style), _clearButton(style)]),
     );
   }
 
@@ -79,12 +75,8 @@ class _AppPickerDayFragmentState extends State<AppPickerDayFragment> {
   }
 
   void _showPicker() async {
-    DateTime? now = DateTime.now();
-    DateTime? newDate = await showDatePicker(
-        context: context,
-        initialDate: now,
-        firstDate: DateTime.parse("2018-01-01"),
-        lastDate: now);
+    DateTime? newDate = await AppDatePickerService()
+        .showAppDatePicker(context, initial: _selected);
     if (newDate != null) {
       setState(() => _selectDate(newDate));
     }

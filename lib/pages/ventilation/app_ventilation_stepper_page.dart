@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:weatherapp_ui/fragments/button/app_round_icon_button.dart';
 import 'package:weatherapp_ui/fragments/form/app_form_field_fragment.dart';
 import 'package:weatherapp_ui/fragments/form/app_form_switch_fragment.dart';
+import 'package:weatherapp_ui/fragments/scaffold/app_scaffold_fragment.dart';
 import 'package:weatherapp_ui/fragments/stepper/app_stepper_fragment.dart';
 import 'package:weatherapp_ui/pages/ventilation/app_ventilation_result_page.dart';
 import 'package:weatherapp_ui/providers/data/single/impl/app_weather_single_data_provider.dart';
@@ -39,7 +40,7 @@ class _AppVentilationStepperPageState extends State<AppVentilationStepperPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return AppScaffoldFragment(
       appBar: _appBar(context),
       body: _stepper(context),
     );
