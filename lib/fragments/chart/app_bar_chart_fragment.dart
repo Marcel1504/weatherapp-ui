@@ -34,7 +34,7 @@ class _AppBarChartFragmentState extends State<AppBarChartFragment> {
   Widget build(BuildContext context) {
     if (widget.labels.isEmpty ||
         widget.values.isEmpty ||
-        widget.values.every((r) => r == 0)) {
+        widget.values.every((r) => r == null || r == 0)) {
       return Center(
         child: Text(widget.noDataText ?? "",
             style: Theme.of(context).textTheme.bodyMedium,

@@ -42,6 +42,7 @@ class _AppExportDataDialogFragmentState
   Widget build(BuildContext context) {
     return AppDialogFragment(
       title: widget.title,
+      onClose: () => {},
       onAccept: _allInputsFilled()
           ? () => widget.provider.exportDataForStationCode(
               startDay: _startDay,
