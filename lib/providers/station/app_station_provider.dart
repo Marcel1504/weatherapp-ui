@@ -64,6 +64,8 @@ class AppStationProvider extends ChangeNotifier {
   }
 
   void loadStationMediaReview(String? isoDay) {
+    _selectedStationMediaFileReview = null;
+    notifyListeners();
     AppStationApiService()
         .getStationMediaFile(_selectedStation?.code, isoDay)
         .then((r) {
