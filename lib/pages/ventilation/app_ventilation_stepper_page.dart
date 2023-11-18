@@ -17,8 +17,7 @@ class AppVentilationStepperPage extends StatefulWidget {
   const AppVentilationStepperPage({super.key});
 
   @override
-  State<AppVentilationStepperPage> createState() =>
-      _AppVentilationStepperPageState();
+  State<AppVentilationStepperPage> createState() => _AppVentilationStepperPageState();
 }
 
 class _AppVentilationStepperPageState extends State<AppVentilationStepperPage> {
@@ -58,8 +57,7 @@ class _AppVentilationStepperPageState extends State<AppVentilationStepperPage> {
         currentStep: _currentStep,
         onStepContinue: _onStepContinue,
         onStepCancel: _onStepCancel,
-        controlsBuilder: (context, details) =>
-            _controls(context, details.onStepContinue, details.onStepCancel),
+        controlsBuilder: (context, details) => _controls(context, details.onStepContinue, details.onStepCancel),
         steps: [_firstStep(), _secondStep(), _thirdStep()]);
   }
 
@@ -82,29 +80,25 @@ class _AppVentilationStepperPageState extends State<AppVentilationStepperPage> {
   }
 
   _determineVentilation() {
-    AppWeatherSingleDataProvider provider =
-        Provider.of<AppWeatherSingleDataProvider>(context, listen: false);
+    AppWeatherSingleDataProvider provider = Provider.of<AppWeatherSingleDataProvider>(context, listen: false);
     if (_useStationValues) {
       _tempOut = provider.latest?.temperature;
       _humidityOut = provider.latest?.humidity;
     }
-    Provider.of<AppVentilationProvider>(context, listen: false)
-        .determineNeedForVentilation(
-            temperatureOutside: _tempOut,
-            temperatureInside: _tempIn,
-            humidityOutside: _humidityOut,
-            humidityInside: _humidityIn);
+    Provider.of<AppVentilationProvider>(context, listen: false).determineNeedForVentilation(
+        temperatureOutside: _tempOut,
+        temperatureInside: _tempIn,
+        humidityOutside: _humidityOut,
+        humidityInside: _humidityIn);
     Navigator.pushReplacement(
         context,
         PageRouteBuilder(
-          pageBuilder: (context, animation1, animation2) =>
-              const AppVentilationResultPage(),
+          pageBuilder: (context, animation1, animation2) => const AppVentilationResultPage(),
           transitionDuration: const Duration(milliseconds: 500),
         ));
   }
 
-  Widget _controls(BuildContext context, VoidCallback? onStepContinue,
-      VoidCallback? onStepCancel) {
+  Widget _controls(BuildContext context, VoidCallback? onStepContinue, VoidCallback? onStepCancel) {
     return Padding(
       padding: EdgeInsets.only(top: AppLayoutService().betweenItemPadding()),
       child: Row(
@@ -136,18 +130,15 @@ class _AppVentilationStepperPageState extends State<AppVentilationStepperPage> {
   }
 
   Step _firstStep() {
-    AppStationProvider provider =
-        Provider.of<AppStationProvider>(context, listen: false);
+    AppStationProvider provider = Provider.of<AppStationProvider>(context, listen: false);
 
     return Step(
-      title: _getStepTitle(
-          AppLocalizations.of(context)!.ventilation_use_station_title),
+      title: _getStepTitle(AppLocalizations.of(context)!.ventilation_use_station_title),
       content: Column(
         children: [
           AppFormSwitchFragment(
             subtitle: AppLocalizations.of(context)!
-                .ventilation_use_station_description(
-                    provider.selectedStation?.name ?? "?"),
+                .ventilation_use_station_description(provider.selectedStation?.name ?? "?"),
             initial: _useStationValues,
             onChanged: (v) => setState(() => _useStationValues = v),
           )
@@ -164,14 +155,12 @@ class _AppVentilationStepperPageState extends State<AppVentilationStepperPage> {
 
   Step _secondStep() {
     return Step(
-      title: _getStepTitle(
-          AppLocalizations.of(context)!.ventilation_values_outside),
+      title: _getStepTitle(AppLocalizations.of(context)!.ventilation_values_outside),
       content: Column(
         children: [
           AppFormFieldFragment(
               type: TextInputType.number,
-              hint: AppLocalizations.of(context)!
-                  .ventilation_values_outside_temperature,
+              hint: AppLocalizations.of(context)!.ventilation_values_outside_temperature,
               icon: Icons.thermostat,
               filter: FilterType.TEMPERATURE,
               suffix: "°C",
@@ -181,15 +170,12 @@ class _AppVentilationStepperPageState extends State<AppVentilationStepperPage> {
                   _tempOutValid = v;
                 });
               },
-              invalidHint:
-                  AppLocalizations.of(context)!.ventilation_invalid_temperature,
-              validation: (v) =>
-                  v != null && double.tryParse(v.replaceAll(",", ".")) != null),
+              invalidHint: AppLocalizations.of(context)!.ventilation_invalid_temperature,
+              validation: (v) => v != null && double.tryParse(v.replaceAll(",", ".")) != null),
           AppFormFieldFragment(
               type: TextInputType.number,
               icon: AppIcons.humidity,
-              hint: AppLocalizations.of(context)!
-                  .ventilation_values_outside_humidity,
+              hint: AppLocalizations.of(context)!.ventilation_values_outside_humidity,
               filter: FilterType.HUMIDITY,
               suffix: "%",
               onChanged: (s, v) {
@@ -198,8 +184,7 @@ class _AppVentilationStepperPageState extends State<AppVentilationStepperPage> {
                   _humidityOutValid = v;
                 });
               },
-              invalidHint:
-                  AppLocalizations.of(context)!.ventilation_invalid_humidity,
+              invalidHint: AppLocalizations.of(context)!.ventilation_invalid_humidity,
               validation: (v) => v != null && int.tryParse(v) != null),
         ],
       ),
@@ -214,14 +199,12 @@ class _AppVentilationStepperPageState extends State<AppVentilationStepperPage> {
 
   Step _thirdStep() {
     return Step(
-      title: _getStepTitle(
-          AppLocalizations.of(context)!.ventilation_values_inside),
+      title: _getStepTitle(AppLocalizations.of(context)!.ventilation_values_inside),
       content: Column(
         children: [
           AppFormFieldFragment(
               type: TextInputType.number,
-              hint: AppLocalizations.of(context)!
-                  .ventilation_values_inside_temperature,
+              hint: AppLocalizations.of(context)!.ventilation_values_inside_temperature,
               icon: Icons.thermostat,
               filter: FilterType.TEMPERATURE,
               suffix: "°C",
@@ -231,15 +214,12 @@ class _AppVentilationStepperPageState extends State<AppVentilationStepperPage> {
                   _tempInValid = v;
                 });
               },
-              invalidHint:
-                  AppLocalizations.of(context)!.ventilation_invalid_temperature,
-              validation: (v) =>
-                  v != null && double.tryParse(v.replaceAll(",", ".")) != null),
+              invalidHint: AppLocalizations.of(context)!.ventilation_invalid_temperature,
+              validation: (v) => v != null && double.tryParse(v.replaceAll(",", ".")) != null),
           AppFormFieldFragment(
               type: TextInputType.number,
               icon: AppIcons.humidity,
-              hint: AppLocalizations.of(context)!
-                  .ventilation_values_inside_humidity,
+              hint: AppLocalizations.of(context)!.ventilation_values_inside_humidity,
               filter: FilterType.HUMIDITY,
               suffix: "%",
               onChanged: (s, v) {
@@ -248,8 +228,7 @@ class _AppVentilationStepperPageState extends State<AppVentilationStepperPage> {
                   _humidityInValid = v;
                 });
               },
-              invalidHint:
-                  AppLocalizations.of(context)!.ventilation_invalid_humidity,
+              invalidHint: AppLocalizations.of(context)!.ventilation_invalid_humidity,
               validation: (v) => v != null && int.tryParse(v) != null),
         ],
       ),

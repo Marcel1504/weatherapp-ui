@@ -8,15 +8,10 @@ class AppChoiceChipListFragment extends StatefulWidget {
   final Function(int) onTap;
   final bool primary;
 
-  const AppChoiceChipListFragment(
-      {super.key,
-      required this.titles,
-      required this.onTap,
-      this.primary = true});
+  const AppChoiceChipListFragment({super.key, required this.titles, required this.onTap, this.primary = true});
 
   @override
-  State<AppChoiceChipListFragment> createState() =>
-      _AppChoiceChipListFragmentState();
+  State<AppChoiceChipListFragment> createState() => _AppChoiceChipListFragmentState();
 }
 
 class _AppChoiceChipListFragmentState extends State<AppChoiceChipListFragment> {
@@ -42,10 +37,9 @@ class _AppChoiceChipListFragmentState extends State<AppChoiceChipListFragment> {
               child: Row(
                   children: _chips()
                       .map((c) => Padding(
-                            padding: EdgeInsets.only(
+                    padding: EdgeInsets.only(
                                 right: layoutService.betweenItemPadding(),
-                                bottom:
-                                    layoutService.betweenItemPadding() * 1.2),
+                                bottom: layoutService.betweenItemPadding() * 1.2),
                             child: c,
                           ))
                       .toList()),

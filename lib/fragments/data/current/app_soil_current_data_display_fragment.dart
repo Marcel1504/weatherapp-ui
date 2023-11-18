@@ -17,9 +17,7 @@ class AppSoilCurrentDataDisplayFragment extends StatelessWidget {
     AppLayoutService layoutService = AppLayoutService();
 
     return ConstrainedBox(
-      constraints: BoxConstraints(
-          maxWidth: layoutService.maxWidth(),
-          maxHeight: layoutService.maxWidth()),
+      constraints: BoxConstraints(maxWidth: layoutService.maxWidth(), maxHeight: layoutService.maxWidth()),
       child: LayoutBuilder(
         builder: (context, constraints) {
           return Stack(
@@ -32,8 +30,7 @@ class AppSoilCurrentDataDisplayFragment extends StatelessWidget {
     );
   }
 
-  List<Widget> _getDisplayList(
-      BuildContext context, BoxConstraints constraints) {
+  List<Widget> _getDisplayList(BuildContext context, BoxConstraints constraints) {
     List<Widget> displayList = [];
     displayList.add(_displayMainImage(context));
     displayList.add(_displayDeepnessHeader(context, constraints));
@@ -52,8 +49,7 @@ class AppSoilCurrentDataDisplayFragment extends StatelessWidget {
     return AppLayoutService().getImageAsset(context, "soil-display");
   }
 
-  Widget _displayDeepnessHeader(
-      BuildContext context, BoxConstraints constraints) {
+  Widget _displayDeepnessHeader(BuildContext context, BoxConstraints constraints) {
     double baseSize = _baseSize(constraints);
     return AppSquarePositionedTextFragment(
         squareSize: baseSize,
@@ -125,48 +121,40 @@ class AppSoilCurrentDataDisplayFragment extends StatelessWidget {
         backgroundDensity: 4.5);
   }
 
-  Widget _displayTemperature50cmText(
-      BuildContext context, BoxConstraints constraints) {
+  Widget _displayTemperature50cmText(BuildContext context, BoxConstraints constraints) {
     double baseSize = _baseSize(constraints);
     return AppSquarePositionedTextFragment(
       text: soil?.temperature50cm != null ? "${soil?.temperature50cm} °C" : "",
       squareSize: baseSize,
       textDensity: 5,
       backgroundDensity: 7,
-      color:
-          AppColorService().temperatureToColor(context, soil?.temperature50cm),
+      color: AppColorService().temperatureToColor(context, soil?.temperature50cm),
       right: baseSize / 2.7,
       top: baseSize * 0.316,
     );
   }
 
-  Widget _displayTemperature100cmText(
-      BuildContext context, BoxConstraints constraints) {
+  Widget _displayTemperature100cmText(BuildContext context, BoxConstraints constraints) {
     double baseSize = _baseSize(constraints);
     return AppSquarePositionedTextFragment(
-      text:
-          soil?.temperature100cm != null ? "${soil?.temperature100cm} °C" : "",
+      text: soil?.temperature100cm != null ? "${soil?.temperature100cm} °C" : "",
       squareSize: baseSize,
       textDensity: 5,
       backgroundDensity: 7,
-      color:
-          AppColorService().temperatureToColor(context, soil?.temperature100cm),
+      color: AppColorService().temperatureToColor(context, soil?.temperature100cm),
       right: baseSize / 2.7,
       top: baseSize / 2,
     );
   }
 
-  Widget _displayTemperature200cmText(
-      BuildContext context, BoxConstraints constraints) {
+  Widget _displayTemperature200cmText(BuildContext context, BoxConstraints constraints) {
     double baseSize = _baseSize(constraints);
     return AppSquarePositionedTextFragment(
-      text:
-          soil?.temperature200cm != null ? "${soil?.temperature200cm} °C" : "",
+      text: soil?.temperature200cm != null ? "${soil?.temperature200cm} °C" : "",
       squareSize: baseSize,
       textDensity: 5,
       backgroundDensity: 7,
-      color:
-          AppColorService().temperatureToColor(context, soil?.temperature200cm),
+      color: AppColorService().temperatureToColor(context, soil?.temperature200cm),
       right: baseSize / 2.7,
       bottom: baseSize * 0.14,
     );

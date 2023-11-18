@@ -9,11 +9,8 @@ class AppWeatherExportDataDialogFragment extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<AppWeatherExportDataProvider>(
-        builder: (context, provider, widget) {
-      return AppExportDataDialogFragment(
-          title: AppLocalizations.of(context)!.export_title_weather,
-          provider: provider);
+    return Consumer<AppWeatherExportDataProvider>(builder: (context, provider, widget) {
+      return AppExportDataDialogFragment(title: AppLocalizations.of(context)!.export_title_weather, provider: provider);
     });
   }
 }

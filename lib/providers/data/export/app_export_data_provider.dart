@@ -11,10 +11,7 @@ abstract class AppExportDataProvider extends ChangeNotifier {
   String? _endDay;
 
   void exportDataForStationCode(
-      {String? stationCode,
-      String? startDay,
-      String? endDay,
-      AppExportDataRequestDto? request}) async {
+      {String? stationCode, String? startDay, String? endDay, AppExportDataRequestDto? request}) async {
     if (!_loading) {
       _loading = true;
       getApiService().export(stationCode, startDay, endDay, request).then((r) {

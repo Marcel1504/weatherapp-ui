@@ -10,26 +10,20 @@ abstract class AppReviewDataListItemFragment<DATA> extends StatelessWidget {
   final VoidCallback? onTap;
 
   const AppReviewDataListItemFragment(
-      {super.key,
-      this.time,
-      required this.timeInputPattern,
-      required this.timeOutputPattern,
-      this.onTap,
-      this.data});
+      {super.key, this.time, required this.timeInputPattern, required this.timeOutputPattern, this.onTap, this.data});
 
   @override
   Widget build(BuildContext context) {
-    String? title = AppTimeService().transformTimeString(context, time,
-        inputPattern: timeInputPattern, outputPattern: timeOutputPattern);
+    String? title = AppTimeService()
+        .transformTimeString(context, time, inputPattern: timeInputPattern, outputPattern: timeOutputPattern);
     return Material(
       color: Colors.transparent,
       child: InkWell(
         splashColor: tapColor(context).withOpacity(0.1),
         highlightColor: tapColor(context).withOpacity(0.1),
         onTap: () => onTap?.call(),
-        child: Padding(
-            padding: EdgeInsets.all(AppLayoutService().betweenItemPadding()),
-            child: content(context, title)),
+        child:
+            Padding(padding: EdgeInsets.all(AppLayoutService().betweenItemPadding()), child: content(context, title)),
       ),
     );
   }

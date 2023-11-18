@@ -7,8 +7,8 @@ import 'package:weatherapp_ui/dto/response/status/app_status_response_dto.dart';
 import 'package:weatherapp_ui/services/api/app_api_service.dart';
 
 abstract class AppExportDataApiService {
-  Future<AppStatusResponseDto?> export(String? stationCode, String? startDay,
-      String? endDay, AppExportDataRequestDto? request) async {
+  Future<AppStatusResponseDto?> export(
+      String? stationCode, String? startDay, String? endDay, AppExportDataRequestDto? request) async {
     Response res = await post(
         AppApiService().restUrl("${getExportEndpoint()}"
             "?station=$stationCode"
@@ -16,9 +16,7 @@ abstract class AppExportDataApiService {
             "&endDay=$endDay"),
         body: jsonEncode(request?.toJson()),
         headers: {"Content-Type": "application/json"});
-    return res.statusCode == 200
-        ? AppStatusResponseDto.fromJson(jsonDecode(res.body))
-        : null;
+    return res.statusCode == 200 ? AppStatusResponseDto.fromJson(jsonDecode(res.body)) : null;
   }
 
   @protected

@@ -6,16 +6,13 @@ class AppReviewDetailDataFragment extends StatefulWidget {
   final List<String> chartTitles;
   final List<Widget> chartWidgets;
 
-  const AppReviewDetailDataFragment(
-      {super.key, required this.chartTitles, required this.chartWidgets});
+  const AppReviewDetailDataFragment({super.key, required this.chartTitles, required this.chartWidgets});
 
   @override
-  State<AppReviewDetailDataFragment> createState() =>
-      _AppReviewDetailDataFragmentState();
+  State<AppReviewDetailDataFragment> createState() => _AppReviewDetailDataFragmentState();
 }
 
-class _AppReviewDetailDataFragmentState
-    extends State<AppReviewDetailDataFragment> {
+class _AppReviewDetailDataFragmentState extends State<AppReviewDetailDataFragment> {
   int _selectedChartIndex = 0;
 
   @override
@@ -34,9 +31,8 @@ class _AppReviewDetailDataFragmentState
           top: layoutService.betweenItemPadding(),
           left: layoutService.betweenItemPadding(),
           right: layoutService.betweenItemPadding()),
-      child: AppChoiceChipListFragment(
-          titles: widget.chartTitles,
-          onTap: (i) => setState(() => _selectedChartIndex = i)),
+      child:
+          AppChoiceChipListFragment(titles: widget.chartTitles, onTap: (i) => setState(() => _selectedChartIndex = i)),
     );
   }
 

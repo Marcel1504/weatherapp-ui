@@ -19,8 +19,7 @@ class AppStepperFragment extends StatelessWidget {
   Widget build(BuildContext context) {
     ColorScheme colorScheme = Theme.of(context).colorScheme;
     return Theme(
-        data: Theme.of(context).copyWith(
-            colorScheme: colorScheme.copyWith(background: colorScheme.surface)),
+        data: Theme.of(context).copyWith(colorScheme: colorScheme.copyWith(background: colorScheme.surface)),
         child: Stepper(
           type: StepperType.vertical,
           currentStep: currentStep,

@@ -4,16 +4,8 @@ part 'app_weather_single_data_response_dto.g.dart';
 
 @JsonSerializable()
 class AppWeatherSingleDataResponseDto {
-  AppWeatherSingleDataResponseDto(
-      this.temperature,
-      this.humidity,
-      this.rainRate,
-      this.wind,
-      this.windDirection,
-      this.pressure,
-      this.solarRadiation,
-      this.lastRain,
-      this.timestamp);
+  AppWeatherSingleDataResponseDto(this.temperature, this.humidity, this.rainRate, this.wind, this.windDirection,
+      this.pressure, this.solarRadiation, this.lastRain, this.timestamp);
 
   double? temperature;
   int? humidity;
@@ -28,6 +20,5 @@ class AppWeatherSingleDataResponseDto {
   factory AppWeatherSingleDataResponseDto.fromJson(Map<String, dynamic> json) =>
       _$AppWeatherSingleDataResponseDtoFromJson(json);
 
-  Map<String, dynamic> toJson() =>
-      _$AppWeatherSingleDataResponseDtoToJson(this);
+  Map<String, dynamic> toJson() => _$AppWeatherSingleDataResponseDtoToJson(this);
 }

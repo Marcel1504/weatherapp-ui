@@ -39,8 +39,7 @@ class AppCurrentDataFragment extends StatelessWidget {
   }
 
   Widget _rootWeather(BuildContext context, AppStationResponseDto? station) {
-    Provider.of<AppWeatherSingleDataProvider>(context, listen: false)
-        .loadLatestByStationCode(context, station?.code);
+    Provider.of<AppWeatherSingleDataProvider>(context, listen: false).loadLatestByStationCode(context, station?.code);
     return Consumer<AppWeatherSingleDataProvider>(
       builder: (context, provider, widget) {
         return _display(
@@ -50,18 +49,15 @@ class AppCurrentDataFragment extends StatelessWidget {
                   weather: p.latest,
                 ),
             {
-              AppIcons.ventilation: () =>
-                  _openPage(context, const AppVentilationStepperPage()),
-              Icons.mail: () => _openExportDialog(
-                  context, const AppWeatherExportDataDialogFragment())
+              AppIcons.ventilation: () => _openPage(context, const AppVentilationStepperPage()),
+              Icons.mail: () => _openExportDialog(context, const AppWeatherExportDataDialogFragment())
             });
       },
     );
   }
 
   Widget _rootSoil(BuildContext context, AppStationResponseDto? station) {
-    Provider.of<AppSoilSingleDataProvider>(context, listen: false)
-        .loadLatestByStationCode(context, station?.code);
+    Provider.of<AppSoilSingleDataProvider>(context, listen: false).loadLatestByStationCode(context, station?.code);
     return Consumer<AppSoilSingleDataProvider>(
       builder: (context, provider, widget) {
         return _display(
@@ -70,18 +66,12 @@ class AppCurrentDataFragment extends StatelessWidget {
             (p) => AppSoilCurrentDataDisplayFragment(
                   soil: p.latest,
                 ),
-            {
-              Icons.mail: () => _openExportDialog(
-                  context, const AppSoilExportDataDialogFragment())
-            });
+            {Icons.mail: () => _openExportDialog(context, const AppSoilExportDataDialogFragment())});
       },
     );
   }
 
-  Widget _display(
-      BuildContext context,
-      AppSingleDataProvider provider,
-      Widget Function(AppSingleDataProvider) widget,
+  Widget _display(BuildContext context, AppSingleDataProvider provider, Widget Function(AppSingleDataProvider) widget,
       Map<IconData, Function()> actions) {
     return provider.loading
         ? const Center(
@@ -100,16 +90,13 @@ class AppCurrentDataFragment extends StatelessWidget {
           );
   }
 
-  Widget _displayDuration(
-      BuildContext context, AppSingleDataProvider provider) {
-    String? duration = AppTimeService().transformISOTimeStringToCurrentDuration(
-        context, provider.latest.timestamp);
+  Widget _displayDuration(BuildContext context, AppSingleDataProvider provider) {
+    String? duration = AppTimeService().transformISOTimeStringToCurrentDuration(context, provider.latest.timestamp);
     AppLayoutService layoutService = AppLayoutService();
     return duration != null
         ? Padding(
             padding: EdgeInsets.only(
-                bottom: layoutService.betweenItemPadding(),
-                top: layoutService.betweenItemPadding() * 2),
+                bottom: layoutService.betweenItemPadding(), top: layoutService.betweenItemPadding() * 2),
             child: Text(
               AppLocalizations.of(context)!.weather_current_duration(duration),
               style: Theme.of(context).textTheme.headlineMedium,
@@ -118,8 +105,7 @@ class AppCurrentDataFragment extends StatelessWidget {
         : Container();
   }
 
-  Widget _displayQuickActions(
-      BuildContext context, Map<IconData, Function()> actions) {
+  Widget _displayQuickActions(BuildContext context, Map<IconData, Function()> actions) {
     AppLayoutService layoutService = AppLayoutService();
 
     return Row(

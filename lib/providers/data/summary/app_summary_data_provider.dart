@@ -2,8 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:weatherapp_ui/dto/response/app_list_response_dto.dart';
 import 'package:weatherapp_ui/services/api/data/summary/app_summary_data_api_service.dart';
 
-abstract class AppSummaryDataProvider<LIST extends AppListResponseDto, DATA,
-    FILTER> extends ChangeNotifier {
+abstract class AppSummaryDataProvider<LIST extends AppListResponseDto, DATA, FILTER> extends ChangeNotifier {
   List<DATA> _data = [];
   bool _loading = false;
   bool _reset = true;
@@ -17,8 +16,7 @@ abstract class AppSummaryDataProvider<LIST extends AppListResponseDto, DATA,
     _load(notifyLoadStart: notifyLoadStart);
   }
 
-  void loadInitialByStationCode(String? stationCode,
-      {bool notifyLoadStart = false}) {
+  void loadInitialByStationCode(String? stationCode, {bool notifyLoadStart = false}) {
     if (_reset || (stationCode != _stationCode)) {
       if (_resetFilter || (stationCode != _stationCode)) {
         _filter = null;

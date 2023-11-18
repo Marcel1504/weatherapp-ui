@@ -12,10 +12,7 @@ class AppVentilationProvider extends ChangeNotifier {
   bool _loading = false;
 
   void determineNeedForVentilation(
-      {double? temperatureOutside,
-      double? temperatureInside,
-      int? humidityInside,
-      int? humidityOutside}) async {
+      {double? temperatureOutside, double? temperatureInside, int? humidityInside, int? humidityOutside}) async {
     if (!_loading) {
       _loading = true;
       AppVentilationApiService()

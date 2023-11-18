@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:weatherapp_ui/fragments/dialog/app_dialog_fragment.dart';
 
 class AppDatePickerService {
-  Future<DateTime?> showAppDatePicker(BuildContext context,
-      {DateTime? initial}) {
+  Future<DateTime?> showAppDatePicker(BuildContext context, {DateTime? initial}) {
     return showDatePicker(
         context: context,
         initialDate: initial ?? DateTime.now(),
@@ -11,8 +10,7 @@ class AppDatePickerService {
         lastDate: DateTime.now());
   }
 
-  void showAppYearPicker(BuildContext context, Function(DateTime?) selected,
-      {DateTime? initial}) {
+  void showAppYearPicker(BuildContext context, Function(DateTime?) selected, {DateTime? initial}) {
     showDialog(
         context: context,
         builder: (context) => AppDialogFragment(

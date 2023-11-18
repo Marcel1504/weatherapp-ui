@@ -33,9 +33,7 @@ class _AppPickerYearFragmentState extends State<AppPickerYearFragment> {
         Icons.calendar_month,
         color: Theme.of(context).textTheme.bodySmall!.color,
       ),
-      title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [_text(style), _clearButton(style)]),
+      title: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [_text(style), _clearButton(style)]),
     );
   }
 
@@ -44,16 +42,14 @@ class _AppPickerYearFragmentState extends State<AppPickerYearFragment> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: EdgeInsets.only(
-              bottom: AppLayoutService().betweenItemPadding() * 0.5),
+          padding: EdgeInsets.only(bottom: AppLayoutService().betweenItemPadding() * 0.5),
           child: Text(
             AppLocalizations.of(context)!.filter_value_year,
             style: Theme.of(context).textTheme.headlineSmall,
           ),
         ),
         Text(
-          AppTimeService()
-                  .transformDateTime(context, _selected, pattern: "yyyy") ??
+          AppTimeService().transformDateTime(context, _selected, pattern: "yyyy") ??
               AppLocalizations.of(context)!.filter_title_no_year_selected,
           style: Theme.of(context).textTheme.bodySmall,
         ),
@@ -73,8 +69,7 @@ class _AppPickerYearFragmentState extends State<AppPickerYearFragment> {
   }
 
   void _showPicker() {
-    AppDatePickerService()
-        .showAppYearPicker(context, (d) => _selectYear(d), initial: _selected);
+    AppDatePickerService().showAppYearPicker(context, (d) => _selectYear(d), initial: _selected);
   }
 
   void _selectYear(DateTime? newYear) {

@@ -31,11 +31,7 @@ class _AppReviewDataFragmentState extends State<AppReviewDataFragment> {
       AppLocalizations.of(context)!.term_months,
       AppLocalizations.of(context)!.term_years,
     ];
-    _timeTypes = [
-      AppCalendarEnum.DAY,
-      AppCalendarEnum.MONTH,
-      AppCalendarEnum.YEAR
-    ];
+    _timeTypes = [AppCalendarEnum.DAY, AppCalendarEnum.MONTH, AppCalendarEnum.YEAR];
     return Consumer<AppStationProvider>(builder: (context, provider, widget) {
       return Center(
         child: Column(
@@ -49,10 +45,7 @@ class _AppReviewDataFragmentState extends State<AppReviewDataFragment> {
     return Padding(
       padding: EdgeInsets.all(AppLayoutService().betweenItemPadding()),
       child: Row(
-        children: [
-          _headerChoices(context, provider),
-          _headerFilterButton(context, provider)
-        ],
+        children: [_headerChoices(context, provider), _headerFilterButton(context, provider)],
       ),
     );
   }
@@ -65,13 +58,11 @@ class _AppReviewDataFragmentState extends State<AppReviewDataFragment> {
     ));
   }
 
-  Widget _headerFilterButton(
-      BuildContext context, AppStationProvider provider) {
+  Widget _headerFilterButton(BuildContext context, AppStationProvider provider) {
     AppLayoutService layoutService = AppLayoutService();
     return Padding(
-      padding: EdgeInsets.only(
-          left: layoutService.betweenItemPadding(),
-          bottom: layoutService.betweenItemPadding() * 1.2),
+      padding:
+          EdgeInsets.only(left: layoutService.betweenItemPadding(), bottom: layoutService.betweenItemPadding() * 1.2),
       child: AppRoundIconButtonComponent(
         icon: Icons.filter_alt,
         size: 18,

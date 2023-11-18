@@ -38,9 +38,7 @@ class AppSquarePositionedTextFragment extends StatelessWidget {
         child: Container(
           width: containerSize,
           height: containerSize,
-          decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: color.withOpacity(backgroundOpacity)),
+          decoration: BoxDecoration(shape: BoxShape.circle, color: color.withOpacity(backgroundOpacity)),
           child: Center(child: icon != null ? _textWithIcon() : _text()),
         ));
   }
@@ -49,8 +47,7 @@ class AppSquarePositionedTextFragment extends StatelessWidget {
     return Text(
       text,
       textAlign: TextAlign.center,
-      style:
-          TextStyle(color: color, fontSize: squareSize * (textDensity / 100)),
+      style: TextStyle(color: color, fontSize: squareSize * (textDensity / 100)),
     );
   }
 

@@ -7,8 +7,7 @@ class AppDataTextFragment extends StatelessWidget {
   final String? value;
   final String? valueSuffix;
 
-  const AppDataTextFragment(
-      {super.key, this.iconData, this.title, this.value, this.valueSuffix});
+  const AppDataTextFragment({super.key, this.iconData, this.title, this.value, this.valueSuffix});
 
   @override
   Widget build(BuildContext context) {
@@ -21,8 +20,7 @@ class AppDataTextFragment extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Padding(
-              padding: EdgeInsets.only(
-                  right: layoutService.betweenItemPadding() * 0.5),
+              padding: EdgeInsets.only(right: layoutService.betweenItemPadding() * 0.5),
               child: Icon(
                 iconData,
                 size: valueStyle.fontSize! * 1.2,
@@ -36,8 +34,7 @@ class AppDataTextFragment extends StatelessWidget {
           ],
         ),
         Padding(
-          padding:
-              EdgeInsets.only(top: layoutService.betweenItemPadding() * 0.5),
+          padding: EdgeInsets.only(top: layoutService.betweenItemPadding() * 0.5),
           child: Text(
             title ?? "",
             style: Theme.of(context).textTheme.bodySmall,

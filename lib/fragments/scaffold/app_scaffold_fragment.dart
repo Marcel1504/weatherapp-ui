@@ -9,8 +9,7 @@ class AppScaffoldFragment extends StatelessWidget {
   final PreferredSizeWidget? appBar;
   final Widget? bottomNavigationBar;
 
-  const AppScaffoldFragment(
-      {super.key, this.body, this.appBar, this.bottomNavigationBar});
+  const AppScaffoldFragment({super.key, this.body, this.appBar, this.bottomNavigationBar});
 
   @override
   Widget build(BuildContext context) {
@@ -18,10 +17,7 @@ class AppScaffoldFragment extends StatelessWidget {
       children: [
         _backgroundImage(context),
         _backgroundDecoration(context),
-        Scaffold(
-            appBar: appBar,
-            body: body,
-            bottomNavigationBar: bottomNavigationBar)
+        Scaffold(appBar: appBar, body: body, bottomNavigationBar: bottomNavigationBar)
       ],
     );
   }
@@ -32,9 +28,7 @@ class AppScaffoldFragment extends StatelessWidget {
       return Container(
         decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.background,
-            image: base64 != null
-                ? DecorationImage(fit: BoxFit.cover, image: MemoryImage(base64))
-                : null),
+            image: base64 != null ? DecorationImage(fit: BoxFit.cover, image: MemoryImage(base64)) : null),
       );
     });
   }

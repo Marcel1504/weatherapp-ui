@@ -6,9 +6,5 @@ class AppWeatherFilterModel {
   String? endDay;
   String? year;
 
-  AppWeatherFilterModel(
-      {this.startDay,
-      this.endDay,
-      this.year,
-      this.sort = AppWeatherSortEnum.LATEST});
+  AppWeatherFilterModel({this.startDay, this.endDay, this.year, this.sort = AppWeatherSortEnum.LATEST});
 }

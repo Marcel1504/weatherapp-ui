@@ -4,8 +4,7 @@ import 'package:weatherapp_ui/fragments/data/review/list/item/app_review_data_li
 import 'package:weatherapp_ui/services/color/app_color_service.dart';
 import 'package:weatherapp_ui/services/layout/app_layout_service.dart';
 
-class AppSoilReviewDataListItemFragment
-    extends AppReviewDataListItemFragment<AppSoilSummaryDataResponseDto> {
+class AppSoilReviewDataListItemFragment extends AppReviewDataListItemFragment<AppSoilSummaryDataResponseDto> {
   const AppSoilReviewDataListItemFragment(
       {super.key,
       super.time,
@@ -20,8 +19,7 @@ class AppSoilReviewDataListItemFragment
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         Padding(
-          padding:
-              EdgeInsets.only(bottom: AppLayoutService().betweenItemPadding()),
+          padding: EdgeInsets.only(bottom: AppLayoutService().betweenItemPadding()),
           child: Text(
             title ?? "",
             style: Theme.of(context).textTheme.headlineMedium,
@@ -30,13 +28,9 @@ class AppSoilReviewDataListItemFragment
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            _temperatureDataItem(context,
-                temperature: super.data?.temperature50cmAvg, subtitle: "50cm"),
-            _temperatureDataItem(context,
-                temperature: super.data?.temperature100cmAvg,
-                subtitle: "100cm"),
-            _temperatureDataItem(context,
-                temperature: super.data?.temperature200cmAvg, subtitle: "200cm")
+            _temperatureDataItem(context, temperature: super.data?.temperature50cmAvg, subtitle: "50cm"),
+            _temperatureDataItem(context, temperature: super.data?.temperature100cmAvg, subtitle: "100cm"),
+            _temperatureDataItem(context, temperature: super.data?.temperature200cmAvg, subtitle: "200cm")
           ],
         )
       ],
@@ -45,23 +39,17 @@ class AppSoilReviewDataListItemFragment
 
   @override
   Color tapColor(BuildContext context) {
-    return AppColorService()
-        .temperatureToColor(context, super.data?.temperature50cmAvg);
+    return AppColorService().temperatureToColor(context, super.data?.temperature50cmAvg);
   }
 
-  Widget _temperatureDataItem(BuildContext context,
-      {double? temperature, String? subtitle}) {
+  Widget _temperatureDataItem(BuildContext context, {double? temperature, String? subtitle}) {
     Color color = AppColorService().temperatureToColor(context, temperature);
     return Column(
       children: [
         Padding(
-          padding: EdgeInsets.only(
-              bottom: AppLayoutService().betweenItemPadding() * 0.5),
+          padding: EdgeInsets.only(bottom: AppLayoutService().betweenItemPadding() * 0.5),
           child: Text(temperature?.toString() ?? "--",
-              style: Theme.of(context)
-                  .textTheme
-                  .headlineLarge
-                  ?.copyWith(color: color, fontSize: 25)),
+              style: Theme.of(context).textTheme.headlineLarge?.copyWith(color: color, fontSize: 25)),
         ),
         Text(subtitle ?? "", style: Theme.of(context).textTheme.bodySmall)
       ],

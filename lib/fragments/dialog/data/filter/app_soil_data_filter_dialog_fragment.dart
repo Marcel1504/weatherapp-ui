@@ -24,12 +24,10 @@ class AppSoilDataFilterDialogFragment extends StatefulWidget {
   const AppSoilDataFilterDialogFragment({super.key, this.type, this.station});
 
   @override
-  State<AppSoilDataFilterDialogFragment> createState() =>
-      _AppSoilDataFilterDialogFragmentState();
+  State<AppSoilDataFilterDialogFragment> createState() => _AppSoilDataFilterDialogFragmentState();
 }
 
-class _AppSoilDataFilterDialogFragmentState
-    extends State<AppSoilDataFilterDialogFragment> {
+class _AppSoilDataFilterDialogFragmentState extends State<AppSoilDataFilterDialogFragment> {
   AppSoilFilterModel? _filter;
   AppSummaryDataProvider? _provider;
   String? _title;
@@ -42,8 +40,7 @@ class _AppSoilDataFilterDialogFragmentState
       child: root,
       onAccept: () {
         _provider?.setFilter(filter: _filter);
-        _provider?.loadInitialByStationCode(widget.station?.code,
-            notifyLoadStart: true);
+        _provider?.loadInitialByStationCode(widget.station?.code, notifyLoadStart: true);
       },
     );
   }
@@ -63,30 +60,25 @@ class _AppSoilDataFilterDialogFragmentState
 
   Widget _dayFilter() {
     _title = AppLocalizations.of(context)!.filter_title_day;
-    return Consumer<AppSoilDayDataProvider>(
-        builder: (context, provider, widget) {
+    return Consumer<AppSoilDayDataProvider>(builder: (context, provider, widget) {
       _initializeProviderAndFilterModel(provider);
       return ListView(
         children: [
-          AppHeaderTextFragment(
-              title: AppLocalizations.of(context)!.filter_title_limitation),
+          AppHeaderTextFragment(title: AppLocalizations.of(context)!.filter_title_limitation),
           AppPickerDayFragment(
             title: AppLocalizations.of(context)!.filter_value_start_day,
             initialDate: AppTimeService().parseDayString(_filter?.startDay),
             onSelected: (d) => setState(() => _filter?.startDay =
-                AppTimeService().transformDateTime(context, d,
-                    pattern: AppTimeService.isoDayPattern)),
+                AppTimeService().transformDateTime(context, d, pattern: AppTimeService.isoDayPattern)),
           ),
           const Divider(),
           AppPickerDayFragment(
             title: AppLocalizations.of(context)!.filter_value_end_day,
             initialDate: AppTimeService().parseDayString(_filter?.endDay),
-            onSelected: (d) => setState(() => _filter?.endDay = AppTimeService()
-                .transformDateTime(context, d,
-                    pattern: AppTimeService.isoDayPattern)),
+            onSelected: (d) => setState(() => _filter?.endDay =
+                AppTimeService().transformDateTime(context, d, pattern: AppTimeService.isoDayPattern)),
           ),
-          AppHeaderTextFragment(
-              title: AppLocalizations.of(context)!.filter_title_sort),
+          AppHeaderTextFragment(title: AppLocalizations.of(context)!.filter_title_sort),
           ..._sortList()
         ],
       );
@@ -95,21 +87,16 @@ class _AppSoilDataFilterDialogFragmentState
 
   Widget _monthFilter() {
     _title = AppLocalizations.of(context)!.filter_title_month;
-    return Consumer<AppSoilMonthDataProvider>(
-        builder: (context, provider, widget) {
+    return Consumer<AppSoilMonthDataProvider>(builder: (context, provider, widget) {
       _initializeProviderAndFilterModel(provider);
       return ListView(
         children: [
-          AppHeaderTextFragment(
-              title: AppLocalizations.of(context)!.filter_title_limitation),
+          AppHeaderTextFragment(title: AppLocalizations.of(context)!.filter_title_limitation),
           AppPickerYearFragment(
-              initialYear: AppTimeService().parseTimeString(_filter?.year,
-                  pattern: AppTimeService.isoYearPattern),
-              onSelected: (d) => setState(() => _filter?.year = AppTimeService()
-                  .transformDateTime(context, d,
-                      pattern: AppTimeService.isoYearPattern))),
-          AppHeaderTextFragment(
-              title: AppLocalizations.of(context)!.filter_title_sort),
+              initialYear: AppTimeService().parseTimeString(_filter?.year, pattern: AppTimeService.isoYearPattern),
+              onSelected: (d) => setState(() => _filter?.year =
+                  AppTimeService().transformDateTime(context, d, pattern: AppTimeService.isoYearPattern))),
+          AppHeaderTextFragment(title: AppLocalizations.of(context)!.filter_title_sort),
           ..._sortList()
         ],
       );
@@ -118,14 +105,10 @@ class _AppSoilDataFilterDialogFragmentState
 
   Widget _yearFilter() {
     _title = AppLocalizations.of(context)!.filter_title_year;
-    return Consumer<AppSoilYearDataProvider>(
-        builder: (context, provider, widget) {
+    return Consumer<AppSoilYearDataProvider>(builder: (context, provider, widget) {
       _initializeProviderAndFilterModel(provider);
-      return ListView(children: [
-        AppHeaderTextFragment(
-            title: AppLocalizations.of(context)!.filter_title_sort),
-        ..._sortList()
-      ]);
+      return ListView(
+          children: [AppHeaderTextFragment(title: AppLocalizations.of(context)!.filter_title_sort), ..._sortList()]);
     });
   }
 
@@ -150,18 +133,12 @@ class _AppSoilDataFilterDialogFragmentState
     return {
       AppSoilSortEnum.LATEST: AppLocalizations.of(context)!.sort_latest,
       AppSoilSortEnum.OLDEST: AppLocalizations.of(context)!.sort_oldest,
-      AppSoilSortEnum.HIGHEST_TEMPERATURE50CM:
-          AppLocalizations.of(context)!.sort_temperature_50cm_highest,
-      AppSoilSortEnum.LOWEST_TEMPERATURE50CM:
-          AppLocalizations.of(context)!.sort_temperature_50cm_lowest,
-      AppSoilSortEnum.HIGHEST_TEMPERATURE100CM:
-          AppLocalizations.of(context)!.sort_temperature_100cm_highest,
-      AppSoilSortEnum.LOWEST_TEMPERATURE100CM:
-          AppLocalizations.of(context)!.sort_temperature_100cm_lowest,
-      AppSoilSortEnum.HIGHEST_TEMPERATURE200CM:
-          AppLocalizations.of(context)!.sort_temperature_200cm_highest,
-      AppSoilSortEnum.LOWEST_TEMPERATURE200CM:
-          AppLocalizations.of(context)!.sort_temperature_200cm_lowest,
+      AppSoilSortEnum.HIGHEST_TEMPERATURE50CM: AppLocalizations.of(context)!.sort_temperature_50cm_highest,
+      AppSoilSortEnum.LOWEST_TEMPERATURE50CM: AppLocalizations.of(context)!.sort_temperature_50cm_lowest,
+      AppSoilSortEnum.HIGHEST_TEMPERATURE100CM: AppLocalizations.of(context)!.sort_temperature_100cm_highest,
+      AppSoilSortEnum.LOWEST_TEMPERATURE100CM: AppLocalizations.of(context)!.sort_temperature_100cm_lowest,
+      AppSoilSortEnum.HIGHEST_TEMPERATURE200CM: AppLocalizations.of(context)!.sort_temperature_200cm_highest,
+      AppSoilSortEnum.LOWEST_TEMPERATURE200CM: AppLocalizations.of(context)!.sort_temperature_200cm_lowest,
     };
   }
 

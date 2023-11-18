@@ -50,10 +50,8 @@ class AppWeatherSummaryDataResponseDto {
   String? month;
   String? year;
 
-  factory AppWeatherSummaryDataResponseDto.fromJson(
-          Map<String, dynamic> json) =>
+  factory AppWeatherSummaryDataResponseDto.fromJson(Map<String, dynamic> json) =>
       _$AppWeatherSummaryDataResponseDtoFromJson(json);
 
-  Map<String, dynamic> toJson() =>
-      _$AppWeatherSummaryDataResponseDtoToJson(this);
+  Map<String, dynamic> toJson() => _$AppWeatherSummaryDataResponseDtoToJson(this);
 }

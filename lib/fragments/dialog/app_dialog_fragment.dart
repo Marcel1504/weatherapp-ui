@@ -23,15 +23,10 @@ class AppDialogFragment extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color titleColor = titlePrimary
-        ? Theme.of(context).colorScheme.primary
-        : Theme.of(context).textTheme.bodyMedium!.color!;
+    Color titleColor =
+        titlePrimary ? Theme.of(context).colorScheme.primary : Theme.of(context).textTheme.bodyMedium!.color!;
     return AlertDialog(
-      title: Text(title ?? "",
-          style: Theme.of(context)
-              .textTheme
-              .bodyLarge!
-              .copyWith(color: titleColor)),
+      title: Text(title ?? "", style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: titleColor)),
       content: ConstrainedBox(
           constraints: BoxConstraints(maxWidth: AppLayoutService().maxWidth()),
           child: SizedBox(height: height, width: width, child: child)),

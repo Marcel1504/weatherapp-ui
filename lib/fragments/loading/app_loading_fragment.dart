@@ -3,6 +3,7 @@ import 'package:rive/rive.dart';
 
 class AppLoadingFragment extends StatelessWidget {
   final double size;
+
   const AppLoadingFragment({super.key, this.size = 25});
 
   @override

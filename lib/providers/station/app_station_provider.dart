@@ -52,9 +52,7 @@ class AppStationProvider extends ChangeNotifier {
   void _loadStationMediaLatest() {
     AppStationMediaResponseDto? media = _selectedStation?.latestStationMedia;
     if (_selectedStationMediaFileLatest == null && media != null) {
-      AppStationApiService()
-          .getStationMediaFileFromFullUrl(media.url)
-          .then((r) {
+      AppStationApiService().getStationMediaFileFromFullUrl(media.url).then((r) {
         if (r != null) {
           _selectedStationMediaFileLatest = r;
           notifyListeners();
@@ -66,9 +64,7 @@ class AppStationProvider extends ChangeNotifier {
   void loadStationMediaReview(String? isoDay) {
     _selectedStationMediaFileReview = null;
     notifyListeners();
-    AppStationApiService()
-        .getStationMediaFile(_selectedStation?.code, isoDay)
-        .then((r) {
+    AppStationApiService().getStationMediaFile(_selectedStation?.code, isoDay).then((r) {
       if (r != null) {
         _selectedStationMediaFileReview = r;
         notifyListeners();
@@ -84,11 +80,9 @@ class AppStationProvider extends ChangeNotifier {
     _loadStationMediaLatest();
   }
 
-  AppFileModel? get selectedStationMediaFileReview =>
-      _selectedStationMediaFileReview;
+  AppFileModel? get selectedStationMediaFileReview => _selectedStationMediaFileReview;
 
-  AppFileModel? get selectedStationMediaFileLatest =>
-      _selectedStationMediaFileLatest;
+  AppFileModel? get selectedStationMediaFileLatest => _selectedStationMediaFileLatest;
 
   List<AppStationResponseDto> get stations => _stations;
 

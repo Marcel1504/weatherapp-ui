@@ -3,8 +3,7 @@ import 'package:weatherapp_ui/providers/data/single/app_single_data_provider.dar
 import 'package:weatherapp_ui/services/api/data/single/app_single_data_api_service.dart';
 import 'package:weatherapp_ui/services/api/data/single/app_soil_single_data_api_service.dart';
 
-class AppSoilSingleDataProvider
-    extends AppSingleDataProvider<AppSoilSingleDataResponseDto> {
+class AppSoilSingleDataProvider extends AppSingleDataProvider<AppSoilSingleDataResponseDto> {
   @override
   AppSingleDataApiService<AppSoilSingleDataResponseDto> getApiService() {
     return AppSoilSingleDataApiService();

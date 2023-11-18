@@ -6,9 +6,5 @@ class AppSoilFilterModel {
   String? endDay;
   String? year;
 
-  AppSoilFilterModel(
-      {this.startDay,
-      this.endDay,
-      this.year,
-      this.sort = AppSoilSortEnum.LATEST});
+  AppSoilFilterModel({this.startDay, this.endDay, this.year, this.sort = AppSoilSortEnum.LATEST});
 }

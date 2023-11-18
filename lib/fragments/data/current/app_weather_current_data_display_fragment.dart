@@ -19,9 +19,7 @@ class AppWeatherCurrentDataDisplayFragment extends StatelessWidget {
     AppLayoutService layoutService = AppLayoutService();
 
     return ConstrainedBox(
-      constraints: BoxConstraints(
-          maxWidth: layoutService.maxWidth(),
-          maxHeight: layoutService.maxWidth()),
+      constraints: BoxConstraints(maxWidth: layoutService.maxWidth(), maxHeight: layoutService.maxWidth()),
       child: LayoutBuilder(
         builder: (context, constraints) {
           return Stack(
@@ -34,8 +32,7 @@ class AppWeatherCurrentDataDisplayFragment extends StatelessWidget {
     );
   }
 
-  List<Widget> _getDisplayList(
-      BuildContext context, BoxConstraints constraints) {
+  List<Widget> _getDisplayList(BuildContext context, BoxConstraints constraints) {
     List<Widget> displayList = [];
     displayList.add(_displayMainImage(context));
     displayList.add(_displayNorthSymbol(context, constraints));
@@ -50,8 +47,7 @@ class AppWeatherCurrentDataDisplayFragment extends StatelessWidget {
     displayList.add(_displayHumidityText(context, constraints));
     displayList.add(_displayPressureText(context, constraints));
     if (weather?.windDirection != null) {
-      displayList.add(
-          _displayWindDirectionPointerImage(context, weather!.windDirection!));
+      displayList.add(_displayWindDirectionPointerImage(context, weather!.windDirection!));
     }
     return displayList;
   }
@@ -60,12 +56,10 @@ class AppWeatherCurrentDataDisplayFragment extends StatelessWidget {
     return AppLayoutService().getImageAsset(context, "weather-display");
   }
 
-  Widget _displayWindDirectionPointerImage(
-      BuildContext context, int windDirection) {
+  Widget _displayWindDirectionPointerImage(BuildContext context, int windDirection) {
     return RotationTransition(
         turns: AlwaysStoppedAnimation(windDirection / 360),
-        child: AppLayoutService()
-            .getImageAsset(context, "weather-display-wind-direction-pointer"));
+        child: AppLayoutService().getImageAsset(context, "weather-display-wind-direction-pointer"));
   }
 
   Widget _displayNorthSymbol(BuildContext context, BoxConstraints constraints) {
@@ -118,8 +112,7 @@ class AppWeatherCurrentDataDisplayFragment extends StatelessWidget {
     );
   }
 
-  Widget _displayTemperatureText(
-      BuildContext context, BoxConstraints constraints) {
+  Widget _displayTemperatureText(BuildContext context, BoxConstraints constraints) {
     double baseSize = _baseSize(constraints);
     return AppSquarePositionedTextFragment(
       text: weather?.temperature != null ? "${weather?.temperature} °C" : "--",
@@ -127,15 +120,13 @@ class AppWeatherCurrentDataDisplayFragment extends StatelessWidget {
       textDensity: 18,
       backgroundDensity: 28,
       backgroundOpacity: 0.05,
-      color:
-          AppColorService().temperatureToColor(context, weather?.temperature),
+      color: AppColorService().temperatureToColor(context, weather?.temperature),
       top: baseSize / 2,
       left: baseSize / 2,
     );
   }
 
-  Widget _displayWindSpeedText(
-      BuildContext context, BoxConstraints constraints) {
+  Widget _displayWindSpeedText(BuildContext context, BoxConstraints constraints) {
     double baseSize = _baseSize(constraints);
     return AppSquarePositionedTextFragment(
       text: weather?.wind != null ? "${weather?.wind} km/h" : "--",
@@ -149,12 +140,10 @@ class AppWeatherCurrentDataDisplayFragment extends StatelessWidget {
     );
   }
 
-  Widget _displayWindDirectionText(
-      BuildContext context, BoxConstraints constraints) {
+  Widget _displayWindDirectionText(BuildContext context, BoxConstraints constraints) {
     double baseSize = _baseSize(constraints);
     return AppSquarePositionedTextFragment(
-      text:
-          weather?.windDirection != null ? "${weather?.windDirection}°" : "--",
+      text: weather?.windDirection != null ? "${weather?.windDirection}°" : "--",
       squareSize: baseSize,
       textDensity: 3.5,
       backgroundDensity: 6,
@@ -165,8 +154,7 @@ class AppWeatherCurrentDataDisplayFragment extends StatelessWidget {
     );
   }
 
-  Widget _displayHumidityText(
-      BuildContext context, BoxConstraints constraints) {
+  Widget _displayHumidityText(BuildContext context, BoxConstraints constraints) {
     double baseSize = _baseSize(constraints);
     return AppSquarePositionedTextFragment(
       text: weather?.humidity != null ? "${weather?.humidity}%" : "--",
@@ -184,16 +172,13 @@ class AppWeatherCurrentDataDisplayFragment extends StatelessWidget {
     String? rainText;
     Color color = Theme.of(context).colorScheme.onBackground;
     if (weather?.lastRain != null) {
-      String? duration = AppTimeService()
-          .transformISOTimeStringToCurrentDuration(context, weather?.lastRain);
+      String? duration = AppTimeService().transformISOTimeStringToCurrentDuration(context, weather?.lastRain);
       if (duration != null) {
-        rainText =
-            AppLocalizations.of(context)!.weather_last_rain_duration(duration);
+        rainText = AppLocalizations.of(context)!.weather_last_rain_duration(duration);
       }
     } else if (weather?.rainRate != null) {
       rainText = "${weather?.rainRate.toString()} mm/h";
-      color = Color.alphaBlend(const Color.fromRGBO(0, 175, 255, 0.7),
-          Theme.of(context).colorScheme.onBackground);
+      color = Color.alphaBlend(const Color.fromRGBO(0, 175, 255, 0.7), Theme.of(context).colorScheme.onBackground);
     }
     double baseSize = _baseSize(constraints);
     return AppSquarePositionedTextFragment(
@@ -208,8 +193,7 @@ class AppWeatherCurrentDataDisplayFragment extends StatelessWidget {
     );
   }
 
-  Widget _displayPressureText(
-      BuildContext context, BoxConstraints constraints) {
+  Widget _displayPressureText(BuildContext context, BoxConstraints constraints) {
     double baseSize = _baseSize(constraints);
     return AppSquarePositionedTextFragment(
       text: weather?.pressure != null ? "${weather?.pressure} hpa" : "--",
@@ -223,13 +207,10 @@ class AppWeatherCurrentDataDisplayFragment extends StatelessWidget {
     );
   }
 
-  Widget _displaySolarRadiationText(
-      BuildContext context, BoxConstraints constraints) {
+  Widget _displaySolarRadiationText(BuildContext context, BoxConstraints constraints) {
     double baseSize = _baseSize(constraints);
     return AppSquarePositionedTextFragment(
-      text: weather?.solarRadiation != null
-          ? "${weather?.solarRadiation} w/m²"
-          : "--",
+      text: weather?.solarRadiation != null ? "${weather?.solarRadiation} w/m²" : "--",
       squareSize: baseSize,
       textDensity: 3.5,
       backgroundDensity: 7,

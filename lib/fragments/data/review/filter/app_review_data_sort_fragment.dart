@@ -7,8 +7,7 @@ class AppReviewDataSortFragment extends StatelessWidget {
   final IconData? icon;
   final VoidCallback? onTap;
 
-  const AppReviewDataSortFragment(
-      {super.key, this.title, this.selected = false, this.onTap, this.icon});
+  const AppReviewDataSortFragment({super.key, this.title, this.selected = false, this.onTap, this.icon});
 
   @override
   Widget build(BuildContext context) {
@@ -34,8 +33,7 @@ class AppReviewDataSortFragment extends StatelessWidget {
       children: [
         icon != null
             ? Padding(
-                padding: EdgeInsets.only(
-                    right: AppLayoutService().betweenItemPadding() * 0.5),
+          padding: EdgeInsets.only(right: AppLayoutService().betweenItemPadding() * 0.5),
                 child: Icon(
                   icon,
                   color: style.color!.withOpacity(0.7),

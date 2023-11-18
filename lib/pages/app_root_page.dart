@@ -38,9 +38,7 @@ class AppRootPage extends StatelessWidget {
 
   Widget _initializationError(BuildContext context) {
     return AppRetryFragment(
-        retryAction: () =>
-            Provider.of<AppStationProvider>(context, listen: false)
-                .load(notifyLoadStart: true));
+        retryAction: () => Provider.of<AppStationProvider>(context, listen: false).load(notifyLoadStart: true));
   }
 
   void _openHomePage(BuildContext context) {

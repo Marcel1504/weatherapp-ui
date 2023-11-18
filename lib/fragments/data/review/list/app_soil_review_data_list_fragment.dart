@@ -45,8 +45,7 @@ class AppSoilReviewDataListFragment extends StatelessWidget {
               time: d.day,
               timeInputPattern: AppTimeService.isoDayPattern,
               timeOutputPattern: AppTimeService.prettyDayPattern,
-              onTap: () =>
-                  _openDetailPage(context, d.day, AppCalendarEnum.DAY)),
+              onTap: () => _openDetailPage(context, d.day, AppCalendarEnum.DAY)),
           provider: provider,
           station: station,
         );
@@ -63,8 +62,7 @@ class AppSoilReviewDataListFragment extends StatelessWidget {
               time: "${d.year}-${d.month}",
               timeInputPattern: AppTimeService.isoMonthPattern,
               timeOutputPattern: AppTimeService.prettyMonthPattern,
-              onTap: () => _openDetailPage(
-                  context, "${d.year}-${d.month}", AppCalendarEnum.MONTH)),
+              onTap: () => _openDetailPage(context, "${d.year}-${d.month}", AppCalendarEnum.MONTH)),
           provider: provider,
           station: station,
         );
@@ -81,8 +79,7 @@ class AppSoilReviewDataListFragment extends StatelessWidget {
               time: d.year,
               timeInputPattern: AppTimeService.isoYearPattern,
               timeOutputPattern: AppTimeService.prettyYearPattern,
-              onTap: () =>
-                  _openDetailPage(context, d.year, AppCalendarEnum.YEAR)),
+              onTap: () => _openDetailPage(context, d.year, AppCalendarEnum.YEAR)),
           provider: provider,
           station: station,
         );
@@ -90,11 +87,10 @@ class AppSoilReviewDataListFragment extends StatelessWidget {
     );
   }
 
-  void _openDetailPage(
-      BuildContext context, String? time, AppCalendarEnum type) {
+  void _openDetailPage(BuildContext context, String? time, AppCalendarEnum type) {
     if (type == AppCalendarEnum.DAY) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(AppLocalizations.of(context)!.chart_no_data_soil_day)));
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(AppLocalizations.of(context)!.chart_no_data_soil_day)));
       return;
     }
     AppTimeService timeService = AppTimeService();

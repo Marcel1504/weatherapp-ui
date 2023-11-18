@@ -9,11 +9,8 @@ class AppSoilExportDataDialogFragment extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<AppSoilExportDataProvider>(
-        builder: (context, provider, widget) {
-      return AppExportDataDialogFragment(
-          title: AppLocalizations.of(context)!.export_title_soil,
-          provider: provider);
+    return Consumer<AppSoilExportDataProvider>(builder: (context, provider, widget) {
+      return AppExportDataDialogFragment(title: AppLocalizations.of(context)!.export_title_soil, provider: provider);
     });
   }
 }

@@ -7,12 +7,7 @@ class AppChoiceChipFragment extends StatelessWidget {
   final Function()? onTap;
   final bool primary;
 
-  const AppChoiceChipFragment(
-      {super.key,
-      this.text,
-      required this.selected,
-      this.onTap,
-      this.primary = true});
+  const AppChoiceChipFragment({super.key, this.text, required this.selected, this.onTap, this.primary = true});
 
   @override
   Widget build(BuildContext context) {

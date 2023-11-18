@@ -69,21 +69,15 @@ class AppProvider {
 
   void reset(BuildContext context) {
     // Weather
-    Provider.of<AppWeatherSingleDataProvider>(context, listen: false)
-        .markForReset();
-    Provider.of<AppWeatherDayDataProvider>(context, listen: false)
-        .markForReset();
-    Provider.of<AppWeatherMonthDataProvider>(context, listen: false)
-        .markForReset();
-    Provider.of<AppWeatherYearDataProvider>(context, listen: false)
-        .markForReset();
+    Provider.of<AppWeatherSingleDataProvider>(context, listen: false).markForReset();
+    Provider.of<AppWeatherDayDataProvider>(context, listen: false).markForReset();
+    Provider.of<AppWeatherMonthDataProvider>(context, listen: false).markForReset();
+    Provider.of<AppWeatherYearDataProvider>(context, listen: false).markForReset();
 
     // Soil
-    Provider.of<AppSoilSingleDataProvider>(context, listen: false)
-        .markForReset();
+    Provider.of<AppSoilSingleDataProvider>(context, listen: false).markForReset();
     Provider.of<AppSoilDayDataProvider>(context, listen: false).markForReset();
-    Provider.of<AppSoilMonthDataProvider>(context, listen: false)
-        .markForReset();
+    Provider.of<AppSoilMonthDataProvider>(context, listen: false).markForReset();
     Provider.of<AppSoilYearDataProvider>(context, listen: false).markForReset();
   }
 }

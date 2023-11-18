@@ -17,8 +17,7 @@ class AppStationMediaFragment extends StatefulWidget {
   const AppStationMediaFragment({super.key});
 
   @override
-  State<AppStationMediaFragment> createState() =>
-      _AppStationMediaFragmentState();
+  State<AppStationMediaFragment> createState() => _AppStationMediaFragmentState();
 }
 
 class _AppStationMediaFragmentState extends State<AppStationMediaFragment> {
@@ -33,9 +32,7 @@ class _AppStationMediaFragmentState extends State<AppStationMediaFragment> {
     _image = null;
     double width = MediaQuery.of(context).size.width;
     return Consumer<AppStationProvider>(builder: (context, provider, widget) {
-      _image = _showLatest
-          ? provider.selectedStationMediaFileLatest
-          : provider.selectedStationMediaFileReview;
+      _image = _showLatest ? provider.selectedStationMediaFileLatest : provider.selectedStationMediaFileReview;
       _setQuickActions();
       return Stack(
         children: [
@@ -55,13 +52,12 @@ class _AppStationMediaFragmentState extends State<AppStationMediaFragment> {
     Uint8List? data = _image?.data;
     return data != null
         ? PhotoViewGallery.builder(
-            itemCount: 1,
+        itemCount: 1,
             builder: (context, index) => PhotoViewGalleryPageOptions(
                 imageProvider: MemoryImage(data),
                 minScale: PhotoViewComputedScale.contained * 0.8,
                 maxScale: PhotoViewComputedScale.covered * 2),
-            backgroundDecoration:
-                const BoxDecoration(color: Colors.transparent),
+            backgroundDecoration: const BoxDecoration(color: Colors.transparent),
             enableRotation: false)
         : Container();
   }
@@ -74,16 +70,14 @@ class _AppStationMediaFragmentState extends State<AppStationMediaFragment> {
         text = AppLocalizations.of(context)!.station_media_no_data_latest;
       } else {
         text = AppLocalizations.of(context)!.station_media_created_latest(
-            timeService.transformISOTimeStringToCurrentDuration(context,
-                    provider.selectedStation?.latestStationMedia?.created) ??
+            timeService.transformISOTimeStringToCurrentDuration(
+                    context, provider.selectedStation?.latestStationMedia?.created) ??
                 "?");
       }
     } else {
-      String? date = timeService.transformDateTime(context, _selectedReviewDate,
-          pattern: "dd. MMMM yyyy");
+      String? date = timeService.transformDateTime(context, _selectedReviewDate, pattern: "dd. MMMM yyyy");
       if (_image == null) {
-        text = AppLocalizations.of(context)!
-            .station_media_no_data_review(date ?? "?");
+        text = AppLocalizations.of(context)!.station_media_no_data_review(date ?? "?");
       } else {
         text = date;
       }
@@ -118,29 +112,24 @@ class _AppStationMediaFragmentState extends State<AppStationMediaFragment> {
 
   void _setQuickActions() {
     _quickActions = {};
-    _quickActions.putIfAbsent(
-        Icons.calendar_month, () => () => _openDatePicker());
+    _quickActions.putIfAbsent(Icons.calendar_month, () => () => _openDatePicker());
     if (_image != null) {
       _quickActions.putIfAbsent(Icons.open_in_new, () => () => _openImage());
     }
     if (!_showLatest) {
-      _quickActions.putIfAbsent(
-          Icons.fast_forward, () => () => setState(() => _showLatest = true));
+      _quickActions.putIfAbsent(Icons.fast_forward, () => () => setState(() => _showLatest = true));
     }
   }
 
   void _openDatePicker() {
     AppDatePickerService()
-        .showAppDatePicker(context,
-            initial: _selectedReviewDate ?? DateTime.now())
+        .showAppDatePicker(context, initial: _selectedReviewDate ?? DateTime.now())
         .then((date) => setState(() {
               if (date != null) {
                 _selectedReviewDate = date;
                 _showLatest = false;
-                Provider.of<AppStationProvider>(context, listen: false)
-                    .loadStationMediaReview(AppTimeService().transformDateTime(
-                        context, _selectedReviewDate,
-                        pattern: AppTimeService.isoDayPattern));
+                Provider.of<AppStationProvider>(context, listen: false).loadStationMediaReview(AppTimeService()
+                    .transformDateTime(context, _selectedReviewDate, pattern: AppTimeService.isoDayPattern));
               }
             }));
   }

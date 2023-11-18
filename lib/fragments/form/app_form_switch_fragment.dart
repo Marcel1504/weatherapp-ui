@@ -6,12 +6,7 @@ class AppFormSwitchFragment extends StatefulWidget {
   final String? title;
   final String? subtitle;
 
-  const AppFormSwitchFragment(
-      {super.key,
-      required this.initial,
-      this.onChanged,
-      this.title,
-      this.subtitle});
+  const AppFormSwitchFragment({super.key, required this.initial, this.onChanged, this.title, this.subtitle});
 
   @override
   State<AppFormSwitchFragment> createState() => _AppFormSwitchFragmentState();

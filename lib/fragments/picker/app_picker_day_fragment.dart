@@ -10,8 +10,7 @@ class AppPickerDayFragment extends StatefulWidget {
   final Function(DateTime?)? onSelected;
   final DateTime? initialDate;
 
-  const AppPickerDayFragment(
-      {super.key, this.onSelected, this.title, this.initialDate});
+  const AppPickerDayFragment({super.key, this.onSelected, this.title, this.initialDate});
 
   @override
   State<AppPickerDayFragment> createState() => _AppPickerDayFragmentState();
@@ -35,9 +34,7 @@ class _AppPickerDayFragmentState extends State<AppPickerDayFragment> {
         Icons.calendar_month,
         color: Theme.of(context).textTheme.bodySmall!.color,
       ),
-      title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [_text(style), _clearButton(style)]),
+      title: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [_text(style), _clearButton(style)]),
     );
   }
 
@@ -46,16 +43,14 @@ class _AppPickerDayFragmentState extends State<AppPickerDayFragment> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: EdgeInsets.only(
-              bottom: AppLayoutService().betweenItemPadding() * 0.5),
+          padding: EdgeInsets.only(bottom: AppLayoutService().betweenItemPadding() * 0.5),
           child: Text(
             widget.title ?? "",
             style: Theme.of(context).textTheme.headlineSmall,
           ),
         ),
         Text(
-          AppTimeService().transformDateTime(context, _selected,
-                  pattern: "dd. MMMM yyyy") ??
+          AppTimeService().transformDateTime(context, _selected, pattern: "dd. MMMM yyyy") ??
               AppLocalizations.of(context)!.filter_title_no_day_selected,
           style: Theme.of(context).textTheme.bodySmall,
         ),
@@ -75,8 +70,7 @@ class _AppPickerDayFragmentState extends State<AppPickerDayFragment> {
   }
 
   void _showPicker() async {
-    DateTime? newDate = await AppDatePickerService()
-        .showAppDatePicker(context, initial: _selected);
+    DateTime? newDate = await AppDatePickerService().showAppDatePicker(context, initial: _selected);
     if (newDate != null) {
       setState(() => _selectDate(newDate));
     }

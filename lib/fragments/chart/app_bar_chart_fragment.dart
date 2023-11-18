@@ -32,13 +32,10 @@ class _AppBarChartFragmentState extends State<AppBarChartFragment> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.labels.isEmpty ||
-        widget.values.isEmpty ||
-        widget.values.every((r) => r == null || r == 0)) {
+    if (widget.labels.isEmpty || widget.values.isEmpty || widget.values.every((r) => r == null || r == 0)) {
       return Center(
-        child: Text(widget.noDataText ?? "",
-            style: Theme.of(context).textTheme.bodyMedium,
-            textAlign: TextAlign.center),
+        child:
+            Text(widget.noDataText ?? "", style: Theme.of(context).textTheme.bodyMedium, textAlign: TextAlign.center),
       );
     }
     return Scrollbar(
@@ -79,12 +76,7 @@ class _AppBarChartFragmentState extends State<AppBarChartFragment> {
 
   FlBorderData _borderData() {
     return FlBorderData(
-        border: Border(
-            bottom: BorderSide(
-                color: Theme.of(context)
-                    .colorScheme
-                    .onBackground
-                    .withOpacity(0.7))));
+        border: Border(bottom: BorderSide(color: Theme.of(context).colorScheme.onBackground.withOpacity(0.7))));
   }
 
   FlTitlesData _titlesData() {
@@ -134,19 +126,13 @@ class _AppBarChartFragmentState extends State<AppBarChartFragment> {
             tooltipBgColor: Colors.transparent,
             tooltipPadding: EdgeInsets.zero,
             tooltipMargin: 8,
-            getTooltipItem: (g, i1, r, i2) =>
-                _barTooltipItem(context, g, i1, r, i2)));
+            getTooltipItem: (g, i1, r, i2) => _barTooltipItem(context, g, i1, r, i2)));
   }
 
   BarTooltipItem _barTooltipItem(
-      BuildContext context,
-      BarChartGroupData groupData,
-      int index,
-      BarChartRodData rodData,
-      int index2) {
+      BuildContext context, BarChartGroupData groupData, int index, BarChartRodData rodData, int index2) {
     return BarTooltipItem(
-        rodData.toY != 0 ? "${rodData.toY}\n${widget.valueUnit}" : "",
-        Theme.of(context).textTheme.headlineSmall!);
+        rodData.toY != 0 ? "${rodData.toY}\n${widget.valueUnit}" : "", Theme.of(context).textTheme.headlineSmall!);
   }
 
   List<BarChartGroupData> _barChartGroupData() {
@@ -158,8 +144,7 @@ class _AppBarChartFragmentState extends State<AppBarChartFragment> {
               BarChartRodData(
                   toY: widget.values[index] ?? 0,
                   width: 15,
-                  gradient: widget.barGradient
-                      .call(context, widget.values[index] ?? 0, _maxValue()))
+                  gradient: widget.barGradient.call(context, widget.values[index] ?? 0, _maxValue()))
             ]))
         .toList();
   }

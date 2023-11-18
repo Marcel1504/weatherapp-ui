@@ -4,8 +4,7 @@ part 'app_soil_single_data_response_dto.g.dart';
 
 @JsonSerializable()
 class AppSoilSingleDataResponseDto {
-  AppSoilSingleDataResponseDto(this.temperature50cm, this.temperature100cm,
-      this.temperature200cm, this.timestamp);
+  AppSoilSingleDataResponseDto(this.temperature50cm, this.temperature100cm, this.temperature200cm, this.timestamp);
 
   double? temperature50cm;
   double? temperature100cm;

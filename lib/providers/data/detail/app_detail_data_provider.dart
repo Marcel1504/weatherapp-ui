@@ -3,16 +3,14 @@ import 'package:weatherapp_ui/dto/response/app_list_response_dto.dart';
 import 'package:weatherapp_ui/enums/app_calendar_enum.dart';
 import 'package:weatherapp_ui/services/api/data/detail/app_detail_data_api_service.dart';
 
-abstract class AppDetailDataProvider<LIST extends AppListResponseDto, DATA,
-    SORT> extends ChangeNotifier {
+abstract class AppDetailDataProvider<LIST extends AppListResponseDto, DATA, SORT> extends ChangeNotifier {
   List<DATA> _data = [];
   bool _loading = false;
   AppCalendarEnum? _type;
   String? _stationCode;
   String? _time;
 
-  void loadDetailsByStationCode(
-      String? stationCode, String? time, AppCalendarEnum type) {
+  void loadDetailsByStationCode(String? stationCode, String? time, AppCalendarEnum type) {
     _stationCode = stationCode;
     _time = time;
     _data = [];

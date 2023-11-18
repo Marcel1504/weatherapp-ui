@@ -40,17 +40,14 @@ class _AppLineChartFragmentState extends State<AppLineChartFragment> {
         widget.valueLists.any((list) => list.none((v) => v != null)) ||
         widget.valueTitles.isEmpty) {
       return Center(
-        child: Text(widget.noDataText ?? "",
-            style: Theme.of(context).textTheme.bodyMedium,
-            textAlign: TextAlign.center),
+        child:
+            Text(widget.noDataText ?? "", style: Theme.of(context).textTheme.bodyMedium, textAlign: TextAlign.center),
       );
     }
     return Column(
       children: [
         AppChoiceChipListFragment(
-            primary: false,
-            onTap: (i) => setState(() => _selectedChartIndex = i),
-            titles: widget.valueTitles),
+            primary: false, onTap: (i) => setState(() => _selectedChartIndex = i), titles: widget.valueTitles),
         Expanded(
           child: Scrollbar(
             thumbVisibility: true,
@@ -82,12 +79,7 @@ class _AppLineChartFragmentState extends State<AppLineChartFragment> {
             show: true,
             drawVerticalLine: false,
             getDrawingHorizontalLine: (i) => FlLine(
-                strokeWidth: 1,
-                dashArray: [4],
-                color: Theme.of(context)
-                    .colorScheme
-                    .onBackground
-                    .withOpacity(0.4))),
+                strokeWidth: 1, dashArray: [4], color: Theme.of(context).colorScheme.onBackground.withOpacity(0.4))),
         borderData: _borderData(context),
         titlesData: _titlesData(context),
         lineBarsData: _lineBarsData(context),
@@ -122,16 +114,14 @@ class _AppLineChartFragmentState extends State<AppLineChartFragment> {
   }
 
   FlBorderData _borderData(BuildContext context) {
-    BorderSide side = BorderSide(
-        color: Theme.of(context).colorScheme.onBackground.withOpacity(0.7));
+    BorderSide side = BorderSide(color: Theme.of(context).colorScheme.onBackground.withOpacity(0.7));
     return FlBorderData(border: Border(bottom: side, top: side));
   }
 
   LineTouchData _lineTouchData(BuildContext context) {
     return LineTouchData(
       handleBuiltInTouches: true,
-      getTouchedSpotIndicator: (_, list) =>
-          _touchedSpotIndicatorDataList(context, list),
+      getTouchedSpotIndicator: (_, list) => _touchedSpotIndicatorDataList(context, list),
       touchTooltipData: LineTouchTooltipData(
           fitInsideHorizontally: true,
           fitInsideVertically: true,
@@ -140,27 +130,20 @@ class _AppLineChartFragmentState extends State<AppLineChartFragment> {
     );
   }
 
-  List<LineTooltipItem> _toolTipItems(
-      BuildContext context, List<LineBarSpot> spots) {
+  List<LineTooltipItem> _toolTipItems(BuildContext context, List<LineBarSpot> spots) {
     return spots
-        .mapIndexed((index, s) => LineTooltipItem("${s.y} ${widget.valueUnit}",
-            Theme.of(context).textTheme.headlineMedium!))
+        .mapIndexed(
+            (index, s) => LineTooltipItem("${s.y} ${widget.valueUnit}", Theme.of(context).textTheme.headlineMedium!))
         .toList();
   }
 
-  List<TouchedSpotIndicatorData> _touchedSpotIndicatorDataList(
-      BuildContext context, List<int> list) {
+  List<TouchedSpotIndicatorData> _touchedSpotIndicatorDataList(BuildContext context, List<int> list) {
     return list
         .map((e) => TouchedSpotIndicatorData(
-            FlLine(
-                dashArray: [4],
-                color:
-                    Theme.of(context).colorScheme.onBackground.withOpacity(0.7),
-                strokeWidth: 1),
+            FlLine(dashArray: [4], color: Theme.of(context).colorScheme.onBackground.withOpacity(0.7), strokeWidth: 1),
             FlDotData(
                 show: true,
-                getDotPainter: (a, b, c, d) => FlDotCrossPainter(
-                    color: Theme.of(context).colorScheme.onBackground))))
+                getDotPainter: (a, b, c, d) => FlDotCrossPainter(color: Theme.of(context).colorScheme.onBackground))))
         .toList();
   }
 
@@ -225,10 +208,7 @@ class _AppLineChartFragmentState extends State<AppLineChartFragment> {
         isStrokeCapRound: false,
         dotData: FlDotData(show: false),
         belowBarData: BarAreaData(show: false),
-        spots: list
-            .mapIndexed((index, t) =>
-                t != null ? FlSpot(index.toDouble() + 1, t) : FlSpot.nullSpot)
-            .toList(),
+        spots: list.mapIndexed((index, t) => t != null ? FlSpot(index.toDouble() + 1, t) : FlSpot.nullSpot).toList(),
       )
     ];
   }

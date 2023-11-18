@@ -20,22 +20,17 @@ class AppWeatherReviewDetailDataFragment extends StatefulWidget {
   const AppWeatherReviewDetailDataFragment({super.key, this.time, required this.type});
 
   @override
-  State<AppWeatherReviewDetailDataFragment> createState() =>
-      _AppWeatherReviewDetailDataFragmentState();
+  State<AppWeatherReviewDetailDataFragment> createState() => _AppWeatherReviewDetailDataFragmentState();
 }
 
-class _AppWeatherReviewDetailDataFragmentState
-    extends State<AppWeatherReviewDetailDataFragment> {
+class _AppWeatherReviewDetailDataFragmentState extends State<AppWeatherReviewDetailDataFragment> {
   List<String> timeLabelsISO = [];
   List<String> timeLabelsPretty = [];
 
   @override
   void initState() {
     super.initState();
-    String? stationCode =
-        Provider.of<AppStationProvider>(context, listen: false)
-            .selectedStation
-            ?.code;
+    String? stationCode = Provider.of<AppStationProvider>(context, listen: false).selectedStation?.code;
     Provider.of<AppWeatherDetailDataProvider>(context, listen: false)
         .loadDetailsByStationCode(stationCode, widget.time, widget.type);
   }
@@ -56,16 +51,16 @@ class _AppWeatherReviewDetailDataFragmentState
               ], chartWidgets: [
                 _getTemperatureChart(context, provider),
                 _getRainChart(context, provider),
-          _getHumidityChart(context, provider),
-          _getPressureChart(context, provider),
-          _getWindChart(context, provider),
-          _getSolarRadiationChart(context, provider)
-        ])
+                _getHumidityChart(context, provider),
+                _getPressureChart(context, provider),
+                _getWindChart(context, provider),
+                _getSolarRadiationChart(context, provider)
+              ])
             : const Center(
-          child: AppLoadingFragment(
-            size: 30,
-          ),
-        );
+                child: AppLoadingFragment(
+                  size: 30,
+                ),
+              );
       },
     );
   }
@@ -86,8 +81,7 @@ class _AppWeatherReviewDetailDataFragmentState
         AppLocalizations.of(context)!.chart_unit_min
       ],
       noDataText: AppLocalizations.of(context)!.chart_no_data_temperature,
-      lineGradient: (context, list) =>
-          AppColorService().temperaturesLinearGradient(context, list, 10),
+      lineGradient: (context, list) => AppColorService().temperaturesLinearGradient(context, list, 10),
     );
   }
 
@@ -97,9 +91,8 @@ class _AppWeatherReviewDetailDataFragmentState
       values: _valuesFilledForTimeLabels(provider, (d) => d?.rainTotal),
       valueUnit: "l/m²",
       noDataText: AppLocalizations.of(context)!.chart_no_data_rain,
-      barGradient: (context, value, maxValue) => AppColorService()
-          .valueLinearGradient(context, value, 0, maxValue,
-              const Color.fromRGBO(0, 175, 255, 1)),
+      barGradient: (context, value, maxValue) =>
+          AppColorService().valueLinearGradient(context, value, 0, maxValue, const Color.fromRGBO(0, 175, 255, 1)),
     );
   }
 
@@ -119,8 +112,7 @@ class _AppWeatherReviewDetailDataFragmentState
         AppLocalizations.of(context)!.chart_unit_min
       ],
       noDataText: AppLocalizations.of(context)!.chart_no_data_humidity,
-      lineGradient: (context, list) => AppColorService()
-          .valueListLinearGradient(context, list, 20, 100, Colors.purple),
+      lineGradient: (context, list) => AppColorService().valueListLinearGradient(context, list, 20, 100, Colors.purple),
     );
   }
 
@@ -140,8 +132,8 @@ class _AppWeatherReviewDetailDataFragmentState
         AppLocalizations.of(context)!.chart_unit_min
       ],
       noDataText: AppLocalizations.of(context)!.chart_no_data_pressure,
-      lineGradient: (context, list) => AppColorService()
-          .valueListLinearGradient(context, list, 950, 1050, Colors.lightBlue),
+      lineGradient: (context, list) =>
+          AppColorService().valueListLinearGradient(context, list, 950, 1050, Colors.lightBlue),
     );
   }
 
@@ -157,8 +149,7 @@ class _AppWeatherReviewDetailDataFragmentState
         AppLocalizations.of(context)!.chart_unit_max,
       ],
       noDataText: AppLocalizations.of(context)!.chart_no_data_wind,
-      lineGradient: (context, list) => AppColorService()
-          .valueListLinearGradient(context, list, 0, 40, Colors.red),
+      lineGradient: (context, list) => AppColorService().valueListLinearGradient(context, list, 0, 40, Colors.red),
     );
   }
 
@@ -178,8 +169,7 @@ class _AppWeatherReviewDetailDataFragmentState
         AppLocalizations.of(context)!.chart_unit_min,
       ],
       noDataText: AppLocalizations.of(context)!.chart_no_data_solar_radiation,
-      lineGradient: (context, list) => AppColorService()
-          .valueListLinearGradient(context, list, 0, 1000, Colors.orange),
+      lineGradient: (context, list) => AppColorService().valueListLinearGradient(context, list, 0, 1000, Colors.orange),
     );
   }
 
@@ -189,37 +179,28 @@ class _AppWeatherReviewDetailDataFragmentState
       case AppCalendarEnum.DAY:
         timeLabelsISO = timeService.getISOHoursOfDay();
         timeLabelsPretty = timeLabelsISO
-            .map((t) =>
-                timeService.transformTimeString(context, t,
-                    inputPattern: "HH", outputPattern: "HH:'00'") ??
-                "?")
+            .map(
+                (t) => timeService.transformTimeString(context, t, inputPattern: "HH", outputPattern: "HH:'00'") ?? "?")
             .toList();
         break;
       case AppCalendarEnum.MONTH:
-        timeLabelsISO = timeService.getISODaysOfMonth(
-            provider.time!.substring(0, 4), provider.time!.substring(5, 7));
+        timeLabelsISO = timeService.getISODaysOfMonth(provider.time!.substring(0, 4), provider.time!.substring(5, 7));
         timeLabelsPretty = timeLabelsISO
             .map((t) =>
-                timeService.transformTimeString(context, t,
-                    inputPattern: "yyyy-MM-dd", outputPattern: "dd.MM") ??
-                "?")
+                timeService.transformTimeString(context, t, inputPattern: "yyyy-MM-dd", outputPattern: "dd.MM") ?? "?")
             .toList();
         break;
       case AppCalendarEnum.YEAR:
         timeLabelsISO = timeService.getISOMonthsOfYear();
         timeLabelsPretty = timeLabelsISO
-            .map((t) =>
-                timeService.transformTimeString(context, t,
-                    inputPattern: "MM", outputPattern: "MMM") ??
-                "?")
+            .map((t) => timeService.transformTimeString(context, t, inputPattern: "MM", outputPattern: "MMM") ?? "?")
             .toList();
         break;
     }
   }
 
   List<double?> _valuesFilledForTimeLabels(
-      AppWeatherDetailDataProvider provider,
-      double? Function(AppWeatherSummaryDataResponseDto?) map) {
+      AppWeatherDetailDataProvider provider, double? Function(AppWeatherSummaryDataResponseDto?) map) {
     return timeLabelsISO
         .map((t) {
           switch (widget.type) {

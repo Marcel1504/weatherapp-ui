@@ -8,8 +8,7 @@ class AppExportDataRequestDto {
 
   String? email;
 
-  factory AppExportDataRequestDto.fromJson(Map<String, dynamic> json) =>
-      _$AppExportDataRequestDtoFromJson(json);
+  factory AppExportDataRequestDto.fromJson(Map<String, dynamic> json) => _$AppExportDataRequestDtoFromJson(json);
 
   Map<String, dynamic> toJson() => _$AppExportDataRequestDtoToJson(this);
 }

@@ -5,14 +5,11 @@ import 'package:weatherapp_ui/dto/response/data/summary/soil/app_soil_summary_da
 part 'app_soil_summary_data_list_response_dto.g.dart';
 
 @JsonSerializable()
-class AppSoilSummaryDataListResponseDto
-    extends AppListResponseDto<AppSoilSummaryDataResponseDto> {
+class AppSoilSummaryDataListResponseDto extends AppListResponseDto<AppSoilSummaryDataResponseDto> {
   AppSoilSummaryDataListResponseDto({super.total, super.hasNext, super.list});
 
-  factory AppSoilSummaryDataListResponseDto.fromJson(
-          Map<String, dynamic> json) =>
+  factory AppSoilSummaryDataListResponseDto.fromJson(Map<String, dynamic> json) =>
       _$AppSoilSummaryDataListResponseDtoFromJson(json);
 
-  Map<String, dynamic> toJson() =>
-      _$AppSoilSummaryDataListResponseDtoToJson(this);
+  Map<String, dynamic> toJson() => _$AppSoilSummaryDataListResponseDtoToJson(this);
 }

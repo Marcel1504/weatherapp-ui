@@ -4,8 +4,7 @@ import 'package:weatherapp_ui/dto/response/data/summary/soil/app_soil_summary_da
 import 'package:weatherapp_ui/models/app_soil_filter_model.dart';
 import 'package:weatherapp_ui/services/api/data/summary/app_summary_data_api_service.dart';
 
-class AppSoilYearApiService extends AppSummaryDataApiService<
-    AppSoilSummaryDataListResponseDto, AppSoilFilterModel> {
+class AppSoilYearApiService extends AppSummaryDataApiService<AppSoilSummaryDataListResponseDto, AppSoilFilterModel> {
   @override
   String buildFilterQuery(AppSoilFilterModel? filter) {
     String filterString = "";

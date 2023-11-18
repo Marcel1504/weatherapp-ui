@@ -12,8 +12,7 @@ class AppStationListItemFragment extends StatelessWidget {
   final AppStationResponseDto? station;
   final bool isSelected;
 
-  const AppStationListItemFragment(
-      {super.key, this.station, this.isSelected = false});
+  const AppStationListItemFragment({super.key, this.station, this.isSelected = false});
 
   @override
   Widget build(BuildContext context) {
@@ -37,9 +36,7 @@ class AppStationListItemFragment extends StatelessWidget {
               _stationLastActivityText(context, station, layoutService)
             ],
           ),
-          isSelected
-              ? Icon(Icons.check, color: Theme.of(context).colorScheme.primary)
-              : Container()
+          isSelected ? Icon(Icons.check, color: Theme.of(context).colorScheme.primary) : Container()
         ],
       ),
     );
@@ -56,16 +53,13 @@ class AppStationListItemFragment extends StatelessWidget {
     }
   }
 
-  Widget _stationNameText(BuildContext context, AppStationResponseDto? station,
-      AppLayoutService layoutService) {
-    return Text(station?.name ?? "",
-        style: Theme.of(context).textTheme.headlineMedium);
+  Widget _stationNameText(BuildContext context, AppStationResponseDto? station, AppLayoutService layoutService) {
+    return Text(station?.name ?? "", style: Theme.of(context).textTheme.headlineMedium);
   }
 
-  Widget _stationLastActivityText(BuildContext context,
-      AppStationResponseDto? station, AppLayoutService layoutService) {
-    String? duration = AppTimeService().transformISOTimeStringToCurrentDuration(
-        context, station?.lastActivity);
+  Widget _stationLastActivityText(
+      BuildContext context, AppStationResponseDto? station, AppLayoutService layoutService) {
+    String? duration = AppTimeService().transformISOTimeStringToCurrentDuration(context, station?.lastActivity);
     return Padding(
       padding: EdgeInsets.only(top: layoutService.betweenItemPadding() / 2),
       child: Text(
@@ -77,7 +71,6 @@ class AppStationListItemFragment extends StatelessWidget {
   }
 
   void _selectStation(BuildContext context, AppStationResponseDto? station) {
-    Provider.of<AppStationProvider>(context, listen: false)
-        .changeSelectedStation(station?.code);
+    Provider.of<AppStationProvider>(context, listen: false).changeSelectedStation(station?.code);
   }
 }

@@ -7,11 +7,8 @@ abstract class AppSingleDataProvider<T> extends ChangeNotifier {
   bool _reset = false;
   String? _stationCode;
 
-  void loadLatestByStationCode(BuildContext context, String? stationCode,
-      {bool notifyLoadStart = false}) {
-    if (!_loading &&
-        stationCode != null &&
-        (stationCode != _stationCode || _reset)) {
+  void loadLatestByStationCode(BuildContext context, String? stationCode, {bool notifyLoadStart = false}) {
+    if (!_loading && stationCode != null && (stationCode != _stationCode || _reset)) {
       _loading = true;
       _stationCode = stationCode;
       if (notifyLoadStart) {

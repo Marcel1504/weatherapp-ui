@@ -25,16 +25,13 @@ class _AppHomePageState extends State<AppHomePage> {
   @override
   Widget build(BuildContext context) {
     return AppScaffoldFragment(
-        appBar: _appBar(context),
-        body: _body(context),
-        bottomNavigationBar: _bottomNavigationBar(context));
+        appBar: _appBar(context), body: _body(context), bottomNavigationBar: _bottomNavigationBar(context));
   }
 
   AppBar _appBar(BuildContext context) {
     return AppBar(
       title: Consumer<AppStationProvider>(builder: (context, provider, widget) {
-        return Text(provider.selectedStation?.name ??
-            AppLocalizations.of(context)!.station_unnamed);
+        return Text(provider.selectedStation?.name ?? AppLocalizations.of(context)!.station_unnamed);
       }),
       titleTextStyle: Theme.of(context).textTheme.bodyMedium,
       actions: _appBarActions(context),
@@ -48,8 +45,7 @@ class _AppHomePageState extends State<AppHomePage> {
         height: 55,
         child: InkWell(
           onTap: () => _refresh(context),
-          customBorder:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(55)),
+          customBorder: RoundedRectangleBorder(borderRadius: BorderRadius.circular(55)),
           child: const Icon(Icons.refresh),
         ),
       )
@@ -76,25 +72,19 @@ class _AppHomePageState extends State<AppHomePage> {
     return Container(
       decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.surface,
-          borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(25), topRight: Radius.circular(25))),
+          borderRadius: const BorderRadius.only(topLeft: Radius.circular(25), topRight: Radius.circular(25))),
       child: SalomonBottomBar(
           selectedItemColor: Theme.of(context).colorScheme.primary,
           unselectedItemColor: Theme.of(context).colorScheme.onSurface,
           selectedColorOpacity: 0.1,
           items: [
             SalomonBottomBarItem(
-                icon: const Icon(AppIcons.past),
-                title: Text(AppLocalizations.of(context)!.page_review)),
+                icon: const Icon(AppIcons.past), title: Text(AppLocalizations.of(context)!.page_review)),
             SalomonBottomBarItem(
-                icon: const Icon(Icons.trending_up),
-                title: Text(AppLocalizations.of(context)!.page_current)),
+                icon: const Icon(Icons.trending_up), title: Text(AppLocalizations.of(context)!.page_current)),
+            SalomonBottomBarItem(icon: const Icon(Icons.image), title: Text(AppLocalizations.of(context)!.page_media)),
             SalomonBottomBarItem(
-                icon: const Icon(Icons.image),
-                title: Text(AppLocalizations.of(context)!.page_media)),
-            SalomonBottomBarItem(
-                icon: const Icon(AppIcons.station),
-                title: Text(AppLocalizations.of(context)!.page_stations))
+                icon: const Icon(AppIcons.station), title: Text(AppLocalizations.of(context)!.page_stations))
           ],
           currentIndex: _selectedIndex,
           onTap: _onBottomNavigationTapped),

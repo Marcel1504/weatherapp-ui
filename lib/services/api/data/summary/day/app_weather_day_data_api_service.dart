@@ -4,8 +4,8 @@ import 'package:weatherapp_ui/dto/response/data/summary/weather/app_weather_summ
 import 'package:weatherapp_ui/models/app_weather_filter_model.dart';
 import 'package:weatherapp_ui/services/api/data/summary/app_summary_data_api_service.dart';
 
-class AppWeatherDayApiService extends AppSummaryDataApiService<
-    AppWeatherSummaryDataListResponseDto, AppWeatherFilterModel> {
+class AppWeatherDayApiService
+    extends AppSummaryDataApiService<AppWeatherSummaryDataListResponseDto, AppWeatherFilterModel> {
   @override
   String buildFilterQuery(AppWeatherFilterModel? filter) {
     String filterString = "";
@@ -23,8 +23,7 @@ class AppWeatherDayApiService extends AppSummaryDataApiService<
 
   @override
   AppWeatherSummaryDataListResponseDto convert(String responseBody) {
-    return AppWeatherSummaryDataListResponseDto.fromJson(
-        jsonDecode(responseBody));
+    return AppWeatherSummaryDataListResponseDto.fromJson(jsonDecode(responseBody));
   }
 
   @override

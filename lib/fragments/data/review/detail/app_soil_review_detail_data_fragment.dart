@@ -19,22 +19,17 @@ class AppSoilReviewDetailDataFragment extends StatefulWidget {
   const AppSoilReviewDetailDataFragment({super.key, this.time, required this.type});
 
   @override
-  State<AppSoilReviewDetailDataFragment> createState() =>
-      _AppSoilReviewDetailDataFragmentState();
+  State<AppSoilReviewDetailDataFragment> createState() => _AppSoilReviewDetailDataFragmentState();
 }
 
-class _AppSoilReviewDetailDataFragmentState
-    extends State<AppSoilReviewDetailDataFragment> {
+class _AppSoilReviewDetailDataFragmentState extends State<AppSoilReviewDetailDataFragment> {
   List<String> timeLabelsISO = [];
   List<String> timeLabelsPretty = [];
 
   @override
   void initState() {
     super.initState();
-    String? stationCode =
-        Provider.of<AppStationProvider>(context, listen: false)
-            .selectedStation
-            ?.code;
+    String? stationCode = Provider.of<AppStationProvider>(context, listen: false).selectedStation?.code;
     Provider.of<AppSoilDetailDataProvider>(context, listen: false)
         .loadDetailsByStationCode(stationCode, widget.time, widget.type);
   }
@@ -55,10 +50,10 @@ class _AppSoilReviewDetailDataFragmentState
                 _getTemperatureMinChart(context, provider),
               ])
             : const Center(
-          child: AppLoadingFragment(
-            size: 30,
-          ),
-        );
+                child: AppLoadingFragment(
+                  size: 30,
+                ),
+              );
       },
     );
   }
@@ -79,8 +74,7 @@ class _AppSoilReviewDetailDataFragmentState
         AppLocalizations.of(context)!.chart_title_soil_200cm,
       ],
       noDataText: AppLocalizations.of(context)!.chart_no_data_temperature,
-      lineGradient: (context, list) =>
-          AppColorService().temperaturesLinearGradient(context, list, 10),
+      lineGradient: (context, list) => AppColorService().temperaturesLinearGradient(context, list, 10),
     );
   }
 
@@ -100,8 +94,7 @@ class _AppSoilReviewDetailDataFragmentState
         AppLocalizations.of(context)!.chart_title_soil_200cm,
       ],
       noDataText: AppLocalizations.of(context)!.chart_no_data_temperature,
-      lineGradient: (context, list) =>
-          AppColorService().temperaturesLinearGradient(context, list, 10),
+      lineGradient: (context, list) => AppColorService().temperaturesLinearGradient(context, list, 10),
     );
   }
 
@@ -121,8 +114,7 @@ class _AppSoilReviewDetailDataFragmentState
         AppLocalizations.of(context)!.chart_title_soil_200cm,
       ],
       noDataText: AppLocalizations.of(context)!.chart_no_data_temperature,
-      lineGradient: (context, list) =>
-          AppColorService().temperaturesLinearGradient(context, list, 10),
+      lineGradient: (context, list) => AppColorService().temperaturesLinearGradient(context, list, 10),
     );
   }
 
@@ -132,36 +124,28 @@ class _AppSoilReviewDetailDataFragmentState
       case AppCalendarEnum.DAY:
         timeLabelsISO = timeService.getISOHoursOfDay();
         timeLabelsPretty = timeLabelsISO
-            .map((t) =>
-                timeService.transformTimeString(context, t,
-                    inputPattern: "HH", outputPattern: "HH:'00'") ??
-                "?")
+            .map(
+                (t) => timeService.transformTimeString(context, t, inputPattern: "HH", outputPattern: "HH:'00'") ?? "?")
             .toList();
         break;
       case AppCalendarEnum.MONTH:
-        timeLabelsISO = timeService.getISODaysOfMonth(
-            provider.time!.substring(0, 4), provider.time!.substring(5, 7));
+        timeLabelsISO = timeService.getISODaysOfMonth(provider.time!.substring(0, 4), provider.time!.substring(5, 7));
         timeLabelsPretty = timeLabelsISO
             .map((t) =>
-                timeService.transformTimeString(context, t,
-                    inputPattern: "yyyy-MM-dd", outputPattern: "dd.MM") ??
-                "?")
+                timeService.transformTimeString(context, t, inputPattern: "yyyy-MM-dd", outputPattern: "dd.MM") ?? "?")
             .toList();
         break;
       case AppCalendarEnum.YEAR:
         timeLabelsISO = timeService.getISOMonthsOfYear();
         timeLabelsPretty = timeLabelsISO
-            .map((t) =>
-                timeService.transformTimeString(context, t,
-                    inputPattern: "MM", outputPattern: "MMM") ??
-                "?")
+            .map((t) => timeService.transformTimeString(context, t, inputPattern: "MM", outputPattern: "MMM") ?? "?")
             .toList();
         break;
     }
   }
 
-  List<double?> _valuesFilledForTimeLabels(AppSoilDetailDataProvider provider,
-      double? Function(AppSoilSummaryDataResponseDto?) map) {
+  List<double?> _valuesFilledForTimeLabels(
+      AppSoilDetailDataProvider provider, double? Function(AppSoilSummaryDataResponseDto?) map) {
     return timeLabelsISO
         .map((t) {
           switch (widget.type) {

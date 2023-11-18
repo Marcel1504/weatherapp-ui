@@ -10,15 +10,10 @@ class AppReviewDataListFragment extends StatefulWidget {
   final Widget Function(dynamic) itemBuilder;
   final AppSummaryDataProvider provider;
 
-  const AppReviewDataListFragment(
-      {super.key,
-      this.station,
-      required this.itemBuilder,
-      required this.provider});
+  const AppReviewDataListFragment({super.key, this.station, required this.itemBuilder, required this.provider});
 
   @override
-  State<AppReviewDataListFragment> createState() =>
-      _AppReviewDataListFragmentState();
+  State<AppReviewDataListFragment> createState() => _AppReviewDataListFragmentState();
 }
 
 class _AppReviewDataListFragmentState extends State<AppReviewDataListFragment> {
@@ -42,20 +37,12 @@ class _AppReviewDataListFragmentState extends State<AppReviewDataListFragment> {
     return ListView(
       controller: _scrollController,
       children: [
-        ...widget.provider.data
-            .map((d) => widget.itemBuilder.call(d))
-            .mapIndexed((index, item) => Column(
-                  children: [
-                    item,
-                    index < widget.provider.data.length - 1
-                        ? const Divider()
-                        : Container()
-                  ],
-                )),
+        ...widget.provider.data.map((d) => widget.itemBuilder.call(d)).mapIndexed((index, item) => Column(
+              children: [item, index < widget.provider.data.length - 1 ? const Divider() : Container()],
+            )),
         widget.provider.loading
             ? Padding(
-                padding:
-                    EdgeInsets.all(AppLayoutService().betweenItemPadding()),
+                padding: EdgeInsets.all(AppLayoutService().betweenItemPadding()),
                 child: const AppLoadingFragment(
                   size: 30,
                 ),

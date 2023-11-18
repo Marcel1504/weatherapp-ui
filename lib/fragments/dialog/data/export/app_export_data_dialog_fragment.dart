@@ -14,16 +14,13 @@ class AppExportDataDialogFragment extends StatefulWidget {
   final String title;
   final AppExportDataProvider provider;
 
-  const AppExportDataDialogFragment(
-      {super.key, required this.title, required this.provider});
+  const AppExportDataDialogFragment({super.key, required this.title, required this.provider});
 
   @override
-  State<AppExportDataDialogFragment> createState() =>
-      _AppExportDataDialogFragmentState();
+  State<AppExportDataDialogFragment> createState() => _AppExportDataDialogFragmentState();
 }
 
-class _AppExportDataDialogFragmentState
-    extends State<AppExportDataDialogFragment> {
+class _AppExportDataDialogFragmentState extends State<AppExportDataDialogFragment> {
   String? _startDay;
   String? _endDay;
   String? _stationCode;
@@ -33,9 +30,7 @@ class _AppExportDataDialogFragmentState
   @override
   void initState() {
     super.initState();
-    _stationCode = Provider.of<AppStationProvider>(context, listen: false)
-        .selectedStation
-        ?.code;
+    _stationCode = Provider.of<AppStationProvider>(context, listen: false).selectedStation?.code;
   }
 
   @override
@@ -52,29 +47,24 @@ class _AppExportDataDialogFragmentState
           : null,
       child: ListView(
         children: [
-          AppHeaderTextFragment(
-              title: AppLocalizations.of(context)!.export_subtitle_range),
+          AppHeaderTextFragment(title: AppLocalizations.of(context)!.export_subtitle_range),
           AppPickerDayFragment(
             title: AppLocalizations.of(context)!.export_value_from,
-            onSelected: (d) => setState(() => _startDay = AppTimeService()
-                .transformDateTime(context, d,
-                    pattern: AppTimeService.isoDayPattern)),
+            onSelected: (d) => setState(() =>
+                _startDay = AppTimeService().transformDateTime(context, d, pattern: AppTimeService.isoDayPattern)),
           ),
           const Divider(),
           AppPickerDayFragment(
             title: AppLocalizations.of(context)!.export_value_to,
-            onSelected: (d) => setState(() => _endDay = AppTimeService()
-                .transformDateTime(context, d,
-                    pattern: AppTimeService.isoDayPattern)),
+            onSelected: (d) => setState(
+                () => _endDay = AppTimeService().transformDateTime(context, d, pattern: AppTimeService.isoDayPattern)),
           ),
-          AppHeaderTextFragment(
-              title: AppLocalizations.of(context)!.export_subtitle_email),
+          AppHeaderTextFragment(title: AppLocalizations.of(context)!.export_subtitle_email),
           AppFormFieldFragment(
             icon: Icons.email,
             type: TextInputType.emailAddress,
             hint: AppLocalizations.of(context)!.export_value_email,
-            invalidHint:
-                AppLocalizations.of(context)!.export_value_email_invalid,
+            invalidHint: AppLocalizations.of(context)!.export_value_email_invalid,
             onChanged: (v, b) => setState(() {
               _email = v;
               _emailValid = b;
@@ -88,15 +78,10 @@ class _AppExportDataDialogFragmentState
   }
 
   bool _isValidEmail(String? email) {
-    return email != null &&
-        email.isNotEmpty &&
-        RegExp(r'^[^\s@]+@[^\s@]+\.[^\s@]+$').hasMatch(email);
+    return email != null && email.isNotEmpty && RegExp(r'^[^\s@]+@[^\s@]+\.[^\s@]+$').hasMatch(email);
   }
 
   bool _allInputsFilled() {
-    return _emailValid &&
-        _stationCode != null &&
-        _startDay != null &&
-        _endDay != null;
+    return _emailValid && _stationCode != null && _startDay != null && _endDay != null;
   }
 }

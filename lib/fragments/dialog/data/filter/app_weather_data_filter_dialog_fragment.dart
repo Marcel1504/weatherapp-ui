@@ -21,16 +21,13 @@ class AppWeatherDataFilterDialogFragment extends StatefulWidget {
   final AppStationResponseDto? station;
   final AppCalendarEnum? type;
 
-  const AppWeatherDataFilterDialogFragment(
-      {super.key, this.type, this.station});
+  const AppWeatherDataFilterDialogFragment({super.key, this.type, this.station});
 
   @override
-  State<AppWeatherDataFilterDialogFragment> createState() =>
-      _AppWeatherDataFilterDialogFragmentState();
+  State<AppWeatherDataFilterDialogFragment> createState() => _AppWeatherDataFilterDialogFragmentState();
 }
 
-class _AppWeatherDataFilterDialogFragmentState
-    extends State<AppWeatherDataFilterDialogFragment> {
+class _AppWeatherDataFilterDialogFragmentState extends State<AppWeatherDataFilterDialogFragment> {
   AppWeatherFilterModel? _filter;
   AppSummaryDataProvider? _provider;
   String? _title;
@@ -43,8 +40,7 @@ class _AppWeatherDataFilterDialogFragmentState
       child: root,
       onAccept: () {
         _provider?.setFilter(filter: _filter);
-        _provider?.loadInitialByStationCode(widget.station?.code,
-            notifyLoadStart: true);
+        _provider?.loadInitialByStationCode(widget.station?.code, notifyLoadStart: true);
       },
     );
   }
@@ -64,30 +60,25 @@ class _AppWeatherDataFilterDialogFragmentState
 
   Widget _dayFilter() {
     _title = AppLocalizations.of(context)!.filter_title_day;
-    return Consumer<AppWeatherDayDataProvider>(
-        builder: (context, provider, widget) {
+    return Consumer<AppWeatherDayDataProvider>(builder: (context, provider, widget) {
       _initializeProviderAndFilterModel(provider);
       return ListView(
         children: [
-          AppHeaderTextFragment(
-              title: AppLocalizations.of(context)!.filter_title_limitation),
+          AppHeaderTextFragment(title: AppLocalizations.of(context)!.filter_title_limitation),
           AppPickerDayFragment(
             title: AppLocalizations.of(context)!.filter_value_start_day,
             initialDate: AppTimeService().parseDayString(_filter?.startDay),
             onSelected: (d) => setState(() => _filter?.startDay =
-                AppTimeService().transformDateTime(context, d,
-                    pattern: AppTimeService.isoDayPattern)),
+                AppTimeService().transformDateTime(context, d, pattern: AppTimeService.isoDayPattern)),
           ),
           const Divider(),
           AppPickerDayFragment(
             title: AppLocalizations.of(context)!.filter_value_end_day,
             initialDate: AppTimeService().parseDayString(_filter?.endDay),
-            onSelected: (d) => setState(() => _filter?.endDay = AppTimeService()
-                .transformDateTime(context, d,
-                    pattern: AppTimeService.isoDayPattern)),
+            onSelected: (d) => setState(() => _filter?.endDay =
+                AppTimeService().transformDateTime(context, d, pattern: AppTimeService.isoDayPattern)),
           ),
-          AppHeaderTextFragment(
-              title: AppLocalizations.of(context)!.filter_title_sort),
+          AppHeaderTextFragment(title: AppLocalizations.of(context)!.filter_title_sort),
           ..._sortList()
         ],
       );
@@ -96,21 +87,16 @@ class _AppWeatherDataFilterDialogFragmentState
 
   Widget _monthFilter() {
     _title = AppLocalizations.of(context)!.filter_title_month;
-    return Consumer<AppWeatherMonthDataProvider>(
-        builder: (context, provider, widget) {
+    return Consumer<AppWeatherMonthDataProvider>(builder: (context, provider, widget) {
       _initializeProviderAndFilterModel(provider);
       return ListView(
         children: [
-          AppHeaderTextFragment(
-              title: AppLocalizations.of(context)!.filter_title_limitation),
+          AppHeaderTextFragment(title: AppLocalizations.of(context)!.filter_title_limitation),
           AppPickerYearFragment(
-              initialYear: AppTimeService().parseTimeString(_filter?.year,
-                  pattern: AppTimeService.isoYearPattern),
-              onSelected: (d) => setState(() => _filter?.year = AppTimeService()
-                  .transformDateTime(context, d,
-                      pattern: AppTimeService.isoYearPattern))),
-          AppHeaderTextFragment(
-              title: AppLocalizations.of(context)!.filter_title_sort),
+              initialYear: AppTimeService().parseTimeString(_filter?.year, pattern: AppTimeService.isoYearPattern),
+              onSelected: (d) => setState(() => _filter?.year =
+                  AppTimeService().transformDateTime(context, d, pattern: AppTimeService.isoYearPattern))),
+          AppHeaderTextFragment(title: AppLocalizations.of(context)!.filter_title_sort),
           ..._sortList()
         ],
       );
@@ -119,20 +105,15 @@ class _AppWeatherDataFilterDialogFragmentState
 
   Widget _yearFilter() {
     _title = AppLocalizations.of(context)!.filter_title_year;
-    return Consumer<AppWeatherYearDataProvider>(
-        builder: (context, provider, widget) {
+    return Consumer<AppWeatherYearDataProvider>(builder: (context, provider, widget) {
       _initializeProviderAndFilterModel(provider);
-      return ListView(children: [
-        AppHeaderTextFragment(
-            title: AppLocalizations.of(context)!.filter_title_sort),
-        ..._sortList()
-      ]);
+      return ListView(
+          children: [AppHeaderTextFragment(title: AppLocalizations.of(context)!.filter_title_sort), ..._sortList()]);
     });
   }
 
   List<Widget> _sortList() {
-    List<MapEntry<AppWeatherSortEnum, String>> list =
-        _getSorts().entries.toList();
+    List<MapEntry<AppWeatherSortEnum, String>> list = _getSorts().entries.toList();
     return list
         .mapIndexed((index, s) => Column(
               children: [
@@ -152,26 +133,16 @@ class _AppWeatherDataFilterDialogFragmentState
     return {
       AppWeatherSortEnum.LATEST: AppLocalizations.of(context)!.sort_latest,
       AppWeatherSortEnum.OLDEST: AppLocalizations.of(context)!.sort_oldest,
-      AppWeatherSortEnum.HIGHEST_TEMPERATURE:
-          AppLocalizations.of(context)!.sort_temperature_highest,
-      AppWeatherSortEnum.LOWEST_TEMPERATURE:
-          AppLocalizations.of(context)!.sort_temperature_lowest,
-      AppWeatherSortEnum.HIGHEST_HUMIDITY:
-          AppLocalizations.of(context)!.sort_humidity_highest,
-      AppWeatherSortEnum.LOWEST_HUMIDITY:
-          AppLocalizations.of(context)!.sort_humidity_lowest,
-      AppWeatherSortEnum.MOST_RAIN:
-          AppLocalizations.of(context)!.sort_rain_most,
-      AppWeatherSortEnum.STRONGEST_WIND:
-          AppLocalizations.of(context)!.sort_wind_strongest,
-      AppWeatherSortEnum.HIGHEST_PRESSURE:
-          AppLocalizations.of(context)!.sort_pressure_highest,
-      AppWeatherSortEnum.LOWEST_PRESSURE:
-          AppLocalizations.of(context)!.sort_pressure_lowest,
-      AppWeatherSortEnum.HIGHEST_SOLAR_RADIATION:
-          AppLocalizations.of(context)!.sort_solar_radiation_highest,
-      AppWeatherSortEnum.LOWEST_SOLAR_RADIATION:
-          AppLocalizations.of(context)!.sort_solar_radiation_lowest,
+      AppWeatherSortEnum.HIGHEST_TEMPERATURE: AppLocalizations.of(context)!.sort_temperature_highest,
+      AppWeatherSortEnum.LOWEST_TEMPERATURE: AppLocalizations.of(context)!.sort_temperature_lowest,
+      AppWeatherSortEnum.HIGHEST_HUMIDITY: AppLocalizations.of(context)!.sort_humidity_highest,
+      AppWeatherSortEnum.LOWEST_HUMIDITY: AppLocalizations.of(context)!.sort_humidity_lowest,
+      AppWeatherSortEnum.MOST_RAIN: AppLocalizations.of(context)!.sort_rain_most,
+      AppWeatherSortEnum.STRONGEST_WIND: AppLocalizations.of(context)!.sort_wind_strongest,
+      AppWeatherSortEnum.HIGHEST_PRESSURE: AppLocalizations.of(context)!.sort_pressure_highest,
+      AppWeatherSortEnum.LOWEST_PRESSURE: AppLocalizations.of(context)!.sort_pressure_lowest,
+      AppWeatherSortEnum.HIGHEST_SOLAR_RADIATION: AppLocalizations.of(context)!.sort_solar_radiation_highest,
+      AppWeatherSortEnum.LOWEST_SOLAR_RADIATION: AppLocalizations.of(context)!.sort_solar_radiation_lowest,
     };
   }
 

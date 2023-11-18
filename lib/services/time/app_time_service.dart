@@ -13,46 +13,37 @@ class AppTimeService {
   static const String prettyMonthPattern = "MMMM yyyy";
   static const String prettyYearPattern = "yyyy";
 
-  String? transformISOTimeString(BuildContext context, String? dateTime,
-      {String pattern = prettyTimePattern}) {
-    return transformTimeString(context, dateTime,
-        inputPattern: isoTimePattern, outputPattern: pattern);
+  String? transformISOTimeString(BuildContext context, String? dateTime, {String pattern = prettyTimePattern}) {
+    return transformTimeString(context, dateTime, inputPattern: isoTimePattern, outputPattern: pattern);
   }
 
-  String? transformISODayString(BuildContext context, String? date,
-      {String pattern = prettyDayPattern}) {
-    return transformTimeString(context, date,
-        inputPattern: isoDayPattern, outputPattern: pattern);
+  String? transformISODayString(BuildContext context, String? date, {String pattern = prettyDayPattern}) {
+    return transformTimeString(context, date, inputPattern: isoDayPattern, outputPattern: pattern);
   }
 
   String? transformTimeString(BuildContext context, String? dateTime,
-      {String inputPattern = isoTimePattern,
-      String outputPattern = prettyTimePattern}) {
+      {String inputPattern = isoTimePattern, String outputPattern = prettyTimePattern}) {
     try {
       DateTime? parsed = parseTimeString(dateTime, pattern: inputPattern);
       if (parsed != null) {
-        DateFormat output = DateFormat(
-            outputPattern, Localizations.localeOf(context).languageCode);
+        DateFormat output = DateFormat(outputPattern, Localizations.localeOf(context).languageCode);
         return output.format(parsed);
       }
     } on Exception catch (_) {}
     return null;
   }
 
-  String? transformDateTime(BuildContext context, DateTime? dateTime,
-      {String pattern = prettyTimePattern}) {
+  String? transformDateTime(BuildContext context, DateTime? dateTime, {String pattern = prettyTimePattern}) {
     try {
       if (dateTime != null) {
-        DateFormat output =
-            DateFormat(pattern, Localizations.localeOf(context).languageCode);
+        DateFormat output = DateFormat(pattern, Localizations.localeOf(context).languageCode);
         return output.format(dateTime);
       }
     } on Exception catch (_) {}
     return null;
   }
 
-  DateTime? parseTimeString(String? dateTime,
-      {String pattern = isoTimePattern}) {
+  DateTime? parseTimeString(String? dateTime, {String pattern = isoTimePattern}) {
     try {
       if (dateTime != null) {
         return DateFormat(pattern).parse(dateTime);
@@ -70,15 +61,13 @@ class AppTimeService {
     return null;
   }
 
-  String? transformISOTimeStringToCurrentDuration(
-      BuildContext context, String? dateTime) {
+  String? transformISOTimeStringToCurrentDuration(BuildContext context, String? dateTime) {
     DateTime? start = parseTimeString(dateTime);
     DateTime end = DateTime.now();
     return transformToDurationText(context, start, end);
   }
 
-  String? transformToDurationText(
-      BuildContext context, DateTime? start, DateTime? end) {
+  String? transformToDurationText(BuildContext context, DateTime? start, DateTime? end) {
     if (start == null || end == null || start.isAfter(end)) {
       return null;
     }
@@ -136,8 +125,8 @@ class AppTimeService {
 
   List<String> getISODaysOfMonth(String isoYear, String isoMonth) {
     List<String> labels = [];
-    int daysOfMonth = DateUtils.getDaysInMonth(int.tryParse(isoYear) ?? 2020,
-        int.tryParse(isoMonth) ?? DateTime.january);
+    int daysOfMonth =
+        DateUtils.getDaysInMonth(int.tryParse(isoYear) ?? 2020, int.tryParse(isoMonth) ?? DateTime.january);
     for (int i = 1; i <= daysOfMonth; i++) {
       labels.add("$isoYear-$isoMonth-${i < 10 ? "0$i" : "$i"}");
     }

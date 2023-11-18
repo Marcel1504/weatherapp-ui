@@ -6,8 +6,7 @@ part 'app_station_response_dto.g.dart';
 
 @JsonSerializable()
 class AppStationResponseDto {
-  AppStationResponseDto(this.code, this.name, this.type, this.latitude,
-      this.longitude, this.altitude);
+  AppStationResponseDto(this.code, this.name, this.type, this.latitude, this.longitude, this.altitude);
 
   String? code;
   String? name;
@@ -18,8 +17,7 @@ class AppStationResponseDto {
   String? lastActivity;
   AppStationMediaResponseDto? latestStationMedia;
 
-  factory AppStationResponseDto.fromJson(Map<String, dynamic> json) =>
-      _$AppStationResponseDtoFromJson(json);
+  factory AppStationResponseDto.fromJson(Map<String, dynamic> json) => _$AppStationResponseDtoFromJson(json);
 
   Map<String, dynamic> toJson() => _$AppStationResponseDtoToJson(this);
 }

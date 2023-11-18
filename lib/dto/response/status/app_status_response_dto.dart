@@ -8,8 +8,7 @@ class AppStatusResponseDto {
 
   String? message;
 
-  factory AppStatusResponseDto.fromJson(Map<String, dynamic> json) =>
-      _$AppStatusResponseDtoFromJson(json);
+  factory AppStatusResponseDto.fromJson(Map<String, dynamic> json) => _$AppStatusResponseDtoFromJson(json);
 
   Map<String, dynamic> toJson() => _$AppStatusResponseDtoToJson(this);
 }

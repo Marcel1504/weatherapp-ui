@@ -18,13 +18,11 @@ class AppStationListFragment extends StatelessWidget {
     });
   }
 
-  Widget _list(BuildContext context, AppStationProvider provider,
-      AppLayoutService layoutService) {
+  Widget _list(BuildContext context, AppStationProvider provider, AppLayoutService layoutService) {
     return ListView.separated(
         itemBuilder: (context, index) => AppStationListItemFragment(
               station: provider.stations[index],
-              isSelected: provider.stations[index].code ==
-                  provider.selectedStation?.code,
+              isSelected: provider.stations[index].code == provider.selectedStation?.code,
             ),
         separatorBuilder: (a, b) => const Divider(),
         itemCount: provider.stations.length);

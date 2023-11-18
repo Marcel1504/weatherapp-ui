@@ -9,8 +9,7 @@ class AppStationMediaResponseDto {
   String? created;
   String? url;
 
-  factory AppStationMediaResponseDto.fromJson(Map<String, dynamic> json) =>
-      _$AppStationMediaResponseDtoFromJson(json);
+  factory AppStationMediaResponseDto.fromJson(Map<String, dynamic> json) => _$AppStationMediaResponseDtoFromJson(json);
 
   Map<String, dynamic> toJson() => _$AppStationMediaResponseDtoToJson(this);
 }

@@ -3,8 +3,7 @@ import 'package:weatherapp_ui/providers/data/single/app_single_data_provider.dar
 import 'package:weatherapp_ui/services/api/data/single/app_single_data_api_service.dart';
 import 'package:weatherapp_ui/services/api/data/single/app_weather_single_data_api_service.dart';
 
-class AppWeatherSingleDataProvider
-    extends AppSingleDataProvider<AppWeatherSingleDataResponseDto> {
+class AppWeatherSingleDataProvider extends AppSingleDataProvider<AppWeatherSingleDataResponseDto> {
   @override
   AppSingleDataApiService<AppWeatherSingleDataResponseDto> getApiService() {
     return AppWeatherSingleDataApiService();

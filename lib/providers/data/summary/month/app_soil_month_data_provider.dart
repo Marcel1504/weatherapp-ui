@@ -5,19 +5,15 @@ import 'package:weatherapp_ui/providers/data/summary/app_summary_data_provider.d
 import 'package:weatherapp_ui/services/api/data/summary/app_summary_data_api_service.dart';
 import 'package:weatherapp_ui/services/api/data/summary/month/app_soil_month_data_api_service.dart';
 
-class AppSoilMonthDataProvider extends AppSummaryDataProvider<
-    AppSoilSummaryDataListResponseDto,
-    AppSoilSummaryDataResponseDto,
-    AppSoilFilterModel> {
+class AppSoilMonthDataProvider extends AppSummaryDataProvider<AppSoilSummaryDataListResponseDto,
+    AppSoilSummaryDataResponseDto, AppSoilFilterModel> {
   @override
-  AppSummaryDataApiService<AppSoilSummaryDataListResponseDto,
-      AppSoilFilterModel> getApiService() {
+  AppSummaryDataApiService<AppSoilSummaryDataListResponseDto, AppSoilFilterModel> getApiService() {
     return AppSoilMonthApiService();
   }
 
   @override
-  List<AppSoilSummaryDataResponseDto> getDataFromList(
-      AppSoilSummaryDataListResponseDto? list) {
+  List<AppSoilSummaryDataResponseDto> getDataFromList(AppSoilSummaryDataListResponseDto? list) {
     return list != null ? list.list : [];
   }
 }

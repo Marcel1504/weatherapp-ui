@@ -9,29 +9,21 @@ import 'package:weatherapp_ui/services/api/app_api_service.dart';
 class AppStationApiService {
   Future<AppStationResponseDto?> getStation(String code) async {
     Response res = await get(AppApiService().restUrl("/station?code=$code"));
-    return res.statusCode == 200
-        ? AppStationResponseDto.fromJson(jsonDecode(res.body))
-        : null;
+    return res.statusCode == 200 ? AppStationResponseDto.fromJson(jsonDecode(res.body)) : null;
   }
 
   Future<AppStationListResponseDto?> getAllStations() async {
     Response res = await get(AppApiService().restUrl("/station/all"));
-    return res.statusCode == 200
-        ? AppStationListResponseDto.fromJson(jsonDecode(res.body))
-        : null;
+    return res.statusCode == 200 ? AppStationListResponseDto.fromJson(jsonDecode(res.body)) : null;
   }
 
-  Future<AppFileModel?> getStationMediaFile(
-      String? stationCode, String? name) async {
+  Future<AppFileModel?> getStationMediaFile(String? stationCode, String? name) async {
     if (stationCode == null || name == null) {
       return null;
     }
-    Uri uri = AppApiService()
-        .restUrl("/station/media?station=$stationCode&name=$name");
+    Uri uri = AppApiService().restUrl("/station/media?station=$stationCode&name=$name");
     Response response = await get(uri);
-    return response.statusCode == 200
-        ? AppFileModel(data: response.bodyBytes, url: uri.toString())
-        : null;
+    return response.statusCode == 200 ? AppFileModel(data: response.bodyBytes, url: uri.toString()) : null;
   }
 
   Future<AppFileModel?> getStationMediaFileFromFullUrl(String? url) async {
@@ -39,8 +31,6 @@ class AppStationApiService {
       return null;
     }
     Response response = await get(Uri.parse(url));
-    return response.statusCode == 200
-        ? AppFileModel(data: response.bodyBytes, url: url)
-        : null;
+    return response.statusCode == 200 ? AppFileModel(data: response.bodyBytes, url: url) : null;
   }
 }
