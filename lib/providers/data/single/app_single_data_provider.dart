@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:weatherapp_ui/services/api/data/single/app_single_data_api_service.dart';
+import 'package:weatherapp_ui/services/backend/data/single/app_single_data_backend_service.dart';
 
 abstract class AppSingleDataProvider<T> extends ChangeNotifier {
   T? _latest;
@@ -14,7 +14,7 @@ abstract class AppSingleDataProvider<T> extends ChangeNotifier {
       if (notifyLoadStart) {
         notifyListeners();
       }
-      getApiService().getLatest(stationCode).then((data) {
+      getBackendService().getLatest(stationCode).then((data) {
         _latest = data;
         _loading = false;
         _reset = false;
@@ -24,7 +24,7 @@ abstract class AppSingleDataProvider<T> extends ChangeNotifier {
   }
 
   @protected
-  AppSingleDataApiService<T> getApiService();
+  AppSingleDataBackendService<T> getBackendService();
 
   void markForReset() {
     _reset = true;

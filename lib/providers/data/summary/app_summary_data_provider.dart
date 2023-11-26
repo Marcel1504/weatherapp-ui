@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:weatherapp_ui/dto/response/app_list_response_dto.dart';
-import 'package:weatherapp_ui/services/api/data/summary/app_summary_data_api_service.dart';
+import 'package:weatherapp_ui/services/backend/data/summary/app_summary_data_backend_service.dart';
 
 abstract class AppSummaryDataProvider<LIST extends AppListResponseDto, DATA, FILTER> extends ChangeNotifier {
   List<DATA> _data = [];
@@ -42,7 +42,7 @@ abstract class AppSummaryDataProvider<LIST extends AppListResponseDto, DATA, FIL
   }
 
   @protected
-  AppSummaryDataApiService<LIST, FILTER> getApiService();
+  AppSummaryDataBackendService<LIST, FILTER> getBackendService();
 
   @protected
   List<DATA> getDataFromList(LIST? list);
@@ -53,7 +53,7 @@ abstract class AppSummaryDataProvider<LIST extends AppListResponseDto, DATA, FIL
       if (notifyLoadStart) {
         notifyListeners();
       }
-      getApiService().getNext(_stationCode, _page, _filter).then((list) {
+      getBackendService().getNext(_stationCode, _page, _filter).then((list) {
         _data.addAll(getDataFromList(list));
         _hasNext = list?.hasNext ?? false;
         _loading = false;

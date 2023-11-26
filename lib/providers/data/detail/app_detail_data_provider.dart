@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:weatherapp_ui/dto/response/app_list_response_dto.dart';
 import 'package:weatherapp_ui/enums/app_calendar_enum.dart';
-import 'package:weatherapp_ui/services/api/data/detail/app_detail_data_api_service.dart';
+import 'package:weatherapp_ui/services/backend/data/detail/app_detail_data_backend_service.dart';
 
 abstract class AppDetailDataProvider<LIST extends AppListResponseDto, DATA, SORT> extends ChangeNotifier {
   List<DATA> _data = [];
@@ -19,7 +19,7 @@ abstract class AppDetailDataProvider<LIST extends AppListResponseDto, DATA, SORT
   }
 
   @protected
-  AppDetailDataApiService<LIST> getApiService();
+  AppDetailDataBackendService<LIST> getBackendService();
 
   @protected
   List<DATA> getDataFromList(LIST? list);
@@ -33,13 +33,13 @@ abstract class AppDetailDataProvider<LIST extends AppListResponseDto, DATA, SORT
       Future<LIST?> future;
       switch (_type) {
         case AppCalendarEnum.DAY:
-          future = getApiService().getDayDetails(_stationCode, _time);
+          future = getBackendService().getDayDetails(_stationCode, _time);
           break;
         case AppCalendarEnum.MONTH:
-          future = getApiService().getMonthsDetails(_stationCode, _time);
+          future = getBackendService().getMonthsDetails(_stationCode, _time);
           break;
         case AppCalendarEnum.YEAR:
-          future = getApiService().getYearDetails(_stationCode, _time);
+          future = getBackendService().getYearDetails(_stationCode, _time);
           break;
         default:
           future = Future.delayed(const Duration(seconds: 0));

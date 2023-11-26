@@ -3,11 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:weatherapp_ui/dto/response/station/app_station_media_response_dto.dart';
 import 'package:weatherapp_ui/dto/response/station/app_station_response_dto.dart';
 import 'package:weatherapp_ui/models/app_file_model.dart';
-import 'package:weatherapp_ui/services/api/station/app_station_api_service.dart';
+import 'package:weatherapp_ui/services/backend/station/app_station_backend_service.dart';
 import 'package:weatherapp_ui/services/configuration/app_configuration_service.dart';
 
 class AppStationProvider extends ChangeNotifier {
-  AppStationApiService stationApiService = AppStationApiService();
+  AppStationBackendService stationBackendService = AppStationBackendService();
   AppConfigurationService configurationService = AppConfigurationService();
 
   List<AppStationResponseDto> _stations = [];
@@ -24,7 +24,7 @@ class AppStationProvider extends ChangeNotifier {
     if (notifyLoadStart) {
       notifyListeners();
     }
-    stationApiService.getAllStations().then((stations) {
+    stationBackendService.getAllStations().then((stations) {
       _stations = stations?.list ?? [];
       if (_stations.isNotEmpty) {
         configurationService.getSelectedStationCode().then((code) {
@@ -52,7 +52,7 @@ class AppStationProvider extends ChangeNotifier {
   void _loadStationMediaLatest() {
     AppStationMediaResponseDto? media = _selectedStation?.latestStationMedia;
     if (_selectedStationMediaFileLatest == null && media != null) {
-      AppStationApiService().getStationMediaFileFromFullUrl(media.url).then((r) {
+      AppStationBackendService().getStationMediaFileFromFullUrl(media.url).then((r) {
         if (r != null) {
           _selectedStationMediaFileLatest = r;
           notifyListeners();
@@ -64,7 +64,7 @@ class AppStationProvider extends ChangeNotifier {
   void loadStationMediaReview(String? isoDay) {
     _selectedStationMediaFileReview = null;
     notifyListeners();
-    AppStationApiService().getStationMediaFile(_selectedStation?.code, isoDay).then((r) {
+    AppStationBackendService().getStationMediaFile(_selectedStation?.code, isoDay).then((r) {
       if (r != null) {
         _selectedStationMediaFileReview = r;
         notifyListeners();

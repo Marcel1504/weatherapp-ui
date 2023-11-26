@@ -1,16 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:weatherapp_ui/config/app_layout_config.dart';
 
 abstract class AppTheme {
   ThemeData get() {
     return ThemeData(
         fontFamily: "Lato",
         textTheme: TextTheme(
-          bodySmall: TextStyle(color: onBackgroundColor().withOpacity(0.7), fontSize: 14),
-          bodyMedium: TextStyle(color: onBackgroundColor().withOpacity(0.7), fontSize: 16),
-          bodyLarge: TextStyle(color: onBackgroundColor().withOpacity(0.7), fontSize: 18),
-          headlineSmall: TextStyle(color: onBackgroundColor(), fontSize: 14),
-          headlineMedium: TextStyle(color: onBackgroundColor(), fontSize: 16),
-          headlineLarge: TextStyle(color: onBackgroundColor(), fontSize: 18),
+          labelSmall: TextStyle(
+              color: onSurfaceColor().withOpacity(AppLayoutConfig.fontOpacityLow), fontWeight: FontWeight.w300),
+          labelMedium: TextStyle(
+              color: onSurfaceColor().withOpacity(AppLayoutConfig.fontOpacityLow), fontWeight: FontWeight.w400),
+          labelLarge: TextStyle(
+              color: onSurfaceColor().withOpacity(AppLayoutConfig.fontOpacityLow), fontWeight: FontWeight.w900),
+          bodySmall: TextStyle(
+              color: onSurfaceColor().withOpacity(AppLayoutConfig.fontOpacityMedium), fontWeight: FontWeight.w300),
+          bodyMedium: TextStyle(
+              color: onSurfaceColor().withOpacity(AppLayoutConfig.fontOpacityMedium), fontWeight: FontWeight.w400),
+          bodyLarge: TextStyle(
+              color: onSurfaceColor().withOpacity(AppLayoutConfig.fontOpacityMedium), fontWeight: FontWeight.w900),
+          headlineSmall: TextStyle(
+              color: onSurfaceColor().withOpacity(AppLayoutConfig.fontOpacityHigh), fontWeight: FontWeight.w300),
+          headlineMedium: TextStyle(
+              color: onSurfaceColor().withOpacity(AppLayoutConfig.fontOpacityHigh), fontWeight: FontWeight.w400),
+          headlineLarge: TextStyle(
+              color: onSurfaceColor().withOpacity(AppLayoutConfig.fontOpacityHigh), fontWeight: FontWeight.w900),
         ),
         snackBarTheme: SnackBarThemeData(
             backgroundColor: errorColor(), contentTextStyle: TextStyle(color: onErrorColor(), fontSize: 16)),
@@ -40,9 +53,7 @@ abstract class AppTheme {
             onSurface: onSurfaceColor()),
         scaffoldBackgroundColor: Colors.transparent,
         inputDecorationTheme: InputDecorationTheme(
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(50),
-          ),
+          isDense: true,
         ),
         listTileTheme: const ListTileThemeData(tileColor: Colors.transparent, contentPadding: EdgeInsets.all(10)),
         dividerTheme: DividerThemeData(color: surfaceColor(), space: 0, thickness: 1),

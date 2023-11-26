@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:weatherapp_ui/dto/request/ventilation/app_ventilation_request_dto.dart';
 import 'package:weatherapp_ui/dto/response/ventilation/app_ventilation_response_dto.dart';
-import 'package:weatherapp_ui/services/api/ventilation/app_ventilation_api_service.dart';
+import 'package:weatherapp_ui/services/backend/ventilation/app_ventilation_backend_service.dart';
 
 class AppVentilationProvider extends ChangeNotifier {
   double? _temperatureOutside;
@@ -15,7 +15,7 @@ class AppVentilationProvider extends ChangeNotifier {
       {double? temperatureOutside, double? temperatureInside, int? humidityInside, int? humidityOutside}) async {
     if (!_loading) {
       _loading = true;
-      AppVentilationApiService()
+      AppVentilationBackendService()
           .determineVentilationDemand(AppVentilationRequestDto(
               temperatureIn: temperatureInside,
               temperatureOut: temperatureOutside,

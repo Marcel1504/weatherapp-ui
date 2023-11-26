@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
+import 'package:weatherapp_ui/providers/assistant/app_assistant_provider.dart';
 import 'package:weatherapp_ui/providers/data/detail/app_soil_detail_data_provider.dart';
 import 'package:weatherapp_ui/providers/data/detail/app_weather_detail_data_provider.dart';
 import 'package:weatherapp_ui/providers/data/export/app_soil_export_data_provider.dart';
@@ -23,6 +24,9 @@ class AppProvider {
       ),
       ChangeNotifierProvider<AppVentilationProvider>(
         create: (context) => AppVentilationProvider(),
+      ),
+      ChangeNotifierProvider<AppAssistantProvider>(
+        create: (context) => AppAssistantProvider(),
       ),
 
       // Weather

@@ -35,7 +35,7 @@ class AppThemeDark extends AppTheme {
 
   @override
   Color secondaryColor() {
-    return const Color.fromRGBO(45, 137, 6, 1.0);
+    return const Color.fromRGBO(106, 227, 50, 1.0);
   }
 
   @override
@@ -45,7 +45,7 @@ class AppThemeDark extends AppTheme {
 
   @override
   Color tertiaryColor() {
-    return const Color.fromRGBO(67, 78, 65, 1.0);
+    return const Color.fromRGBO(33, 107, 4, 1.0);
   }
 
   @override

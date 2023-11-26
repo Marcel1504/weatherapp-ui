@@ -8,6 +8,7 @@ import 'package:weatherapp_ui/fragments/scaffold/app_scaffold_fragment.dart';
 import 'package:weatherapp_ui/fragments/station/list/app_station_list_fragment.dart';
 import 'package:weatherapp_ui/fragments/station/media/app_station_media_fragment.dart';
 import 'package:weatherapp_ui/pages/app_root_page.dart';
+import 'package:weatherapp_ui/pages/assistant/app_assistant_page.dart';
 import 'package:weatherapp_ui/providers/app_provider.dart';
 import 'package:weatherapp_ui/providers/station/app_station_provider.dart';
 import 'package:weatherapp_ui/themes/app_icons.dart';
@@ -40,6 +41,15 @@ class _AppHomePageState extends State<AppHomePage> {
 
   List<Widget> _appBarActions(BuildContext context) {
     return [
+      SizedBox(
+        width: 55,
+        height: 55,
+        child: InkWell(
+          onTap: () => _openAssistantPage(context),
+          customBorder: RoundedRectangleBorder(borderRadius: BorderRadius.circular(55)),
+          child: const Icon(Icons.chat),
+        ),
+      ),
       SizedBox(
         width: 55,
         height: 55,
@@ -95,6 +105,14 @@ class _AppHomePageState extends State<AppHomePage> {
     setState(() {
       _selectedIndex = index;
     });
+  }
+
+  void _openAssistantPage(BuildContext context) {
+    Navigator.push(
+        context,
+        PageRouteBuilder(
+          pageBuilder: (context, animation1, animation2) => const AppAssistantPage(),
+        ));
   }
 
   void _refresh(BuildContext context) {
