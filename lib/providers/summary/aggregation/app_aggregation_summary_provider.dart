@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:weatherapp_ui/dto/response/app_list_response_dto.dart';
-import 'package:weatherapp_ui/services/backend/data/summary/app_summary_data_backend_service.dart';
+import 'package:weatherapp_ui/services/backend/summary/aggregation/app_aggregation_summary_backend_service.dart';
 
 abstract class AppAggregationSummaryProvider<LIST extends AppListResponseDto, DATA, FILTER> extends ChangeNotifier {
   List<DATA> _data = [];
@@ -42,7 +42,7 @@ abstract class AppAggregationSummaryProvider<LIST extends AppListResponseDto, DA
   }
 
   @protected
-  AppSummaryDataBackendService<LIST, FILTER> getBackendService();
+  AppAggregationSummaryBackendService<LIST, FILTER> getBackendService();
 
   @protected
   List<DATA> getDataFromList(LIST? list);

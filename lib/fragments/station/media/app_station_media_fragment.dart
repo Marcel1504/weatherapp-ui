@@ -6,7 +6,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 import 'package:provider/provider.dart';
-import 'package:weatherapp_ui/fragments/button/app_round_icon_button.dart';
+import 'package:weatherapp_ui/components/button/app_icon_button_component.dart';
+import 'package:weatherapp_ui/enums/app_button_type_enum.dart';
 import 'package:weatherapp_ui/models/app_file_model.dart';
 import 'package:weatherapp_ui/providers/station/app_station_provider.dart';
 import 'package:weatherapp_ui/services/datepicker/app_datepicker_service.dart';
@@ -100,10 +101,10 @@ class _AppStationMediaFragmentState extends State<AppStationMediaFragment> {
                     bottom: layoutService.betweenItemPadding() * 2,
                     right: layoutService.betweenItemPadding(),
                     left: layoutService.betweenItemPadding()),
-                child: AppRoundIconButtonComponent(
+        child: AppIconButtonComponent(
                   icon: v.key,
-                  primary: false,
-                  action: () => v.value.call(),
+                  type: AppButtonTypeEnum.secondary,
+                  onTap: () => v.value.call(),
                 ),
               ))
           .toList(),

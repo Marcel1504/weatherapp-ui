@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weatherapp_ui/config/app_layout_config.dart';
 import 'package:weatherapp_ui/services/layout/app_layout_service.dart';
 
 class AppReviewDataSortFragment extends StatelessWidget {
@@ -11,7 +12,7 @@ class AppReviewDataSortFragment extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextStyle style = Theme.of(context).textTheme.headlineSmall!;
+    TextStyle style = Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: AppLayoutConfig.listSortFontSize);
 
     return Material(
       color: Colors.transparent,

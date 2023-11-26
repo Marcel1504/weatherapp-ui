@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
+import 'package:weatherapp_ui/components/button/app_icon_button_component.dart';
+import 'package:weatherapp_ui/config/app_layout_config.dart';
+import 'package:weatherapp_ui/enums/app_button_type_enum.dart';
 import 'package:weatherapp_ui/enums/app_calendar_enum.dart';
 import 'package:weatherapp_ui/enums/app_station_type_enum.dart';
-import 'package:weatherapp_ui/fragments/button/app_round_icon_button.dart';
 import 'package:weatherapp_ui/fragments/chip/app_choice_chip_list_fragment.dart';
 import 'package:weatherapp_ui/fragments/data/review/list/app_soil_review_data_list_fragment.dart';
 import 'package:weatherapp_ui/fragments/data/review/list/app_weather_review_data_list_fragment.dart';
@@ -63,11 +65,11 @@ class _AppReviewDataFragmentState extends State<AppReviewDataFragment> {
     return Padding(
       padding:
           EdgeInsets.only(left: layoutService.betweenItemPadding(), bottom: layoutService.betweenItemPadding() * 1.2),
-      child: AppRoundIconButtonComponent(
+      child: AppIconButtonComponent(
         icon: Icons.filter_alt,
-        size: 18,
-        primary: false,
-        action: () => _openFilterDialog(context, provider),
+        size: AppLayoutConfig.buttonReviewFilterSize,
+        type: AppButtonTypeEnum.secondary,
+        onTap: () => _openFilterDialog(context, provider),
       ),
     );
   }

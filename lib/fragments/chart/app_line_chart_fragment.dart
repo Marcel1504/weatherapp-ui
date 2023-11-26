@@ -1,6 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:weatherapp_ui/config/app_layout_config.dart';
 import 'package:weatherapp_ui/fragments/chip/app_choice_chip_list_fragment.dart';
 
 class AppLineChartFragment extends StatefulWidget {
@@ -40,8 +41,9 @@ class _AppLineChartFragmentState extends State<AppLineChartFragment> {
         widget.valueLists.any((list) => list.none((v) => v != null)) ||
         widget.valueTitles.isEmpty) {
       return Center(
-        child:
-            Text(widget.noDataText ?? "", style: Theme.of(context).textTheme.bodyMedium, textAlign: TextAlign.center),
+        child: Text(widget.noDataText ?? "",
+            style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: AppLayoutConfig.chartNoDataFontSize),
+            textAlign: TextAlign.center),
       );
     }
     return Column(
@@ -132,8 +134,8 @@ class _AppLineChartFragmentState extends State<AppLineChartFragment> {
 
   List<LineTooltipItem> _toolTipItems(BuildContext context, List<LineBarSpot> spots) {
     return spots
-        .mapIndexed(
-            (index, s) => LineTooltipItem("${s.y} ${widget.valueUnit}", Theme.of(context).textTheme.headlineMedium!))
+        .mapIndexed((index, s) => LineTooltipItem("${s.y} ${widget.valueUnit}",
+            Theme.of(context).textTheme.headlineMedium!.copyWith(fontSize: AppLayoutConfig.chartTooltipFontSize)))
         .toList();
   }
 
@@ -173,7 +175,7 @@ class _AppLineChartFragmentState extends State<AppLineChartFragment> {
         axisSide: meta.axisSide,
         child: Text(
           i.toStringAsFixed(1),
-          style: Theme.of(context).textTheme.bodySmall,
+          style: Theme.of(context).textTheme.labelMedium!.copyWith(fontSize: AppLayoutConfig.chartBottomTitleFontSize),
         ),
       ),
       reservedSize: 60,
@@ -191,7 +193,7 @@ class _AppLineChartFragmentState extends State<AppLineChartFragment> {
         angle: 1,
         child: Text(
           widget.labels[i.toInt() - 1],
-          style: Theme.of(context).textTheme.bodySmall,
+          style: Theme.of(context).textTheme.labelMedium!.copyWith(fontSize: AppLayoutConfig.chartBottomTitleFontSize),
         ),
       ),
     );

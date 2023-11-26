@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
-import 'package:weatherapp_ui/fragments/button/app_round_icon_button.dart';
-import 'package:weatherapp_ui/fragments/form/app_form_field_fragment.dart';
+import 'package:weatherapp_ui/components/button/app_icon_button_component.dart';
+import 'package:weatherapp_ui/components/input/app_value_input_component.dart';
+import 'package:weatherapp_ui/config/app_layout_config.dart';
+import 'package:weatherapp_ui/enums/app_button_type_enum.dart';
 import 'package:weatherapp_ui/fragments/form/app_form_switch_fragment.dart';
 import 'package:weatherapp_ui/fragments/scaffold/app_scaffold_fragment.dart';
 import 'package:weatherapp_ui/fragments/stepper/app_stepper_fragment.dart';
@@ -105,24 +107,26 @@ class _AppVentilationStepperPageState extends State<AppVentilationStepperPage> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           _currentStep != 0
-              ? AppRoundIconButtonComponent(
+              ? AppIconButtonComponent(
                   icon: Icons.close,
-                  primary: false,
-                  action: onStepCancel,
+                  type: AppButtonTypeEnum.secondary,
+                  onTap: onStepCancel,
                 )
               : Container(),
           _currentStep != 2
-              ? AppRoundIconButtonComponent(
+              ? AppIconButtonComponent(
                   icon: Icons.navigate_next,
-                  action: _currentStep == 0 ||
+                  type: AppButtonTypeEnum.primary,
+                  onTap: _currentStep == 0 ||
                           (_outValuesValid() && _currentStep == 1) ||
                           (_inValuesValid() && _currentStep == 2)
                       ? onStepContinue
                       : null,
                 )
-              : AppRoundIconButtonComponent(
+              : AppIconButtonComponent(
                   icon: Icons.check,
-                  action: _allInputsValid() ? onStepContinue : null,
+                  type: AppButtonTypeEnum.primary,
+                  onTap: _allInputsValid() ? onStepContinue : null,
                 ),
         ],
       ),
@@ -131,7 +135,6 @@ class _AppVentilationStepperPageState extends State<AppVentilationStepperPage> {
 
   Step _firstStep() {
     AppStationProvider provider = Provider.of<AppStationProvider>(context, listen: false);
-
     return Step(
       title: _getStepTitle(AppLocalizations.of(context)!.ventilation_use_station_title),
       content: Column(
@@ -157,36 +160,7 @@ class _AppVentilationStepperPageState extends State<AppVentilationStepperPage> {
     return Step(
       title: _getStepTitle(AppLocalizations.of(context)!.ventilation_values_outside),
       content: Column(
-        children: [
-          AppFormFieldFragment(
-              type: TextInputType.number,
-              hint: AppLocalizations.of(context)!.ventilation_values_outside_temperature,
-              icon: Icons.thermostat,
-              filter: FilterType.TEMPERATURE,
-              suffix: "°C",
-              onChanged: (s, v) {
-                setState(() {
-                  _tempOut = double.tryParse(s!.replaceAll(",", "."));
-                  _tempOutValid = v;
-                });
-              },
-              invalidHint: AppLocalizations.of(context)!.ventilation_invalid_temperature,
-              validation: (v) => v != null && double.tryParse(v.replaceAll(",", ".")) != null),
-          AppFormFieldFragment(
-              type: TextInputType.number,
-              icon: AppIcons.humidity,
-              hint: AppLocalizations.of(context)!.ventilation_values_outside_humidity,
-              filter: FilterType.HUMIDITY,
-              suffix: "%",
-              onChanged: (s, v) {
-                setState(() {
-                  _humidityOut = int.tryParse(s ?? "");
-                  _humidityOutValid = v;
-                });
-              },
-              invalidHint: AppLocalizations.of(context)!.ventilation_invalid_humidity,
-              validation: (v) => v != null && int.tryParse(v) != null),
-        ],
+        children: [_secondStepTemperatureInput(), _secondStepHumidityInput()],
       ),
       isActive: _currentStep == 1,
       state: _currentStep == 1 && !_useStationValues
@@ -197,40 +171,41 @@ class _AppVentilationStepperPageState extends State<AppVentilationStepperPage> {
     );
   }
 
+  Widget _secondStepTemperatureInput() {
+    return AppValueInputComponent(
+        type: ValueType.temperature,
+        hint: AppLocalizations.of(context)!.ventilation_values_outside_temperature,
+        icon: Icons.thermostat,
+        onChanged: (s, v) {
+          setState(() {
+            _tempOut = double.tryParse(s!.replaceAll(",", "."));
+            _tempOutValid = v;
+          });
+        },
+        invalidHint: AppLocalizations.of(context)!.ventilation_invalid_temperature);
+  }
+
+  Widget _secondStepHumidityInput() {
+    return Padding(
+        padding: const EdgeInsets.only(top: AppLayoutConfig.pageVentilationSpacing),
+        child: AppValueInputComponent(
+            type: ValueType.humidity,
+            icon: AppIcons.humidity,
+            hint: AppLocalizations.of(context)!.ventilation_values_outside_humidity,
+            onChanged: (s, v) {
+              setState(() {
+                _humidityOut = int.tryParse(s ?? "");
+                _humidityOutValid = v;
+              });
+            },
+            invalidHint: AppLocalizations.of(context)!.ventilation_invalid_humidity));
+  }
+
   Step _thirdStep() {
     return Step(
       title: _getStepTitle(AppLocalizations.of(context)!.ventilation_values_inside),
       content: Column(
-        children: [
-          AppFormFieldFragment(
-              type: TextInputType.number,
-              hint: AppLocalizations.of(context)!.ventilation_values_inside_temperature,
-              icon: Icons.thermostat,
-              filter: FilterType.TEMPERATURE,
-              suffix: "°C",
-              onChanged: (s, v) {
-                setState(() {
-                  _tempIn = double.tryParse(s!.replaceAll(",", "."));
-                  _tempInValid = v;
-                });
-              },
-              invalidHint: AppLocalizations.of(context)!.ventilation_invalid_temperature,
-              validation: (v) => v != null && double.tryParse(v.replaceAll(",", ".")) != null),
-          AppFormFieldFragment(
-              type: TextInputType.number,
-              icon: AppIcons.humidity,
-              hint: AppLocalizations.of(context)!.ventilation_values_inside_humidity,
-              filter: FilterType.HUMIDITY,
-              suffix: "%",
-              onChanged: (s, v) {
-                setState(() {
-                  _humidityIn = int.tryParse(s ?? "");
-                  _humidityInValid = v;
-                });
-              },
-              invalidHint: AppLocalizations.of(context)!.ventilation_invalid_humidity,
-              validation: (v) => v != null && int.tryParse(v) != null),
-        ],
+        children: [_thirdStepTemperatureInput(), _thirdStepHumidityInput()],
       ),
       isActive: _currentStep == 2,
       state: _currentStep == 2
@@ -238,6 +213,37 @@ class _AppVentilationStepperPageState extends State<AppVentilationStepperPage> {
           : _currentStep > 2
               ? StepState.complete
               : StepState.disabled,
+    );
+  }
+
+  Widget _thirdStepTemperatureInput() {
+    return AppValueInputComponent(
+        type: ValueType.temperature,
+        hint: AppLocalizations.of(context)!.ventilation_values_inside_temperature,
+        icon: Icons.thermostat,
+        onChanged: (s, v) {
+          setState(() {
+            _tempIn = double.tryParse(s!.replaceAll(",", "."));
+            _tempInValid = v;
+          });
+        },
+        invalidHint: AppLocalizations.of(context)!.ventilation_invalid_temperature);
+  }
+
+  Widget _thirdStepHumidityInput() {
+    return Padding(
+      padding: const EdgeInsets.only(top: AppLayoutConfig.pageVentilationSpacing),
+      child: AppValueInputComponent(
+          type: ValueType.humidity,
+          icon: AppIcons.humidity,
+          hint: AppLocalizations.of(context)!.ventilation_values_inside_humidity,
+          onChanged: (s, v) {
+            setState(() {
+              _humidityIn = int.tryParse(s ?? "");
+              _humidityInValid = v;
+            });
+          },
+          invalidHint: AppLocalizations.of(context)!.ventilation_invalid_humidity),
     );
   }
 

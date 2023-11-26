@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
+import 'package:weatherapp_ui/components/button/app_icon_button_component.dart';
+import 'package:weatherapp_ui/config/app_layout_config.dart';
 import 'package:weatherapp_ui/dto/response/station/app_station_response_dto.dart';
+import 'package:weatherapp_ui/enums/app_button_type_enum.dart';
 import 'package:weatherapp_ui/enums/app_station_type_enum.dart';
-import 'package:weatherapp_ui/fragments/button/app_round_icon_button.dart';
 import 'package:weatherapp_ui/fragments/data/current/app_soil_current_data_display_fragment.dart';
 import 'package:weatherapp_ui/fragments/data/current/app_weather_current_data_display_fragment.dart';
 import 'package:weatherapp_ui/fragments/dialog/data/export/app_soil_export_data_dialog_fragment.dart';
@@ -100,7 +102,10 @@ class AppCurrentDataFragment extends StatelessWidget {
                 bottom: layoutService.betweenItemPadding(), top: layoutService.betweenItemPadding() * 2),
             child: Text(
               AppLocalizations.of(context)!.weather_current_duration(duration),
-              style: Theme.of(context).textTheme.headlineMedium,
+              style: Theme.of(context)
+                  .textTheme
+                  .labelMedium!
+                  .copyWith(fontSize: AppLayoutConfig.headlineCurrentDurationFontSize),
             ),
           )
         : Container();
@@ -117,10 +122,10 @@ class AppCurrentDataFragment extends StatelessWidget {
                     bottom: layoutService.betweenItemPadding() * 2,
                     right: layoutService.betweenItemPadding(),
                     left: layoutService.betweenItemPadding()),
-                child: AppRoundIconButtonComponent(
+                child: AppIconButtonComponent(
                   icon: v.key,
-                  primary: false,
-                  action: () => v.value.call(),
+                  type: AppButtonTypeEnum.secondary,
+                  onTap: () => v.value.call(),
                 ),
               ))
           .toList(),

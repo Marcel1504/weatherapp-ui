@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weatherapp_ui/config/app_layout_config.dart';
 import 'package:weatherapp_ui/dto/response/summary/aggregation/soil/app_soil_aggregation_summary_response_dto.dart';
 import 'package:weatherapp_ui/fragments/data/review/list/item/app_review_data_list_item_fragment.dart';
 import 'package:weatherapp_ui/services/color/app_color_service.dart';
@@ -22,7 +23,10 @@ class AppSoilReviewDataListItemFragment extends AppReviewDataListItemFragment<Ap
           padding: EdgeInsets.only(bottom: AppLayoutService().betweenItemPadding()),
           child: Text(
             title ?? "",
-            style: Theme.of(context).textTheme.headlineMedium,
+            style: Theme.of(context)
+                .textTheme
+                .headlineMedium!
+                .copyWith(fontSize: AppLayoutConfig.listSummaryTitleFontSize),
           ),
         ),
         Row(
@@ -49,9 +53,14 @@ class AppSoilReviewDataListItemFragment extends AppReviewDataListItemFragment<Ap
         Padding(
           padding: EdgeInsets.only(bottom: AppLayoutService().betweenItemPadding() * 0.5),
           child: Text(temperature?.toString() ?? "--",
-              style: Theme.of(context).textTheme.headlineLarge?.copyWith(color: color, fontSize: 25)),
+              style: Theme.of(context)
+                  .textTheme
+                  .headlineLarge
+                  ?.copyWith(color: color, fontSize: AppLayoutConfig.listSummarySoilTemperatureFontSize)),
         ),
-        Text(subtitle ?? "", style: Theme.of(context).textTheme.bodySmall)
+        Text(subtitle ?? "",
+            style:
+                Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: AppLayoutConfig.listSummarySoilLabelFontSize))
       ],
     );
   }

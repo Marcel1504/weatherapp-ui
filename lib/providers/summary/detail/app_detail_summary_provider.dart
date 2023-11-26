@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:weatherapp_ui/dto/response/app_list_response_dto.dart';
 import 'package:weatherapp_ui/enums/app_calendar_enum.dart';
-import 'package:weatherapp_ui/services/backend/data/detail/app_detail_data_backend_service.dart';
+import 'package:weatherapp_ui/services/backend/summary/detail/app_detail_summary_backend_service.dart';
 
 abstract class AppDetailSummaryProvider<LIST extends AppListResponseDto, DATA, SORT> extends ChangeNotifier {
   List<DATA> _data = [];

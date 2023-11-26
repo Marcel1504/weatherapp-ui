@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weatherapp_ui/config/app_layout_config.dart';
 import 'package:weatherapp_ui/dto/response/summary/aggregation/weather/app_weather_aggregation_summary_response_dto.dart';
 import 'package:weatherapp_ui/fragments/data/review/list/item/app_review_data_list_item_fragment.dart';
 import 'package:weatherapp_ui/services/color/app_color_service.dart';
@@ -35,7 +36,10 @@ class AppWeatherReviewDataListItemFragment
         _temperatureDataItem(context,
             temperature: weather?.temperatureAvg,
             width: 80,
-            styleBase: Theme.of(context).textTheme.headlineLarge!.copyWith(fontSize: 30)),
+            styleBase: Theme.of(context)
+                .textTheme
+                .headlineLarge!
+                .copyWith(fontSize: AppLayoutConfig.listSummaryWeatherTemperatureFontSize)),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -44,12 +48,18 @@ class AppWeatherReviewDataListItemFragment
               child: _temperatureDataItem(context,
                   temperature: weather?.temperatureMax,
                   icon: Icons.arrow_upward,
-                  styleBase: Theme.of(context).textTheme.headlineSmall),
+                  styleBase: Theme.of(context)
+                      .textTheme
+                      .bodyMedium!
+                      .copyWith(fontSize: AppLayoutConfig.listSummaryWeatherRangeFontSize)),
             ),
             _temperatureDataItem(context,
                 temperature: weather?.temperatureMin,
                 icon: Icons.arrow_downward,
-                styleBase: Theme.of(context).textTheme.headlineSmall),
+                styleBase: Theme.of(context)
+                    .textTheme
+                    .bodyMedium!
+                    .copyWith(fontSize: AppLayoutConfig.listSummaryWeatherRangeFontSize)),
           ],
         )
       ],
@@ -62,7 +72,11 @@ class AppWeatherReviewDataListItemFragment
       children: [
         Padding(
           padding: EdgeInsets.only(bottom: AppLayoutService().betweenItemPadding() * 0.5),
-          child: Text(title ?? "", style: Theme.of(context).textTheme.headlineMedium),
+          child: Text(title ?? "",
+              style: Theme.of(context)
+                  .textTheme
+                  .headlineMedium!
+                  .copyWith(fontSize: AppLayoutConfig.listSummaryTitleFontSize)),
         ),
         Padding(
           padding: EdgeInsets.only(bottom: AppLayoutService().betweenItemPadding() * 0.5),
@@ -80,7 +94,12 @@ class AppWeatherReviewDataListItemFragment
     String text = weather?.windMax != null && weather?.windMax != 0 ? "${weather?.windMax} km/h" : "";
     IconData? icon = weather?.windMax != null && weather?.windMax != 0 ? AppIcons.wind : null;
     return _dataItem(context,
-        data: text, icon: icon, styleBase: Theme.of(context).textTheme.headlineSmall!.copyWith(color: color));
+        data: text,
+        icon: icon,
+        styleBase: Theme.of(context)
+            .textTheme
+            .headlineMedium!
+            .copyWith(color: color, fontSize: AppLayoutConfig.listSummaryTitleFontSize * 0.8));
   }
 
   Widget _rainTotalDataItem(BuildContext context) {
@@ -89,7 +108,12 @@ class AppWeatherReviewDataListItemFragment
     String text = weather?.rainTotal != null && weather?.rainTotal != 0 ? "${weather?.rainTotal} l/m²" : "";
     IconData? icon = weather?.rainTotal != null && weather?.rainTotal != 0 ? AppIcons.rain : null;
     return _dataItem(context,
-        data: text, icon: icon, styleBase: Theme.of(context).textTheme.headlineSmall!.copyWith(color: color));
+        data: text,
+        icon: icon,
+        styleBase: Theme.of(context)
+            .textTheme
+            .headlineMedium!
+            .copyWith(color: color, fontSize: AppLayoutConfig.listSummaryTitleFontSize * 0.8));
   }
 
   Widget _temperatureDataItem(BuildContext context,

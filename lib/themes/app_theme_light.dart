@@ -40,7 +40,7 @@ class AppThemeLight extends AppTheme {
 
   @override
   Color onSecondaryColor() {
-    return Colors.black;
+    return Colors.white;
   }
 
   @override

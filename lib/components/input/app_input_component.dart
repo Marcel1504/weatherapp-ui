@@ -8,6 +8,7 @@ class AppInputComponent extends StatelessWidget {
   final Function(String)? onInputChanged;
   final String? Function(String?)? validator;
   final TextInputType inputType;
+  final String? suffix;
 
   const AppInputComponent(
       {super.key,
@@ -16,7 +17,8 @@ class AppInputComponent extends StatelessWidget {
       this.validator,
       this.size = AppLayoutConfig.inputDefaultSize,
       this.hint,
-      this.controller});
+      this.controller,
+      this.suffix});
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +44,7 @@ class AppInputComponent extends StatelessWidget {
         focusedErrorBorder: _getFocusedErrorBorder(context),
         enabledBorder: _getEnabledBorder(context),
         focusedBorder: _getFocusedBorder(context),
+        suffix: suffix != null ? Text(suffix!) : null,
         hintText: hint,
         hintStyle: Theme.of(context)
             .textTheme

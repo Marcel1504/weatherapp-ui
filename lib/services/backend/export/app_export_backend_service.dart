@@ -6,7 +6,7 @@ import 'package:weatherapp_ui/dto/request/data/export/app_export_data_request_dt
 import 'package:weatherapp_ui/dto/response/status/app_status_response_dto.dart';
 import 'package:weatherapp_ui/services/backend/app_backend_service.dart';
 
-abstract class AppExportDataBackendService extends AppBackendService {
+abstract class AppExportBackendService extends AppBackendService {
   Future<AppStatusResponseDto?> export(
       String? stationCode, String? startDay, String? endDay, AppExportDataRequestDto? request) async {
     Response res = await post(

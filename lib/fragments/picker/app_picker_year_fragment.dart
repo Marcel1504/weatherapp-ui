@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:weatherapp_ui/fragments/button/app_round_icon_button.dart';
+import 'package:weatherapp_ui/components/button/app_icon_button_component.dart';
+import 'package:weatherapp_ui/enums/app_button_type_enum.dart';
 import 'package:weatherapp_ui/services/datepicker/app_datepicker_service.dart';
 import 'package:weatherapp_ui/services/layout/app_layout_service.dart';
 import 'package:weatherapp_ui/services/time/app_time_service.dart';
@@ -59,11 +60,11 @@ class _AppPickerYearFragmentState extends State<AppPickerYearFragment> {
 
   Widget _clearButton(TextStyle style) {
     return _selected != null
-        ? AppRoundIconButtonComponent(
-            primary: false,
+        ? AppIconButtonComponent(
+            type: AppButtonTypeEnum.secondary,
             icon: Icons.clear,
-            size: (style.fontSize! * 1).toInt(),
-            action: () => setState(() => _selectYear(null)),
+            size: style.fontSize!,
+            onTap: () => setState(() => _selectYear(null)),
           )
         : Container();
   }

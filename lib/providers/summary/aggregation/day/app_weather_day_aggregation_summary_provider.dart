@@ -2,14 +2,15 @@ import 'package:weatherapp_ui/dto/response/summary/aggregation/weather/app_weath
 import 'package:weatherapp_ui/dto/response/summary/aggregation/weather/app_weather_aggregation_summary_response_dto.dart';
 import 'package:weatherapp_ui/models/app_weather_filter_model.dart';
 import 'package:weatherapp_ui/providers/summary/aggregation/app_aggregation_summary_provider.dart';
-import 'package:weatherapp_ui/services/backend/data/summary/app_summary_data_backend_service.dart';
-import 'package:weatherapp_ui/services/backend/data/summary/day/app_weather_day_data_backend_service.dart';
+import 'package:weatherapp_ui/services/backend/summary/aggregation/app_aggregation_summary_backend_service.dart';
+import 'package:weatherapp_ui/services/backend/summary/aggregation/day/app_weather_day_aggregation_summary_backend_service.dart';
 
 class AppWeatherDayAggregationSummaryProvider extends AppAggregationSummaryProvider<
     AppWeatherAggregationSummaryListResponseDto, AppWeatherAggregationSummaryResponseDto, AppWeatherFilterModel> {
   @override
-  AppSummaryDataBackendService<AppWeatherAggregationSummaryListResponseDto, AppWeatherFilterModel> getBackendService() {
-    return AppWeatherDayBackendService();
+  AppAggregationSummaryBackendService<AppWeatherAggregationSummaryListResponseDto, AppWeatherFilterModel>
+      getBackendService() {
+    return AppWeatherDayAggregationSummaryBackendService();
   }
 
   @override

@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:weatherapp_ui/dto/request/data/export/app_export_data_request_dto.dart';
 import 'package:weatherapp_ui/dto/response/status/app_status_response_dto.dart';
-import 'package:weatherapp_ui/services/backend/data/export/app_export_data_backend_service.dart';
+import 'package:weatherapp_ui/services/backend/export/app_export_backend_service.dart';
 
 abstract class AppExportProvider extends ChangeNotifier {
   AppStatusResponseDto? _response;
@@ -28,7 +28,7 @@ abstract class AppExportProvider extends ChangeNotifier {
   }
 
   @protected
-  AppExportDataBackendService getBackendService();
+  AppExportBackendService getBackendService();
 
   String? get endDay => _endDay;
 

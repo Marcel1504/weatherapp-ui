@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
+import 'package:weatherapp_ui/components/input/app_value_input_component.dart';
 import 'package:weatherapp_ui/dto/request/data/export/app_export_data_request_dto.dart';
 import 'package:weatherapp_ui/fragments/dialog/app_dialog_fragment.dart';
-import 'package:weatherapp_ui/fragments/form/app_form_field_fragment.dart';
 import 'package:weatherapp_ui/fragments/picker/app_picker_day_fragment.dart';
 import 'package:weatherapp_ui/fragments/text/app_header_text_fragment.dart';
 import 'package:weatherapp_ui/providers/export/app_export_provider.dart';
@@ -60,25 +60,19 @@ class _AppExportDataDialogFragmentState extends State<AppExportDataDialogFragmen
                 () => _endDay = AppTimeService().transformDateTime(context, d, pattern: AppTimeService.isoDayPattern)),
           ),
           AppHeaderTextFragment(title: AppLocalizations.of(context)!.export_subtitle_email),
-          AppFormFieldFragment(
+          AppValueInputComponent(
             icon: Icons.email,
-            type: TextInputType.emailAddress,
+            type: ValueType.email,
             hint: AppLocalizations.of(context)!.export_value_email,
             invalidHint: AppLocalizations.of(context)!.export_value_email_invalid,
             onChanged: (v, b) => setState(() {
               _email = v;
               _emailValid = b;
             }),
-            validation: (v) => _isValidEmail(v),
-            filter: FilterType.NONE,
           )
         ],
       ),
     );
-  }
-
-  bool _isValidEmail(String? email) {
-    return email != null && email.isNotEmpty && RegExp(r'^[^\s@]+@[^\s@]+\.[^\s@]+$').hasMatch(email);
   }
 
   bool _allInputsFilled() {

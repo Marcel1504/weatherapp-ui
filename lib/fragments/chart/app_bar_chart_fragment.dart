@@ -1,6 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:weatherapp_ui/config/app_layout_config.dart';
 
 class AppBarChartFragment extends StatefulWidget {
   final List<double?> values;
@@ -34,8 +35,9 @@ class _AppBarChartFragmentState extends State<AppBarChartFragment> {
   Widget build(BuildContext context) {
     if (widget.labels.isEmpty || widget.values.isEmpty || widget.values.every((r) => r == null || r == 0)) {
       return Center(
-        child:
-            Text(widget.noDataText ?? "", style: Theme.of(context).textTheme.bodyMedium, textAlign: TextAlign.center),
+        child: Text(widget.noDataText ?? "",
+            style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: AppLayoutConfig.chartNoDataFontSize),
+            textAlign: TextAlign.center),
       );
     }
     return Scrollbar(
@@ -112,7 +114,8 @@ class _AppBarChartFragmentState extends State<AppBarChartFragment> {
           angle: 1,
           child: Text(
             widget.labels[i.toInt() - 1],
-            style: Theme.of(context).textTheme.bodySmall,
+            style:
+                Theme.of(context).textTheme.labelMedium!.copyWith(fontSize: AppLayoutConfig.chartBottomTitleFontSize),
           )),
     );
   }
@@ -131,8 +134,8 @@ class _AppBarChartFragmentState extends State<AppBarChartFragment> {
 
   BarTooltipItem _barTooltipItem(
       BuildContext context, BarChartGroupData groupData, int index, BarChartRodData rodData, int index2) {
-    return BarTooltipItem(
-        rodData.toY != 0 ? "${rodData.toY}\n${widget.valueUnit}" : "", Theme.of(context).textTheme.headlineSmall!);
+    return BarTooltipItem(rodData.toY != 0 ? "${rodData.toY}\n${widget.valueUnit}" : "",
+        Theme.of(context).textTheme.headlineMedium!.copyWith(fontSize: AppLayoutConfig.chartTooltipFontSize));
   }
 
   List<BarChartGroupData> _barChartGroupData() {

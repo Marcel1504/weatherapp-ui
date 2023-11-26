@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:weatherapp_ui/fragments/button/app_round_icon_button.dart';
+import 'package:weatherapp_ui/components/button/app_icon_button_component.dart';
+import 'package:weatherapp_ui/config/app_layout_config.dart';
+import 'package:weatherapp_ui/enums/app_button_type_enum.dart';
 import 'package:weatherapp_ui/services/layout/app_layout_service.dart';
 
 class AppDialogFragment extends StatelessWidget {
@@ -23,10 +25,13 @@ class AppDialogFragment extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color titleColor =
-        titlePrimary ? Theme.of(context).colorScheme.primary : Theme.of(context).textTheme.bodyMedium!.color!;
+    Color titleColor = titlePrimary ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.onSurface;
     return AlertDialog(
-      title: Text(title ?? "", style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: titleColor)),
+      title: Text(title ?? "",
+          style: Theme.of(context)
+              .textTheme
+              .bodyLarge!
+              .copyWith(color: titleColor, fontSize: AppLayoutConfig.dialogTitleFontSize)),
       content: ConstrainedBox(
           constraints: BoxConstraints(maxWidth: AppLayoutService().maxWidth()),
           child: SizedBox(height: height, width: width, child: child)),
@@ -37,19 +42,20 @@ class AppDialogFragment extends StatelessWidget {
   List<Widget> _buttons(BuildContext context) {
     return [
       onClose != null
-          ? AppRoundIconButtonComponent(
-              primary: false,
+          ? AppIconButtonComponent(
+              type: AppButtonTypeEnum.secondary,
               icon: Icons.close,
-              action: () {
+              onTap: () {
                 onClose?.call();
                 Navigator.of(context).pop();
               },
             )
           : Container(),
       onAccept != null
-          ? AppRoundIconButtonComponent(
+          ? AppIconButtonComponent(
+              type: AppButtonTypeEnum.primary,
               icon: Icons.check,
-              action: () {
+              onTap: () {
                 onAccept?.call();
                 Navigator.of(context).pop();
               },

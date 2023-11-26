@@ -7,23 +7,23 @@ abstract class AppTheme {
         fontFamily: "Lato",
         textTheme: TextTheme(
           labelSmall: TextStyle(
-              color: onSurfaceColor().withOpacity(AppLayoutConfig.fontOpacityLow), fontWeight: FontWeight.w300),
+              color: onSurfaceColor().withOpacity(AppLayoutConfig.opacityTextLabel), fontWeight: FontWeight.w300),
           labelMedium: TextStyle(
-              color: onSurfaceColor().withOpacity(AppLayoutConfig.fontOpacityLow), fontWeight: FontWeight.w400),
+              color: onSurfaceColor().withOpacity(AppLayoutConfig.opacityTextLabel), fontWeight: FontWeight.w400),
           labelLarge: TextStyle(
-              color: onSurfaceColor().withOpacity(AppLayoutConfig.fontOpacityLow), fontWeight: FontWeight.w900),
+              color: onSurfaceColor().withOpacity(AppLayoutConfig.opacityTextLabel), fontWeight: FontWeight.w900),
           bodySmall: TextStyle(
-              color: onSurfaceColor().withOpacity(AppLayoutConfig.fontOpacityMedium), fontWeight: FontWeight.w300),
+              color: onSurfaceColor().withOpacity(AppLayoutConfig.opacityTextBody), fontWeight: FontWeight.w300),
           bodyMedium: TextStyle(
-              color: onSurfaceColor().withOpacity(AppLayoutConfig.fontOpacityMedium), fontWeight: FontWeight.w400),
+              color: onSurfaceColor().withOpacity(AppLayoutConfig.opacityTextBody), fontWeight: FontWeight.w400),
           bodyLarge: TextStyle(
-              color: onSurfaceColor().withOpacity(AppLayoutConfig.fontOpacityMedium), fontWeight: FontWeight.w900),
+              color: onSurfaceColor().withOpacity(AppLayoutConfig.opacityTextBody), fontWeight: FontWeight.w900),
           headlineSmall: TextStyle(
-              color: onSurfaceColor().withOpacity(AppLayoutConfig.fontOpacityHigh), fontWeight: FontWeight.w300),
+              color: onSurfaceColor().withOpacity(AppLayoutConfig.opacityTextHeadline), fontWeight: FontWeight.w300),
           headlineMedium: TextStyle(
-              color: onSurfaceColor().withOpacity(AppLayoutConfig.fontOpacityHigh), fontWeight: FontWeight.w400),
+              color: onSurfaceColor().withOpacity(AppLayoutConfig.opacityTextHeadline), fontWeight: FontWeight.w400),
           headlineLarge: TextStyle(
-              color: onSurfaceColor().withOpacity(AppLayoutConfig.fontOpacityHigh), fontWeight: FontWeight.w900),
+              color: onSurfaceColor().withOpacity(AppLayoutConfig.opacityTextHeadline), fontWeight: FontWeight.w900),
         ),
         snackBarTheme: SnackBarThemeData(
             backgroundColor: errorColor(), contentTextStyle: TextStyle(color: onErrorColor(), fontSize: 16)),
@@ -52,7 +52,7 @@ abstract class AppTheme {
             surface: surfaceColor(),
             onSurface: onSurfaceColor()),
         scaffoldBackgroundColor: Colors.transparent,
-        inputDecorationTheme: InputDecorationTheme(
+        inputDecorationTheme: const InputDecorationTheme(
           isDense: true,
         ),
         listTileTheme: const ListTileThemeData(tileColor: Colors.transparent, contentPadding: EdgeInsets.all(10)),

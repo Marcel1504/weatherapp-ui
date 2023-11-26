@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:weatherapp_ui/dto/response/summary/aggregation/weather/app_weather_aggregation_summary_list_response_dto.dart';
 import 'package:weatherapp_ui/enums/app_weather_sort_enum.dart';
-import 'package:weatherapp_ui/services/backend/data/detail/app_detail_data_backend_service.dart';
+import 'package:weatherapp_ui/services/backend/summary/detail/app_detail_summary_backend_service.dart';
 
 class AppWeatherDetailDataBackendService
     extends AppDetailDataBackendService<AppWeatherAggregationSummaryListResponseDto> {

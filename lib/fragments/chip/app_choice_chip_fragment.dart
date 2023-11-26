@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weatherapp_ui/config/app_layout_config.dart';
 import 'package:weatherapp_ui/services/layout/app_layout_service.dart';
 
 class AppChoiceChipFragment extends StatelessWidget {
@@ -32,6 +33,7 @@ class AppChoiceChipFragment extends StatelessWidget {
           child: Text(
             text ?? "",
             style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                fontSize: AppLayoutConfig.chipFontSize,
                 color: selected
                     ? primary
                         ? colorScheme.onSecondary
