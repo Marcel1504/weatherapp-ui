@@ -2,13 +2,13 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
-import 'package:weatherapp_ui/dto/response/data/summary/soil/app_soil_summary_data_response_dto.dart';
+import 'package:weatherapp_ui/dto/response/summary/aggregation/soil/app_soil_aggregation_summary_response_dto.dart';
 import 'package:weatherapp_ui/enums/app_calendar_enum.dart';
 import 'package:weatherapp_ui/fragments/chart/app_line_chart_fragment.dart';
 import 'package:weatherapp_ui/fragments/data/review/detail/app_review_detail_data_fragment.dart';
 import 'package:weatherapp_ui/fragments/loading/app_loading_fragment.dart';
-import 'package:weatherapp_ui/providers/data/detail/app_soil_detail_data_provider.dart';
 import 'package:weatherapp_ui/providers/station/app_station_provider.dart';
+import 'package:weatherapp_ui/providers/summary/detail/app_soil_detail_summary_provider.dart';
 import 'package:weatherapp_ui/services/color/app_color_service.dart';
 import 'package:weatherapp_ui/services/time/app_time_service.dart';
 
@@ -30,13 +30,13 @@ class _AppSoilReviewDetailDataFragmentState extends State<AppSoilReviewDetailDat
   void initState() {
     super.initState();
     String? stationCode = Provider.of<AppStationProvider>(context, listen: false).selectedStation?.code;
-    Provider.of<AppSoilDetailDataProvider>(context, listen: false)
+    Provider.of<AppSoilDetailSummaryProvider>(context, listen: false)
         .loadDetailsByStationCode(stationCode, widget.time, widget.type);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<AppSoilDetailDataProvider>(
+    return Consumer<AppSoilDetailSummaryProvider>(
       builder: (context, provider, widget) {
         _setTimeLabels(provider);
         return !provider.loading
@@ -58,7 +58,7 @@ class _AppSoilReviewDetailDataFragmentState extends State<AppSoilReviewDetailDat
     );
   }
 
-  Widget _getTemperatureAvgChart(BuildContext context, AppSoilDetailDataProvider provider) {
+  Widget _getTemperatureAvgChart(BuildContext context, AppSoilDetailSummaryProvider provider) {
     return AppLineChartFragment(
       key: const ValueKey(1),
       valueUnit: "°C",
@@ -78,7 +78,7 @@ class _AppSoilReviewDetailDataFragmentState extends State<AppSoilReviewDetailDat
     );
   }
 
-  Widget _getTemperatureMaxChart(BuildContext context, AppSoilDetailDataProvider provider) {
+  Widget _getTemperatureMaxChart(BuildContext context, AppSoilDetailSummaryProvider provider) {
     return AppLineChartFragment(
       key: const ValueKey(2),
       valueUnit: "°C",
@@ -98,7 +98,7 @@ class _AppSoilReviewDetailDataFragmentState extends State<AppSoilReviewDetailDat
     );
   }
 
-  Widget _getTemperatureMinChart(BuildContext context, AppSoilDetailDataProvider provider) {
+  Widget _getTemperatureMinChart(BuildContext context, AppSoilDetailSummaryProvider provider) {
     return AppLineChartFragment(
       key: const ValueKey(3),
       valueUnit: "°C",
@@ -118,7 +118,7 @@ class _AppSoilReviewDetailDataFragmentState extends State<AppSoilReviewDetailDat
     );
   }
 
-  void _setTimeLabels(AppSoilDetailDataProvider provider) {
+  void _setTimeLabels(AppSoilDetailSummaryProvider provider) {
     AppTimeService timeService = AppTimeService();
     switch (widget.type) {
       case AppCalendarEnum.DAY:
@@ -145,7 +145,7 @@ class _AppSoilReviewDetailDataFragmentState extends State<AppSoilReviewDetailDat
   }
 
   List<double?> _valuesFilledForTimeLabels(
-      AppSoilDetailDataProvider provider, double? Function(AppSoilSummaryDataResponseDto?) map) {
+      AppSoilDetailSummaryProvider provider, double? Function(AppSoilAggregationSummaryResponseDto?) map) {
     return timeLabelsISO
         .map((t) {
           switch (widget.type) {

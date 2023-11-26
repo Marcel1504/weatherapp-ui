@@ -1,19 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import 'package:weatherapp_ui/providers/assistant/app_assistant_provider.dart';
-import 'package:weatherapp_ui/providers/data/detail/app_soil_detail_data_provider.dart';
-import 'package:weatherapp_ui/providers/data/detail/app_weather_detail_data_provider.dart';
-import 'package:weatherapp_ui/providers/data/export/app_soil_export_data_provider.dart';
-import 'package:weatherapp_ui/providers/data/export/app_weather_export_data_provider.dart';
-import 'package:weatherapp_ui/providers/data/single/impl/app_soil_single_data_provider.dart';
-import 'package:weatherapp_ui/providers/data/single/impl/app_weather_single_data_provider.dart';
-import 'package:weatherapp_ui/providers/data/summary/day/app_soil_day_data_provider.dart';
-import 'package:weatherapp_ui/providers/data/summary/day/app_weather_day_data_provider.dart';
-import 'package:weatherapp_ui/providers/data/summary/month/app_soil_month_data_provider.dart';
-import 'package:weatherapp_ui/providers/data/summary/month/app_weather_month_data_provider.dart';
-import 'package:weatherapp_ui/providers/data/summary/year/app_soil_year_data_provider.dart';
-import 'package:weatherapp_ui/providers/data/summary/year/app_weather_year_data_provider.dart';
+import 'package:weatherapp_ui/providers/export/app_soil_export_provider.dart';
+import 'package:weatherapp_ui/providers/export/app_weather_export_provider.dart';
 import 'package:weatherapp_ui/providers/station/app_station_provider.dart';
+import 'package:weatherapp_ui/providers/summary/aggregation/day/app_soil_day_aggregation_summary_provider.dart';
+import 'package:weatherapp_ui/providers/summary/aggregation/day/app_weather_day_aggregation_summary_provider.dart';
+import 'package:weatherapp_ui/providers/summary/aggregation/month/app_soil_month_aggregation_summary_provider.dart';
+import 'package:weatherapp_ui/providers/summary/aggregation/month/app_weather_month_aggregation_summary_provider.dart';
+import 'package:weatherapp_ui/providers/summary/aggregation/year/app_soil_year_aggregation_summary_provider.dart';
+import 'package:weatherapp_ui/providers/summary/aggregation/year/app_weather_year_aggregation_summary_provider.dart';
+import 'package:weatherapp_ui/providers/summary/detail/app_soil_detail_summary_provider.dart';
+import 'package:weatherapp_ui/providers/summary/detail/app_weather_detail_summary_provider.dart';
+import 'package:weatherapp_ui/providers/summary/single/app_soil_single_summary_provider.dart';
+import 'package:weatherapp_ui/providers/summary/single/app_weather_single_summary_provider.dart';
 import 'package:weatherapp_ui/providers/ventilation/app_ventilation_provider.dart';
 
 class AppProvider {
@@ -30,58 +30,58 @@ class AppProvider {
       ),
 
       // Weather
-      ChangeNotifierProvider<AppWeatherSingleDataProvider>(
-        create: (context) => AppWeatherSingleDataProvider(),
+      ChangeNotifierProvider<AppWeatherSingleSummaryProvider>(
+        create: (context) => AppWeatherSingleSummaryProvider(),
       ),
-      ChangeNotifierProvider<AppWeatherDayDataProvider>(
-        create: (context) => AppWeatherDayDataProvider(),
+      ChangeNotifierProvider<AppWeatherDayAggregationSummaryProvider>(
+        create: (context) => AppWeatherDayAggregationSummaryProvider(),
       ),
-      ChangeNotifierProvider<AppWeatherMonthDataProvider>(
-        create: (context) => AppWeatherMonthDataProvider(),
+      ChangeNotifierProvider<AppWeatherMonthAggregationSummaryProvider>(
+        create: (context) => AppWeatherMonthAggregationSummaryProvider(),
       ),
-      ChangeNotifierProvider<AppWeatherYearDataProvider>(
-        create: (context) => AppWeatherYearDataProvider(),
+      ChangeNotifierProvider<AppWeatherYearAggregationSummaryProvider>(
+        create: (context) => AppWeatherYearAggregationSummaryProvider(),
       ),
-      ChangeNotifierProvider<AppWeatherDetailDataProvider>(
-        create: (context) => AppWeatherDetailDataProvider(),
+      ChangeNotifierProvider<AppWeatherDetailSummaryProvider>(
+        create: (context) => AppWeatherDetailSummaryProvider(),
       ),
-      ChangeNotifierProvider<AppWeatherExportDataProvider>(
-        create: (context) => AppWeatherExportDataProvider(),
+      ChangeNotifierProvider<AppWeatherExportProvider>(
+        create: (context) => AppWeatherExportProvider(),
       ),
 
       // Soil
-      ChangeNotifierProvider<AppSoilSingleDataProvider>(
-        create: (context) => AppSoilSingleDataProvider(),
+      ChangeNotifierProvider<AppSoilSingleSummaryProvider>(
+        create: (context) => AppSoilSingleSummaryProvider(),
       ),
-      ChangeNotifierProvider<AppSoilDayDataProvider>(
-        create: (context) => AppSoilDayDataProvider(),
+      ChangeNotifierProvider<AppSoilDayAggregationSummaryProvider>(
+        create: (context) => AppSoilDayAggregationSummaryProvider(),
       ),
-      ChangeNotifierProvider<AppSoilMonthDataProvider>(
-        create: (context) => AppSoilMonthDataProvider(),
+      ChangeNotifierProvider<AppSoilMonthAggregationSummaryProvider>(
+        create: (context) => AppSoilMonthAggregationSummaryProvider(),
       ),
-      ChangeNotifierProvider<AppSoilYearDataProvider>(
-        create: (context) => AppSoilYearDataProvider(),
+      ChangeNotifierProvider<AppSoilYearAggregationSummaryProvider>(
+        create: (context) => AppSoilYearAggregationSummaryProvider(),
       ),
-      ChangeNotifierProvider<AppSoilDetailDataProvider>(
-        create: (context) => AppSoilDetailDataProvider(),
+      ChangeNotifierProvider<AppSoilDetailSummaryProvider>(
+        create: (context) => AppSoilDetailSummaryProvider(),
       ),
-      ChangeNotifierProvider<AppSoilExportDataProvider>(
-        create: (context) => AppSoilExportDataProvider(),
+      ChangeNotifierProvider<AppSoilExportProvider>(
+        create: (context) => AppSoilExportProvider(),
       ),
     ];
   }
 
   void reset(BuildContext context) {
     // Weather
-    Provider.of<AppWeatherSingleDataProvider>(context, listen: false).markForReset();
-    Provider.of<AppWeatherDayDataProvider>(context, listen: false).markForReset();
-    Provider.of<AppWeatherMonthDataProvider>(context, listen: false).markForReset();
-    Provider.of<AppWeatherYearDataProvider>(context, listen: false).markForReset();
+    Provider.of<AppWeatherSingleSummaryProvider>(context, listen: false).markForReset();
+    Provider.of<AppWeatherDayAggregationSummaryProvider>(context, listen: false).markForReset();
+    Provider.of<AppWeatherMonthAggregationSummaryProvider>(context, listen: false).markForReset();
+    Provider.of<AppWeatherYearAggregationSummaryProvider>(context, listen: false).markForReset();
 
     // Soil
-    Provider.of<AppSoilSingleDataProvider>(context, listen: false).markForReset();
-    Provider.of<AppSoilDayDataProvider>(context, listen: false).markForReset();
-    Provider.of<AppSoilMonthDataProvider>(context, listen: false).markForReset();
-    Provider.of<AppSoilYearDataProvider>(context, listen: false).markForReset();
+    Provider.of<AppSoilSingleSummaryProvider>(context, listen: false).markForReset();
+    Provider.of<AppSoilDayAggregationSummaryProvider>(context, listen: false).markForReset();
+    Provider.of<AppSoilMonthAggregationSummaryProvider>(context, listen: false).markForReset();
+    Provider.of<AppSoilYearAggregationSummaryProvider>(context, listen: false).markForReset();
   }
 }

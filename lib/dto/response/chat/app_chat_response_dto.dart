@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:weatherapp_ui/dto/response/chat/app_chat_message_response_dto.dart';
+import 'package:weatherapp_ui/dto/response/chat/message/app_chat_message_response_dto.dart';
 
 part 'app_chat_response_dto.g.dart';
 

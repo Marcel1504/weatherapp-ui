@@ -7,8 +7,8 @@ import 'package:weatherapp_ui/fragments/form/app_form_switch_fragment.dart';
 import 'package:weatherapp_ui/fragments/scaffold/app_scaffold_fragment.dart';
 import 'package:weatherapp_ui/fragments/stepper/app_stepper_fragment.dart';
 import 'package:weatherapp_ui/pages/ventilation/app_ventilation_result_page.dart';
-import 'package:weatherapp_ui/providers/data/single/impl/app_weather_single_data_provider.dart';
 import 'package:weatherapp_ui/providers/station/app_station_provider.dart';
+import 'package:weatherapp_ui/providers/summary/single/app_weather_single_summary_provider.dart';
 import 'package:weatherapp_ui/providers/ventilation/app_ventilation_provider.dart';
 import 'package:weatherapp_ui/services/layout/app_layout_service.dart';
 import 'package:weatherapp_ui/themes/app_icons.dart';
@@ -80,7 +80,7 @@ class _AppVentilationStepperPageState extends State<AppVentilationStepperPage> {
   }
 
   _determineVentilation() {
-    AppWeatherSingleDataProvider provider = Provider.of<AppWeatherSingleDataProvider>(context, listen: false);
+    AppWeatherSingleSummaryProvider provider = Provider.of<AppWeatherSingleSummaryProvider>(context, listen: false);
     if (_useStationValues) {
       _tempOut = provider.latest?.temperature;
       _humidityOut = provider.latest?.humidity;

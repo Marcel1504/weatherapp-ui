@@ -6,13 +6,13 @@ import 'package:weatherapp_ui/fragments/dialog/app_dialog_fragment.dart';
 import 'package:weatherapp_ui/fragments/form/app_form_field_fragment.dart';
 import 'package:weatherapp_ui/fragments/picker/app_picker_day_fragment.dart';
 import 'package:weatherapp_ui/fragments/text/app_header_text_fragment.dart';
-import 'package:weatherapp_ui/providers/data/export/app_export_data_provider.dart';
+import 'package:weatherapp_ui/providers/export/app_export_provider.dart';
 import 'package:weatherapp_ui/providers/station/app_station_provider.dart';
 import 'package:weatherapp_ui/services/time/app_time_service.dart';
 
 class AppExportDataDialogFragment extends StatefulWidget {
   final String title;
-  final AppExportDataProvider provider;
+  final AppExportProvider provider;
 
   const AppExportDataDialogFragment({super.key, required this.title, required this.provider});
 

@@ -2,14 +2,14 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
-import 'package:weatherapp_ui/dto/response/data/summary/weather/app_weather_summary_data_response_dto.dart';
+import 'package:weatherapp_ui/dto/response/summary/aggregation/weather/app_weather_aggregation_summary_response_dto.dart';
 import 'package:weatherapp_ui/enums/app_calendar_enum.dart';
 import 'package:weatherapp_ui/fragments/chart/app_bar_chart_fragment.dart';
 import 'package:weatherapp_ui/fragments/chart/app_line_chart_fragment.dart';
 import 'package:weatherapp_ui/fragments/data/review/detail/app_review_detail_data_fragment.dart';
 import 'package:weatherapp_ui/fragments/loading/app_loading_fragment.dart';
-import 'package:weatherapp_ui/providers/data/detail/app_weather_detail_data_provider.dart';
 import 'package:weatherapp_ui/providers/station/app_station_provider.dart';
+import 'package:weatherapp_ui/providers/summary/detail/app_weather_detail_summary_provider.dart';
 import 'package:weatherapp_ui/services/color/app_color_service.dart';
 import 'package:weatherapp_ui/services/time/app_time_service.dart';
 
@@ -31,13 +31,13 @@ class _AppWeatherReviewDetailDataFragmentState extends State<AppWeatherReviewDet
   void initState() {
     super.initState();
     String? stationCode = Provider.of<AppStationProvider>(context, listen: false).selectedStation?.code;
-    Provider.of<AppWeatherDetailDataProvider>(context, listen: false)
+    Provider.of<AppWeatherDetailSummaryProvider>(context, listen: false)
         .loadDetailsByStationCode(stationCode, widget.time, widget.type);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<AppWeatherDetailDataProvider>(
+    return Consumer<AppWeatherDetailSummaryProvider>(
       builder: (context, provider, widget) {
         _setTimeLabels(provider);
         return !provider.loading
@@ -65,7 +65,7 @@ class _AppWeatherReviewDetailDataFragmentState extends State<AppWeatherReviewDet
     );
   }
 
-  Widget _getTemperatureChart(BuildContext context, AppWeatherDetailDataProvider provider) {
+  Widget _getTemperatureChart(BuildContext context, AppWeatherDetailSummaryProvider provider) {
     return AppLineChartFragment(
       key: const ValueKey(1),
       valueUnit: "°C",
@@ -85,7 +85,7 @@ class _AppWeatherReviewDetailDataFragmentState extends State<AppWeatherReviewDet
     );
   }
 
-  Widget _getRainChart(BuildContext context, AppWeatherDetailDataProvider provider) {
+  Widget _getRainChart(BuildContext context, AppWeatherDetailSummaryProvider provider) {
     return AppBarChartFragment(
       labels: timeLabelsPretty,
       values: _valuesFilledForTimeLabels(provider, (d) => d?.rainTotal),
@@ -96,7 +96,7 @@ class _AppWeatherReviewDetailDataFragmentState extends State<AppWeatherReviewDet
     );
   }
 
-  Widget _getHumidityChart(BuildContext context, AppWeatherDetailDataProvider provider) {
+  Widget _getHumidityChart(BuildContext context, AppWeatherDetailSummaryProvider provider) {
     return AppLineChartFragment(
       key: const ValueKey(2),
       valueUnit: "%",
@@ -116,7 +116,7 @@ class _AppWeatherReviewDetailDataFragmentState extends State<AppWeatherReviewDet
     );
   }
 
-  Widget _getPressureChart(BuildContext context, AppWeatherDetailDataProvider provider) {
+  Widget _getPressureChart(BuildContext context, AppWeatherDetailSummaryProvider provider) {
     return AppLineChartFragment(
       key: const ValueKey(3),
       valueUnit: "hpa",
@@ -137,7 +137,7 @@ class _AppWeatherReviewDetailDataFragmentState extends State<AppWeatherReviewDet
     );
   }
 
-  Widget _getWindChart(BuildContext context, AppWeatherDetailDataProvider provider) {
+  Widget _getWindChart(BuildContext context, AppWeatherDetailSummaryProvider provider) {
     return AppLineChartFragment(
       key: const ValueKey(4),
       valueUnit: "km/h",
@@ -153,7 +153,7 @@ class _AppWeatherReviewDetailDataFragmentState extends State<AppWeatherReviewDet
     );
   }
 
-  Widget _getSolarRadiationChart(BuildContext context, AppWeatherDetailDataProvider provider) {
+  Widget _getSolarRadiationChart(BuildContext context, AppWeatherDetailSummaryProvider provider) {
     return AppLineChartFragment(
       key: const ValueKey(5),
       valueUnit: "w/m²",
@@ -173,7 +173,7 @@ class _AppWeatherReviewDetailDataFragmentState extends State<AppWeatherReviewDet
     );
   }
 
-  void _setTimeLabels(AppWeatherDetailDataProvider provider) {
+  void _setTimeLabels(AppWeatherDetailSummaryProvider provider) {
     AppTimeService timeService = AppTimeService();
     switch (widget.type) {
       case AppCalendarEnum.DAY:
@@ -200,7 +200,7 @@ class _AppWeatherReviewDetailDataFragmentState extends State<AppWeatherReviewDet
   }
 
   List<double?> _valuesFilledForTimeLabels(
-      AppWeatherDetailDataProvider provider, double? Function(AppWeatherSummaryDataResponseDto?) map) {
+      AppWeatherDetailSummaryProvider provider, double? Function(AppWeatherAggregationSummaryResponseDto?) map) {
     return timeLabelsISO
         .map((t) {
           switch (widget.type) {

@@ -2,13 +2,13 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:weatherapp_ui/dto/response/data/single/soil/app_soil_single_data_response_dto.dart';
+import 'package:weatherapp_ui/dto/response/summary/single/soil/app_soil_single_summary_response_dto.dart';
 import 'package:weatherapp_ui/fragments/text/app_square_positioned_text_fragment.dart';
 import 'package:weatherapp_ui/services/color/app_color_service.dart';
 import 'package:weatherapp_ui/services/layout/app_layout_service.dart';
 
 class AppSoilCurrentDataDisplayFragment extends StatelessWidget {
-  final AppSoilSingleDataResponseDto? soil;
+  final AppSoilSingleSummaryResponseDto? soil;
 
   const AppSoilCurrentDataDisplayFragment({super.key, this.soil});
 

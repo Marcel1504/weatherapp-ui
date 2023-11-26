@@ -6,9 +6,9 @@ import 'package:weatherapp_ui/fragments/data/review/detail/app_weather_review_de
 import 'package:weatherapp_ui/fragments/data/review/list/app_review_data_list_fragment.dart';
 import 'package:weatherapp_ui/fragments/data/review/list/item/app_weather_review_data_list_item_fragment.dart';
 import 'package:weatherapp_ui/pages/data/detail/app_detail_data_page.dart';
-import 'package:weatherapp_ui/providers/data/summary/day/app_weather_day_data_provider.dart';
-import 'package:weatherapp_ui/providers/data/summary/month/app_weather_month_data_provider.dart';
-import 'package:weatherapp_ui/providers/data/summary/year/app_weather_year_data_provider.dart';
+import 'package:weatherapp_ui/providers/summary/aggregation/day/app_weather_day_aggregation_summary_provider.dart';
+import 'package:weatherapp_ui/providers/summary/aggregation/month/app_weather_month_aggregation_summary_provider.dart';
+import 'package:weatherapp_ui/providers/summary/aggregation/year/app_weather_year_aggregation_summary_provider.dart';
 import 'package:weatherapp_ui/services/time/app_time_service.dart';
 
 class AppWeatherReviewDataListFragment extends StatelessWidget {
@@ -36,7 +36,7 @@ class AppWeatherReviewDataListFragment extends StatelessWidget {
   }
 
   Widget _rootDay() {
-    return Consumer<AppWeatherDayDataProvider>(
+    return Consumer<AppWeatherDayAggregationSummaryProvider>(
       builder: (context, provider, widget) {
         return AppReviewDataListFragment(
           itemBuilder: (d) => AppWeatherReviewDataListItemFragment(
@@ -53,7 +53,7 @@ class AppWeatherReviewDataListFragment extends StatelessWidget {
   }
 
   Widget _rootMonth() {
-    return Consumer<AppWeatherMonthDataProvider>(
+    return Consumer<AppWeatherMonthAggregationSummaryProvider>(
       builder: (context, provider, widget) {
         return AppReviewDataListFragment(
           itemBuilder: (d) => AppWeatherReviewDataListItemFragment(
@@ -70,7 +70,7 @@ class AppWeatherReviewDataListFragment extends StatelessWidget {
   }
 
   Widget _rootYear() {
-    return Consumer<AppWeatherYearDataProvider>(
+    return Consumer<AppWeatherYearAggregationSummaryProvider>(
       builder: (context, provider, widget) {
         return AppReviewDataListFragment(
           itemBuilder: (d) => AppWeatherReviewDataListItemFragment(

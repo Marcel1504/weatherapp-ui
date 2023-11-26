@@ -2,13 +2,13 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:weatherapp_ui/dto/response/station/app_station_response_dto.dart';
 import 'package:weatherapp_ui/fragments/loading/app_loading_fragment.dart';
-import 'package:weatherapp_ui/providers/data/summary/app_summary_data_provider.dart';
+import 'package:weatherapp_ui/providers/summary/aggregation/app_aggregation_summary_provider.dart';
 import 'package:weatherapp_ui/services/layout/app_layout_service.dart';
 
 class AppReviewDataListFragment extends StatefulWidget {
   final AppStationResponseDto? station;
   final Widget Function(dynamic) itemBuilder;
-  final AppSummaryDataProvider provider;
+  final AppAggregationSummaryProvider provider;
 
   const AppReviewDataListFragment({super.key, this.station, required this.itemBuilder, required this.provider});
 

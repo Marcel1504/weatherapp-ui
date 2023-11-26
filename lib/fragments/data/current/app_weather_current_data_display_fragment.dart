@@ -2,7 +2,7 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:weatherapp_ui/dto/response/data/single/weather/app_weather_single_data_response_dto.dart';
+import 'package:weatherapp_ui/dto/response/summary/single/weather/app_weather_single_summary_response_dto.dart';
 import 'package:weatherapp_ui/fragments/text/app_square_positioned_text_fragment.dart';
 import 'package:weatherapp_ui/services/color/app_color_service.dart';
 import 'package:weatherapp_ui/services/layout/app_layout_service.dart';
@@ -10,7 +10,7 @@ import 'package:weatherapp_ui/services/time/app_time_service.dart';
 import 'package:weatherapp_ui/themes/app_icons.dart';
 
 class AppWeatherCurrentDataDisplayFragment extends StatelessWidget {
-  final AppWeatherSingleDataResponseDto? weather;
+  final AppWeatherSingleSummaryResponseDto? weather;
 
   const AppWeatherCurrentDataDisplayFragment({super.key, this.weather});
 

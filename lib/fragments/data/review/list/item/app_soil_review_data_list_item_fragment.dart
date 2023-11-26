@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:weatherapp_ui/dto/response/data/summary/soil/app_soil_summary_data_response_dto.dart';
+import 'package:weatherapp_ui/dto/response/summary/aggregation/soil/app_soil_aggregation_summary_response_dto.dart';
 import 'package:weatherapp_ui/fragments/data/review/list/item/app_review_data_list_item_fragment.dart';
 import 'package:weatherapp_ui/services/color/app_color_service.dart';
 import 'package:weatherapp_ui/services/layout/app_layout_service.dart';
 
-class AppSoilReviewDataListItemFragment extends AppReviewDataListItemFragment<AppSoilSummaryDataResponseDto> {
+class AppSoilReviewDataListItemFragment extends AppReviewDataListItemFragment<AppSoilAggregationSummaryResponseDto> {
   const AppSoilReviewDataListItemFragment(
       {super.key,
       super.time,

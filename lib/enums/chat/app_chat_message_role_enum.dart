@@ -4,5 +4,9 @@ enum AppChatMessageRoleEnum {
   @JsonValue("USER")
   user,
   @JsonValue("ASSISTANT")
-  assistant
+  assistant,
+  @JsonValue("FUNCTION")
+  function,
+  @JsonValue("SYSTEM")
+  system
 }

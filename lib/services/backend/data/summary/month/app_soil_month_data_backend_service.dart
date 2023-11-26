@@ -1,11 +1,11 @@
 import 'dart:convert';
 
-import 'package:weatherapp_ui/dto/response/data/summary/soil/app_soil_summary_data_list_response_dto.dart';
+import 'package:weatherapp_ui/dto/response/summary/aggregation/soil/app_soil_aggregation_summary_list_response_dto.dart';
 import 'package:weatherapp_ui/models/app_soil_filter_model.dart';
 import 'package:weatherapp_ui/services/backend/data/summary/app_summary_data_backend_service.dart';
 
 class AppSoilMonthBackendService
-    extends AppSummaryDataBackendService<AppSoilSummaryDataListResponseDto, AppSoilFilterModel> {
+    extends AppSummaryDataBackendService<AppSoilAggregationSummaryListResponseDto, AppSoilFilterModel> {
   @override
   String buildFilterQuery(AppSoilFilterModel? filter) {
     String filterString = "";
@@ -19,8 +19,8 @@ class AppSoilMonthBackendService
   }
 
   @override
-  AppSoilSummaryDataListResponseDto convert(String responseBody) {
-    return AppSoilSummaryDataListResponseDto.fromJson(jsonDecode(responseBody));
+  AppSoilAggregationSummaryListResponseDto convert(String responseBody) {
+    return AppSoilAggregationSummaryListResponseDto.fromJson(jsonDecode(responseBody));
   }
 
   @override

@@ -10,10 +10,10 @@ import 'package:weatherapp_ui/fragments/dialog/data/export/app_soil_export_data_
 import 'package:weatherapp_ui/fragments/dialog/data/export/app_weather_export_data_dialog_fragment.dart';
 import 'package:weatherapp_ui/fragments/loading/app_loading_fragment.dart';
 import 'package:weatherapp_ui/pages/ventilation/app_ventilation_stepper_page.dart';
-import 'package:weatherapp_ui/providers/data/single/app_single_data_provider.dart';
-import 'package:weatherapp_ui/providers/data/single/impl/app_soil_single_data_provider.dart';
-import 'package:weatherapp_ui/providers/data/single/impl/app_weather_single_data_provider.dart';
 import 'package:weatherapp_ui/providers/station/app_station_provider.dart';
+import 'package:weatherapp_ui/providers/summary/single/app_single_summary_provider.dart';
+import 'package:weatherapp_ui/providers/summary/single/app_soil_single_summary_provider.dart';
+import 'package:weatherapp_ui/providers/summary/single/app_weather_single_summary_provider.dart';
 import 'package:weatherapp_ui/services/layout/app_layout_service.dart';
 import 'package:weatherapp_ui/services/time/app_time_service.dart';
 import 'package:weatherapp_ui/themes/app_icons.dart';
@@ -39,8 +39,9 @@ class AppCurrentDataFragment extends StatelessWidget {
   }
 
   Widget _rootWeather(BuildContext context, AppStationResponseDto? station) {
-    Provider.of<AppWeatherSingleDataProvider>(context, listen: false).loadLatestByStationCode(context, station?.code);
-    return Consumer<AppWeatherSingleDataProvider>(
+    Provider.of<AppWeatherSingleSummaryProvider>(context, listen: false)
+        .loadLatestByStationCode(context, station?.code);
+    return Consumer<AppWeatherSingleSummaryProvider>(
       builder: (context, provider, widget) {
         return _display(
             context,
@@ -57,8 +58,8 @@ class AppCurrentDataFragment extends StatelessWidget {
   }
 
   Widget _rootSoil(BuildContext context, AppStationResponseDto? station) {
-    Provider.of<AppSoilSingleDataProvider>(context, listen: false).loadLatestByStationCode(context, station?.code);
-    return Consumer<AppSoilSingleDataProvider>(
+    Provider.of<AppSoilSingleSummaryProvider>(context, listen: false).loadLatestByStationCode(context, station?.code);
+    return Consumer<AppSoilSingleSummaryProvider>(
       builder: (context, provider, widget) {
         return _display(
             context,
@@ -71,8 +72,8 @@ class AppCurrentDataFragment extends StatelessWidget {
     );
   }
 
-  Widget _display(BuildContext context, AppSingleDataProvider provider, Widget Function(AppSingleDataProvider) widget,
-      Map<IconData, Function()> actions) {
+  Widget _display(BuildContext context, AppSingleSummaryProvider provider,
+      Widget Function(AppSingleSummaryProvider) widget, Map<IconData, Function()> actions) {
     return provider.loading
         ? const Center(
             child: AppLoadingFragment(
@@ -90,7 +91,7 @@ class AppCurrentDataFragment extends StatelessWidget {
           );
   }
 
-  Widget _displayDuration(BuildContext context, AppSingleDataProvider provider) {
+  Widget _displayDuration(BuildContext context, AppSingleSummaryProvider provider) {
     String? duration = AppTimeService().transformISOTimeStringToCurrentDuration(context, provider.latest.timestamp);
     AppLayoutService layoutService = AppLayoutService();
     return duration != null

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:weatherapp_ui/components/chat/app_chat_container_component.dart';
+import 'package:weatherapp_ui/components/chat/container/app_chat_container_component.dart';
 import 'package:weatherapp_ui/components/input/app_prompt_input_component.dart';
 import 'package:weatherapp_ui/config/app_l18n_config.dart';
 import 'package:weatherapp_ui/config/app_layout_config.dart';

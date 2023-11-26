@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:weatherapp_ui/dto/response/data/summary/weather/app_weather_summary_data_response_dto.dart';
+import 'package:weatherapp_ui/dto/response/summary/aggregation/weather/app_weather_aggregation_summary_response_dto.dart';
 import 'package:weatherapp_ui/fragments/data/review/list/item/app_review_data_list_item_fragment.dart';
 import 'package:weatherapp_ui/services/color/app_color_service.dart';
 import 'package:weatherapp_ui/services/layout/app_layout_service.dart';
 import 'package:weatherapp_ui/themes/app_icons.dart';
 
-class AppWeatherReviewDataListItemFragment extends AppReviewDataListItemFragment<AppWeatherSummaryDataResponseDto> {
+class AppWeatherReviewDataListItemFragment
+    extends AppReviewDataListItemFragment<AppWeatherAggregationSummaryResponseDto> {
   const AppWeatherReviewDataListItemFragment(
       {super.key,
       super.time,
@@ -28,7 +29,7 @@ class AppWeatherReviewDataListItemFragment extends AppReviewDataListItemFragment
   }
 
   Widget _temperatureBox(BuildContext context) {
-    AppWeatherSummaryDataResponseDto? weather = super.data;
+    AppWeatherAggregationSummaryResponseDto? weather = super.data;
     return Row(
       children: [
         _temperatureDataItem(context,
@@ -73,7 +74,7 @@ class AppWeatherReviewDataListItemFragment extends AppReviewDataListItemFragment
   }
 
   Widget _windDataItem(BuildContext context) {
-    AppWeatherSummaryDataResponseDto? weather = super.data;
+    AppWeatherAggregationSummaryResponseDto? weather = super.data;
     Color color =
         Color.alphaBlend(const Color.fromRGBO(111, 111, 111, 0.7), Theme.of(context).colorScheme.onBackground);
     String text = weather?.windMax != null && weather?.windMax != 0 ? "${weather?.windMax} km/h" : "";
@@ -83,7 +84,7 @@ class AppWeatherReviewDataListItemFragment extends AppReviewDataListItemFragment
   }
 
   Widget _rainTotalDataItem(BuildContext context) {
-    AppWeatherSummaryDataResponseDto? weather = super.data;
+    AppWeatherAggregationSummaryResponseDto? weather = super.data;
     Color color = Color.alphaBlend(const Color.fromRGBO(0, 175, 255, 0.7), Theme.of(context).colorScheme.onBackground);
     String text = weather?.rainTotal != null && weather?.rainTotal != 0 ? "${weather?.rainTotal} l/m²" : "";
     IconData? icon = weather?.rainTotal != null && weather?.rainTotal != 0 ? AppIcons.rain : null;

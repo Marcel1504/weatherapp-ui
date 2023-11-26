@@ -11,10 +11,10 @@ import 'package:weatherapp_ui/fragments/picker/app_picker_day_fragment.dart';
 import 'package:weatherapp_ui/fragments/picker/app_picker_year_fragment.dart';
 import 'package:weatherapp_ui/fragments/text/app_header_text_fragment.dart';
 import 'package:weatherapp_ui/models/app_soil_filter_model.dart';
-import 'package:weatherapp_ui/providers/data/summary/app_summary_data_provider.dart';
-import 'package:weatherapp_ui/providers/data/summary/day/app_soil_day_data_provider.dart';
-import 'package:weatherapp_ui/providers/data/summary/month/app_soil_month_data_provider.dart';
-import 'package:weatherapp_ui/providers/data/summary/year/app_soil_year_data_provider.dart';
+import 'package:weatherapp_ui/providers/summary/aggregation/app_aggregation_summary_provider.dart';
+import 'package:weatherapp_ui/providers/summary/aggregation/day/app_soil_day_aggregation_summary_provider.dart';
+import 'package:weatherapp_ui/providers/summary/aggregation/month/app_soil_month_aggregation_summary_provider.dart';
+import 'package:weatherapp_ui/providers/summary/aggregation/year/app_soil_year_aggregation_summary_provider.dart';
 import 'package:weatherapp_ui/services/time/app_time_service.dart';
 
 class AppSoilDataFilterDialogFragment extends StatefulWidget {
@@ -29,7 +29,7 @@ class AppSoilDataFilterDialogFragment extends StatefulWidget {
 
 class _AppSoilDataFilterDialogFragmentState extends State<AppSoilDataFilterDialogFragment> {
   AppSoilFilterModel? _filter;
-  AppSummaryDataProvider? _provider;
+  AppAggregationSummaryProvider? _provider;
   String? _title;
 
   @override
@@ -60,7 +60,7 @@ class _AppSoilDataFilterDialogFragmentState extends State<AppSoilDataFilterDialo
 
   Widget _dayFilter() {
     _title = AppLocalizations.of(context)!.filter_title_day;
-    return Consumer<AppSoilDayDataProvider>(builder: (context, provider, widget) {
+    return Consumer<AppSoilDayAggregationSummaryProvider>(builder: (context, provider, widget) {
       _initializeProviderAndFilterModel(provider);
       return ListView(
         children: [
@@ -87,7 +87,7 @@ class _AppSoilDataFilterDialogFragmentState extends State<AppSoilDataFilterDialo
 
   Widget _monthFilter() {
     _title = AppLocalizations.of(context)!.filter_title_month;
-    return Consumer<AppSoilMonthDataProvider>(builder: (context, provider, widget) {
+    return Consumer<AppSoilMonthAggregationSummaryProvider>(builder: (context, provider, widget) {
       _initializeProviderAndFilterModel(provider);
       return ListView(
         children: [
@@ -105,7 +105,7 @@ class _AppSoilDataFilterDialogFragmentState extends State<AppSoilDataFilterDialo
 
   Widget _yearFilter() {
     _title = AppLocalizations.of(context)!.filter_title_year;
-    return Consumer<AppSoilYearDataProvider>(builder: (context, provider, widget) {
+    return Consumer<AppSoilYearAggregationSummaryProvider>(builder: (context, provider, widget) {
       _initializeProviderAndFilterModel(provider);
       return ListView(
           children: [AppHeaderTextFragment(title: AppLocalizations.of(context)!.filter_title_sort), ..._sortList()]);
@@ -142,7 +142,7 @@ class _AppSoilDataFilterDialogFragmentState extends State<AppSoilDataFilterDialo
     };
   }
 
-  void _initializeProviderAndFilterModel(AppSummaryDataProvider provider) {
+  void _initializeProviderAndFilterModel(AppAggregationSummaryProvider provider) {
     _provider = provider;
     _filter ??= AppSoilFilterModel(
         sort: _provider?.filter?.sort ?? AppSoilSortEnum.LATEST,

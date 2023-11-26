@@ -11,10 +11,10 @@ import 'package:weatherapp_ui/fragments/picker/app_picker_day_fragment.dart';
 import 'package:weatherapp_ui/fragments/picker/app_picker_year_fragment.dart';
 import 'package:weatherapp_ui/fragments/text/app_header_text_fragment.dart';
 import 'package:weatherapp_ui/models/app_weather_filter_model.dart';
-import 'package:weatherapp_ui/providers/data/summary/app_summary_data_provider.dart';
-import 'package:weatherapp_ui/providers/data/summary/day/app_weather_day_data_provider.dart';
-import 'package:weatherapp_ui/providers/data/summary/month/app_weather_month_data_provider.dart';
-import 'package:weatherapp_ui/providers/data/summary/year/app_weather_year_data_provider.dart';
+import 'package:weatherapp_ui/providers/summary/aggregation/app_aggregation_summary_provider.dart';
+import 'package:weatherapp_ui/providers/summary/aggregation/day/app_weather_day_aggregation_summary_provider.dart';
+import 'package:weatherapp_ui/providers/summary/aggregation/month/app_weather_month_aggregation_summary_provider.dart';
+import 'package:weatherapp_ui/providers/summary/aggregation/year/app_weather_year_aggregation_summary_provider.dart';
 import 'package:weatherapp_ui/services/time/app_time_service.dart';
 
 class AppWeatherDataFilterDialogFragment extends StatefulWidget {
@@ -29,7 +29,7 @@ class AppWeatherDataFilterDialogFragment extends StatefulWidget {
 
 class _AppWeatherDataFilterDialogFragmentState extends State<AppWeatherDataFilterDialogFragment> {
   AppWeatherFilterModel? _filter;
-  AppSummaryDataProvider? _provider;
+  AppAggregationSummaryProvider? _provider;
   String? _title;
 
   @override
@@ -60,7 +60,7 @@ class _AppWeatherDataFilterDialogFragmentState extends State<AppWeatherDataFilte
 
   Widget _dayFilter() {
     _title = AppLocalizations.of(context)!.filter_title_day;
-    return Consumer<AppWeatherDayDataProvider>(builder: (context, provider, widget) {
+    return Consumer<AppWeatherDayAggregationSummaryProvider>(builder: (context, provider, widget) {
       _initializeProviderAndFilterModel(provider);
       return ListView(
         children: [
@@ -87,7 +87,7 @@ class _AppWeatherDataFilterDialogFragmentState extends State<AppWeatherDataFilte
 
   Widget _monthFilter() {
     _title = AppLocalizations.of(context)!.filter_title_month;
-    return Consumer<AppWeatherMonthDataProvider>(builder: (context, provider, widget) {
+    return Consumer<AppWeatherMonthAggregationSummaryProvider>(builder: (context, provider, widget) {
       _initializeProviderAndFilterModel(provider);
       return ListView(
         children: [
@@ -105,7 +105,7 @@ class _AppWeatherDataFilterDialogFragmentState extends State<AppWeatherDataFilte
 
   Widget _yearFilter() {
     _title = AppLocalizations.of(context)!.filter_title_year;
-    return Consumer<AppWeatherYearDataProvider>(builder: (context, provider, widget) {
+    return Consumer<AppWeatherYearAggregationSummaryProvider>(builder: (context, provider, widget) {
       _initializeProviderAndFilterModel(provider);
       return ListView(
           children: [AppHeaderTextFragment(title: AppLocalizations.of(context)!.filter_title_sort), ..._sortList()]);
@@ -146,7 +146,7 @@ class _AppWeatherDataFilterDialogFragmentState extends State<AppWeatherDataFilte
     };
   }
 
-  void _initializeProviderAndFilterModel(AppSummaryDataProvider provider) {
+  void _initializeProviderAndFilterModel(AppAggregationSummaryProvider provider) {
     _provider = provider;
     _filter ??= AppWeatherFilterModel(
         sort: _provider?.filter?.sort ?? AppWeatherSortEnum.LATEST,
