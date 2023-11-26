@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
+import 'package:weatherapp_ui/components/loading/app_loading_component.dart';
+import 'package:weatherapp_ui/components/scaffold/app_scaffold_component.dart';
+import 'package:weatherapp_ui/components/text/app_data_text_component.dart';
+import 'package:weatherapp_ui/config/app_l18n_config.dart';
 import 'package:weatherapp_ui/enums/app_ventilation_indicator_enum.dart';
-import 'package:weatherapp_ui/fragments/loading/app_loading_fragment.dart';
-import 'package:weatherapp_ui/fragments/scaffold/app_scaffold_fragment.dart';
-import 'package:weatherapp_ui/fragments/text/app_data_text_fragment.dart';
 import 'package:weatherapp_ui/providers/ventilation/app_ventilation_provider.dart';
 import 'package:weatherapp_ui/services/layout/app_layout_service.dart';
 import 'package:weatherapp_ui/themes/app_icons.dart';
@@ -14,7 +14,7 @@ class AppVentilationResultPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppScaffoldFragment(
+    return AppScaffoldComponent(
       appBar: _appBar(context),
       body: _body(context),
     );
@@ -22,7 +22,7 @@ class AppVentilationResultPage extends StatelessWidget {
 
   AppBar _appBar(BuildContext context) {
     return AppBar(
-      title: Text(AppLocalizations.of(context)!.ventilation_page),
+      title: Text(AppL18nConfig.get(context).ventilation_page),
       titleTextStyle: Theme.of(context).textTheme.bodyMedium,
     );
   }
@@ -31,7 +31,7 @@ class AppVentilationResultPage extends StatelessWidget {
     return Center(
       child: Consumer<AppVentilationProvider>(builder: (context, provider, widget) {
         return provider.loading
-            ? const AppLoadingFragment(
+            ? const AppLoadingComponent(
                 size: 30,
               )
             : _resultRoot(context, provider);
@@ -75,37 +75,37 @@ class AppVentilationResultPage extends StatelessWidget {
             childAspectRatio: (MediaQuery.of(context).size.width / MediaQuery.of(context).size.height) * 5,
             crossAxisCount: 2,
             children: [
-              _dataHeadline(context, AppLocalizations.of(context)!.ventilation_values_outside),
-              _dataHeadline(context, AppLocalizations.of(context)!.ventilation_values_inside),
-              AppDataTextFragment(
+              _dataHeadline(context, AppL18nConfig.get(context).ventilation_values_outside),
+              _dataHeadline(context, AppL18nConfig.get(context).ventilation_values_inside),
+              AppDataTextComponent(
                   value: provider.temperatureOutside.toString(),
                   iconData: Icons.thermostat,
-                  title: AppLocalizations.of(context)!.ventilation_values_outside_temperature,
+                  title: AppL18nConfig.get(context).ventilation_values_outside_temperature,
                   valueSuffix: "°C"),
-              AppDataTextFragment(
+              AppDataTextComponent(
                   value: provider.temperatureInside.toString(),
                   iconData: Icons.thermostat,
-                  title: AppLocalizations.of(context)!.ventilation_values_inside_temperature,
+                  title: AppL18nConfig.get(context).ventilation_values_inside_temperature,
                   valueSuffix: "°C"),
-              AppDataTextFragment(
+              AppDataTextComponent(
                   value: provider.humidityOutside.toString(),
                   iconData: AppIcons.humidity,
-                  title: AppLocalizations.of(context)!.ventilation_values_outside_humidity,
+                  title: AppL18nConfig.get(context).ventilation_values_outside_humidity,
                   valueSuffix: "%"),
-              AppDataTextFragment(
+        AppDataTextComponent(
                   value: provider.humidityInside.toString(),
                   iconData: AppIcons.humidity,
-                  title: AppLocalizations.of(context)!.ventilation_values_inside_humidity,
+                  title: AppL18nConfig.get(context).ventilation_values_inside_humidity,
                   valueSuffix: "%"),
-              AppDataTextFragment(
+        AppDataTextComponent(
                   value: provider.result?.absoluteHumidityOut.toString(),
                   iconData: AppIcons.humidity,
-                  title: AppLocalizations.of(context)!.ventilation_values_outside_humidity_absolute,
+                  title: AppL18nConfig.get(context).ventilation_values_outside_humidity_absolute,
                   valueSuffix: "g/m³"),
-              AppDataTextFragment(
+        AppDataTextComponent(
                   value: provider.result?.absoluteHumidityIn.toString(),
                   iconData: AppIcons.humidity,
-                  title: AppLocalizations.of(context)!.ventilation_values_inside_humidity_absolute,
+                  title: AppL18nConfig.get(context).ventilation_values_inside_humidity_absolute,
                   valueSuffix: "g/m³"),
             ],
           )
@@ -141,27 +141,27 @@ class AppVentilationResultPage extends StatelessWidget {
   String _getText(BuildContext context, AppVentilationProvider provider) {
     switch (provider.result?.indicator) {
       case AppVentilationIndicatorEnum.RED:
-        return AppLocalizations.of(context)!.ventilation_result_red_title;
+        return AppL18nConfig.get(context).ventilation_result_red_title;
       case AppVentilationIndicatorEnum.YELLOW1:
       case AppVentilationIndicatorEnum.YELLOW2:
-        return AppLocalizations.of(context)!.ventilation_result_yellow_title;
+      return AppL18nConfig.get(context).ventilation_result_yellow_title;
       case AppVentilationIndicatorEnum.GREEN:
-        return AppLocalizations.of(context)!.ventilation_result_green_title;
+        return AppL18nConfig.get(context).ventilation_result_green_title;
       default:
-        return AppLocalizations.of(context)!.ventilation_result_no_data;
+        return AppL18nConfig.get(context).ventilation_result_no_data;
     }
   }
 
   String _getDescription(BuildContext context, AppVentilationProvider provider) {
     switch (provider.result?.indicator) {
       case AppVentilationIndicatorEnum.RED:
-        return AppLocalizations.of(context)!.ventilation_result_red_description;
+        return AppL18nConfig.get(context).ventilation_result_red_description;
       case AppVentilationIndicatorEnum.YELLOW1:
-        return AppLocalizations.of(context)!.ventilation_result_yellow1_description;
+        return AppL18nConfig.get(context).ventilation_result_yellow1_description;
       case AppVentilationIndicatorEnum.YELLOW2:
-        return AppLocalizations.of(context)!.ventilation_result_yellow2_description;
+        return AppL18nConfig.get(context).ventilation_result_yellow2_description;
       case AppVentilationIndicatorEnum.GREEN:
-        return AppLocalizations.of(context)!.ventilation_result_green_description;
+        return AppL18nConfig.get(context).ventilation_result_green_description;
       default:
         return "";
     }

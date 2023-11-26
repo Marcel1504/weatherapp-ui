@@ -2,11 +2,11 @@ import 'dart:html';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 import 'package:provider/provider.dart';
 import 'package:weatherapp_ui/components/button/app_icon_button_component.dart';
+import 'package:weatherapp_ui/config/app_l18n_config.dart';
 import 'package:weatherapp_ui/enums/app_button_type_enum.dart';
 import 'package:weatherapp_ui/models/app_file_model.dart';
 import 'package:weatherapp_ui/providers/station/app_station_provider.dart';
@@ -68,9 +68,9 @@ class _AppStationMediaFragmentState extends State<AppStationMediaFragment> {
     AppTimeService timeService = AppTimeService();
     if (_showLatest) {
       if (_image == null) {
-        text = AppLocalizations.of(context)!.station_media_no_data_latest;
+        text = AppL18nConfig.get(context).station_media_no_data_latest;
       } else {
-        text = AppLocalizations.of(context)!.station_media_created_latest(
+        text = AppL18nConfig.get(context).station_media_created_latest(
             timeService.transformISOTimeStringToCurrentDuration(
                     context, provider.selectedStation?.latestStationMedia?.created) ??
                 "?");
@@ -78,7 +78,7 @@ class _AppStationMediaFragmentState extends State<AppStationMediaFragment> {
     } else {
       String? date = timeService.transformDateTime(context, _selectedReviewDate, pattern: "dd. MMMM yyyy");
       if (_image == null) {
-        text = AppLocalizations.of(context)!.station_media_no_data_review(date ?? "?");
+        text = AppL18nConfig.get(context).station_media_no_data_review(date ?? "?");
       } else {
         text = date;
       }

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:weatherapp_ui/components/button/app_icon_button_component.dart';
 import 'package:weatherapp_ui/components/input/app_value_input_component.dart';
+import 'package:weatherapp_ui/components/scaffold/app_scaffold_component.dart';
+import 'package:weatherapp_ui/components/stepper/app_stepper_component.dart';
+import 'package:weatherapp_ui/components/switch/app_switch_component.dart';
+import 'package:weatherapp_ui/config/app_l18n_config.dart';
 import 'package:weatherapp_ui/config/app_layout_config.dart';
 import 'package:weatherapp_ui/enums/app_button_type_enum.dart';
-import 'package:weatherapp_ui/fragments/form/app_form_switch_fragment.dart';
-import 'package:weatherapp_ui/fragments/scaffold/app_scaffold_fragment.dart';
-import 'package:weatherapp_ui/fragments/stepper/app_stepper_fragment.dart';
 import 'package:weatherapp_ui/pages/ventilation/app_ventilation_result_page.dart';
 import 'package:weatherapp_ui/providers/station/app_station_provider.dart';
 import 'package:weatherapp_ui/providers/summary/single/app_weather_single_summary_provider.dart';
@@ -41,7 +41,7 @@ class _AppVentilationStepperPageState extends State<AppVentilationStepperPage> {
 
   @override
   Widget build(BuildContext context) {
-    return AppScaffoldFragment(
+    return AppScaffoldComponent(
       appBar: _appBar(context),
       body: _stepper(context),
     );
@@ -49,13 +49,13 @@ class _AppVentilationStepperPageState extends State<AppVentilationStepperPage> {
 
   AppBar _appBar(BuildContext context) {
     return AppBar(
-      title: Text(AppLocalizations.of(context)!.ventilation_page),
+      title: Text(AppL18nConfig.get(context).ventilation_page),
       titleTextStyle: Theme.of(context).textTheme.bodyMedium,
     );
   }
 
   Widget _stepper(BuildContext context) {
-    return AppStepperFragment(
+    return AppStepperComponent(
         currentStep: _currentStep,
         onStepContinue: _onStepContinue,
         onStepCancel: _onStepCancel,
@@ -136,12 +136,12 @@ class _AppVentilationStepperPageState extends State<AppVentilationStepperPage> {
   Step _firstStep() {
     AppStationProvider provider = Provider.of<AppStationProvider>(context, listen: false);
     return Step(
-      title: _getStepTitle(AppLocalizations.of(context)!.ventilation_use_station_title),
+      title: _getStepTitle(AppL18nConfig.get(context).ventilation_use_station_title),
       content: Column(
         children: [
-          AppFormSwitchFragment(
-            subtitle: AppLocalizations.of(context)!
-                .ventilation_use_station_description(provider.selectedStation?.name ?? "?"),
+          AppSwitchComponent(
+            subtitle:
+                AppL18nConfig.get(context).ventilation_use_station_description(provider.selectedStation?.name ?? "?"),
             initial: _useStationValues,
             onChanged: (v) => setState(() => _useStationValues = v),
           )
@@ -158,7 +158,7 @@ class _AppVentilationStepperPageState extends State<AppVentilationStepperPage> {
 
   Step _secondStep() {
     return Step(
-      title: _getStepTitle(AppLocalizations.of(context)!.ventilation_values_outside),
+      title: _getStepTitle(AppL18nConfig.get(context).ventilation_values_outside),
       content: Column(
         children: [_secondStepTemperatureInput(), _secondStepHumidityInput()],
       ),
@@ -174,7 +174,7 @@ class _AppVentilationStepperPageState extends State<AppVentilationStepperPage> {
   Widget _secondStepTemperatureInput() {
     return AppValueInputComponent(
         type: ValueType.temperature,
-        hint: AppLocalizations.of(context)!.ventilation_values_outside_temperature,
+        hint: AppL18nConfig.get(context).ventilation_values_outside_temperature,
         icon: Icons.thermostat,
         onChanged: (s, v) {
           setState(() {
@@ -182,7 +182,7 @@ class _AppVentilationStepperPageState extends State<AppVentilationStepperPage> {
             _tempOutValid = v;
           });
         },
-        invalidHint: AppLocalizations.of(context)!.ventilation_invalid_temperature);
+        invalidHint: AppL18nConfig.get(context).ventilation_invalid_temperature);
   }
 
   Widget _secondStepHumidityInput() {
@@ -191,19 +191,19 @@ class _AppVentilationStepperPageState extends State<AppVentilationStepperPage> {
         child: AppValueInputComponent(
             type: ValueType.humidity,
             icon: AppIcons.humidity,
-            hint: AppLocalizations.of(context)!.ventilation_values_outside_humidity,
+            hint: AppL18nConfig.get(context).ventilation_values_outside_humidity,
             onChanged: (s, v) {
               setState(() {
                 _humidityOut = int.tryParse(s ?? "");
                 _humidityOutValid = v;
               });
             },
-            invalidHint: AppLocalizations.of(context)!.ventilation_invalid_humidity));
+            invalidHint: AppL18nConfig.get(context).ventilation_invalid_humidity));
   }
 
   Step _thirdStep() {
     return Step(
-      title: _getStepTitle(AppLocalizations.of(context)!.ventilation_values_inside),
+      title: _getStepTitle(AppL18nConfig.get(context).ventilation_values_inside),
       content: Column(
         children: [_thirdStepTemperatureInput(), _thirdStepHumidityInput()],
       ),
@@ -219,7 +219,7 @@ class _AppVentilationStepperPageState extends State<AppVentilationStepperPage> {
   Widget _thirdStepTemperatureInput() {
     return AppValueInputComponent(
         type: ValueType.temperature,
-        hint: AppLocalizations.of(context)!.ventilation_values_inside_temperature,
+        hint: AppL18nConfig.get(context).ventilation_values_inside_temperature,
         icon: Icons.thermostat,
         onChanged: (s, v) {
           setState(() {
@@ -227,7 +227,7 @@ class _AppVentilationStepperPageState extends State<AppVentilationStepperPage> {
             _tempInValid = v;
           });
         },
-        invalidHint: AppLocalizations.of(context)!.ventilation_invalid_temperature);
+        invalidHint: AppL18nConfig.get(context).ventilation_invalid_temperature);
   }
 
   Widget _thirdStepHumidityInput() {
@@ -236,14 +236,14 @@ class _AppVentilationStepperPageState extends State<AppVentilationStepperPage> {
       child: AppValueInputComponent(
           type: ValueType.humidity,
           icon: AppIcons.humidity,
-          hint: AppLocalizations.of(context)!.ventilation_values_inside_humidity,
+          hint: AppL18nConfig.get(context).ventilation_values_inside_humidity,
           onChanged: (s, v) {
             setState(() {
               _humidityIn = int.tryParse(s ?? "");
               _humidityInValid = v;
             });
           },
-          invalidHint: AppLocalizations.of(context)!.ventilation_invalid_humidity),
+          invalidHint: AppL18nConfig.get(context).ventilation_invalid_humidity),
     );
   }
 

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
-import 'package:weatherapp_ui/fragments/data/current/app_current_data_fragment.dart';
-import 'package:weatherapp_ui/fragments/data/review/app_review_data_fragment.dart';
-import 'package:weatherapp_ui/fragments/scaffold/app_scaffold_fragment.dart';
+import 'package:weatherapp_ui/components/scaffold/app_scaffold_component.dart';
+import 'package:weatherapp_ui/config/app_l18n_config.dart';
 import 'package:weatherapp_ui/fragments/station/list/app_station_list_fragment.dart';
 import 'package:weatherapp_ui/fragments/station/media/app_station_media_fragment.dart';
+import 'package:weatherapp_ui/fragments/summary/current/app_current_summary_fragment.dart';
+import 'package:weatherapp_ui/fragments/summary/list/container/app_list_summary_container_fragment.dart';
 import 'package:weatherapp_ui/pages/app_root_page.dart';
 import 'package:weatherapp_ui/pages/assistant/app_assistant_page.dart';
 import 'package:weatherapp_ui/providers/app_provider.dart';
@@ -25,14 +25,14 @@ class _AppHomePageState extends State<AppHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return AppScaffoldFragment(
+    return AppScaffoldComponent(
         appBar: _appBar(context), body: _body(context), bottomNavigationBar: _bottomNavigationBar(context));
   }
 
   AppBar _appBar(BuildContext context) {
     return AppBar(
       title: Consumer<AppStationProvider>(builder: (context, provider, widget) {
-        return Text(provider.selectedStation?.name ?? AppLocalizations.of(context)!.station_unnamed);
+        return Text(provider.selectedStation?.name ?? AppL18nConfig.get(context).station_unnamed);
       }),
       titleTextStyle: Theme.of(context).textTheme.bodyMedium,
       actions: _appBarActions(context),
@@ -71,8 +71,8 @@ class _AppHomePageState extends State<AppHomePage> {
 
   List<Widget> _bodyPages(BuildContext context) {
     return [
-      const AppReviewDataFragment(),
-      const AppCurrentDataFragment(),
+      const AppListSummaryContainerFragment(),
+      const AppCurrentSummaryFragment(),
       const AppStationMediaFragment(),
       const AppStationListFragment()
     ];
@@ -88,13 +88,12 @@ class _AppHomePageState extends State<AppHomePage> {
           unselectedItemColor: Theme.of(context).colorScheme.onSurface,
           selectedColorOpacity: 0.1,
           items: [
+            SalomonBottomBarItem(icon: const Icon(AppIcons.past), title: Text(AppL18nConfig.get(context).page_review)),
             SalomonBottomBarItem(
-                icon: const Icon(AppIcons.past), title: Text(AppLocalizations.of(context)!.page_review)),
+                icon: const Icon(Icons.trending_up), title: Text(AppL18nConfig.get(context).page_current)),
+            SalomonBottomBarItem(icon: const Icon(Icons.image), title: Text(AppL18nConfig.get(context).page_media)),
             SalomonBottomBarItem(
-                icon: const Icon(Icons.trending_up), title: Text(AppLocalizations.of(context)!.page_current)),
-            SalomonBottomBarItem(icon: const Icon(Icons.image), title: Text(AppLocalizations.of(context)!.page_media)),
-            SalomonBottomBarItem(
-                icon: const Icon(AppIcons.station), title: Text(AppLocalizations.of(context)!.page_stations))
+                icon: const Icon(AppIcons.station), title: Text(AppL18nConfig.get(context).page_stations))
           ],
           currentIndex: _selectedIndex,
           onTap: _onBottomNavigationTapped),

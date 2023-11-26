@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:weatherapp_ui/fragments/scaffold/app_scaffold_fragment.dart';
+import 'package:weatherapp_ui/components/scaffold/app_scaffold_component.dart';
 
 class AppDetailDataPage extends StatelessWidget {
   final Widget child;
@@ -9,7 +9,7 @@ class AppDetailDataPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppScaffoldFragment(
+    return AppScaffoldComponent(
       appBar: _appBar(context),
       body: child,
     );

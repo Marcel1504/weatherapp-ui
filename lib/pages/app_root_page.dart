@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:weatherapp_ui/fragments/loading/app_loading_fragment.dart';
+import 'package:weatherapp_ui/components/loading/app_loading_component.dart';
+import 'package:weatherapp_ui/components/scaffold/app_scaffold_component.dart';
 import 'package:weatherapp_ui/fragments/retry/app_retry_fragment.dart';
-import 'package:weatherapp_ui/fragments/scaffold/app_scaffold_fragment.dart';
 import 'package:weatherapp_ui/pages/home/app_home_page.dart';
 import 'package:weatherapp_ui/providers/station/app_station_provider.dart';
 
@@ -12,7 +12,7 @@ class AppRootPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Provider.of<AppStationProvider>(context, listen: false).load();
-    return AppScaffoldFragment(
+    return AppScaffoldComponent(
       body: Center(
         child: Consumer<AppStationProvider>(
           builder: (context, provider, widget) {
@@ -31,7 +31,7 @@ class AppRootPage extends StatelessWidget {
   }
 
   Widget _loading() {
-    return const AppLoadingFragment(
+    return const AppLoadingComponent(
       size: 50,
     );
   }

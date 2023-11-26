@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
+import 'package:weatherapp_ui/config/app_l18n_config.dart';
 import 'package:weatherapp_ui/enums/app_calendar_enum.dart';
 
 class AppTimeService {
@@ -72,21 +73,21 @@ class AppTimeService {
       return null;
     }
     Duration duration = end.difference(start);
-    AppLocalizations? localizations = AppLocalizations.of(context);
+    AppLocalizations localizations = AppL18nConfig.get(context);
 
     if (duration.inSeconds < 60) {
-      return "${duration.inSeconds}${localizations!.term_second_short}";
+      return "${duration.inSeconds}${localizations.term_second_short}";
     }
     if (duration.inMinutes < 60) {
-      return "${duration.inMinutes}${localizations!.term_minute_short}";
+      return "${duration.inMinutes}${localizations.term_minute_short}";
     }
     if (duration.inHours < 24) {
-      return "${duration.inHours}${localizations!.term_hour_short}";
+      return "${duration.inHours}${localizations.term_hour_short}";
     }
     if (duration.inDays < 30) {
-      return "${duration.inDays}${localizations!.term_day_short}";
+      return "${duration.inDays}${localizations.term_day_short}";
     }
-    return "${duration.inDays ~/ 30}${localizations!.term_month_short}";
+    return "${duration.inDays ~/ 30}${localizations.term_month_short}";
   }
 
   String? getIsoPatternForCalendarEnum(AppCalendarEnum? calender) {

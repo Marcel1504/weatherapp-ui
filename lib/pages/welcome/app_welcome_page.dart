@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:weatherapp_ui/components/button/app_icon_button_component.dart';
+import 'package:weatherapp_ui/config/app_l18n_config.dart';
 import 'package:weatherapp_ui/enums/app_button_type_enum.dart';
 import 'package:weatherapp_ui/pages/app_root_page.dart';
 import 'package:weatherapp_ui/services/configuration/app_configuration_service.dart';
@@ -26,7 +26,7 @@ class AppWelcomePage extends StatelessWidget {
             shrinkWrap: true,
             children: [
               Text(
-                AppLocalizations.of(context)!.dialog_welcome_title,
+                AppL18nConfig.get(context).dialog_welcome_title,
                 textAlign: TextAlign.center,
                 style:
                     Theme.of(context).textTheme.headlineLarge!.copyWith(color: Theme.of(context).colorScheme.primary),
@@ -57,9 +57,9 @@ class AppWelcomePage extends StatelessWidget {
   Widget _forAndroid(BuildContext context) {
     return Column(
       children: [
-        _tile(context, AppLocalizations.of(context)!.dialog_welcome_install_android, null),
-        _tile(context, AppLocalizations.of(context)!.dialog_welcome_android_three_dots, Icons.more_vert),
-        _tile(context, AppLocalizations.of(context)!.dialog_welcome_android_install, Icons.add_to_home_screen),
+        _tile(context, AppL18nConfig.get(context).dialog_welcome_install_android, null),
+        _tile(context, AppL18nConfig.get(context).dialog_welcome_android_three_dots, Icons.more_vert),
+        _tile(context, AppL18nConfig.get(context).dialog_welcome_android_install, Icons.add_to_home_screen),
       ],
     );
   }
@@ -67,16 +67,16 @@ class AppWelcomePage extends StatelessWidget {
   Widget _forIOS(BuildContext context) {
     return Column(
       children: [
-        _tile(context, AppLocalizations.of(context)!.dialog_welcome_install_ios, null),
-        _tile(context, AppLocalizations.of(context)!.dialog_welcome_ios_safari_menu, Icons.open_in_new),
-        _tile(context, AppLocalizations.of(context)!.dialog_welcome_ios_home_screen, Icons.add_box)
+        _tile(context, AppL18nConfig.get(context).dialog_welcome_install_ios, null),
+        _tile(context, AppL18nConfig.get(context).dialog_welcome_ios_safari_menu, Icons.open_in_new),
+        _tile(context, AppL18nConfig.get(context).dialog_welcome_ios_home_screen, Icons.add_box)
       ],
     );
   }
 
   Widget _forNonMobile(BuildContext context) {
     return Column(
-      children: [_tile(context, AppLocalizations.of(context)!.dialog_welcome_install_desktop, null)],
+      children: [_tile(context, AppL18nConfig.get(context).dialog_welcome_install_desktop, null)],
     );
   }
 

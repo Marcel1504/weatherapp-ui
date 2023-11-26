@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:weatherapp_ui/components/chat/container/app_chat_container_component.dart';
 import 'package:weatherapp_ui/components/input/app_prompt_input_component.dart';
+import 'package:weatherapp_ui/components/scaffold/app_scaffold_component.dart';
 import 'package:weatherapp_ui/config/app_l18n_config.dart';
 import 'package:weatherapp_ui/config/app_layout_config.dart';
-import 'package:weatherapp_ui/fragments/scaffold/app_scaffold_fragment.dart';
 import 'package:weatherapp_ui/providers/assistant/app_assistant_provider.dart';
 
 class AppAssistantPage extends StatelessWidget {
@@ -12,7 +12,7 @@ class AppAssistantPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppScaffoldFragment(
+    return AppScaffoldComponent(
       appBar: _appBar(context),
       body: _body(context),
     );

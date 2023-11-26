@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:weatherapp_ui/components/button/app_icon_button_component.dart';
+import 'package:weatherapp_ui/config/app_l18n_config.dart';
 import 'package:weatherapp_ui/enums/app_button_type_enum.dart';
 import 'package:weatherapp_ui/services/layout/app_layout_service.dart';
 
@@ -22,7 +22,7 @@ class AppRetryFragment extends StatelessWidget {
               right: layoutService.betweenItemPadding() * 2,
               bottom: layoutService.betweenItemPadding() * 2),
           child: Text(
-            AppLocalizations.of(context)!.error_noConnection,
+            AppL18nConfig.get(context).error_noConnection,
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.bodyMedium,
           ),
