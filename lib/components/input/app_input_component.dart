@@ -30,10 +30,7 @@ class AppInputComponent extends StatelessWidget {
           onChanged: (t) => onInputChanged?.call(t),
           controller: controller,
           maxLines: null,
-          style: Theme.of(context)
-              .textTheme
-              .bodyMedium!
-              .copyWith(color: Theme.of(context).colorScheme.secondary, fontSize: size * 0.4),
+          style: Theme.of(context).textTheme.headlineMedium!.copyWith(fontSize: size * 0.4),
           decoration: _getTextFieldDecoration(context),
         ));
   }
@@ -45,11 +42,15 @@ class AppInputComponent extends StatelessWidget {
         enabledBorder: _getEnabledBorder(context),
         focusedBorder: _getFocusedBorder(context),
         suffix: suffix != null ? Text(suffix!) : null,
+        errorStyle: Theme.of(context)
+            .textTheme
+            .bodyMedium!
+            .copyWith(color: Theme.of(context).colorScheme.error, fontSize: size * 0.3),
         hintText: hint,
         hintStyle: Theme.of(context)
             .textTheme
-            .bodyMedium!
-            .copyWith(color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5), fontSize: size * 0.4),
+            .bodySmall!
+            .copyWith(color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7), fontSize: size * 0.4),
         contentPadding: EdgeInsets.symmetric(vertical: size * 0.3, horizontal: size * 0.5));
   }
 

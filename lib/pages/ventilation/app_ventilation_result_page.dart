@@ -4,6 +4,7 @@ import 'package:weatherapp_ui/components/loading/app_loading_component.dart';
 import 'package:weatherapp_ui/components/scaffold/app_scaffold_component.dart';
 import 'package:weatherapp_ui/components/text/app_data_text_component.dart';
 import 'package:weatherapp_ui/config/app_l18n_config.dart';
+import 'package:weatherapp_ui/config/app_layout_config.dart';
 import 'package:weatherapp_ui/enums/app_ventilation_indicator_enum.dart';
 import 'package:weatherapp_ui/providers/ventilation/app_ventilation_provider.dart';
 import 'package:weatherapp_ui/services/layout/app_layout_service.dart';
@@ -23,7 +24,8 @@ class AppVentilationResultPage extends StatelessWidget {
   AppBar _appBar(BuildContext context) {
     return AppBar(
       title: Text(AppL18nConfig.get(context).ventilation_page),
-      titleTextStyle: Theme.of(context).textTheme.bodyMedium,
+      titleTextStyle:
+          Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: AppLayoutConfig.pageAppBarTitleFontSize),
     );
   }
 
@@ -56,7 +58,7 @@ class AppVentilationResultPage extends StatelessWidget {
           Text(
             _getText(context, provider),
             textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.headlineMedium,
+            style: Theme.of(context).textTheme.headlineLarge,
           ),
           Padding(
             padding: EdgeInsets.only(top: AppLayoutService().betweenItemPadding()),
@@ -171,7 +173,7 @@ class AppVentilationResultPage extends StatelessWidget {
     return Center(
       child: Text(
         data,
-        style: Theme.of(context).textTheme.headlineMedium,
+        style: Theme.of(context).textTheme.headlineLarge!,
       ),
     );
   }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:weatherapp_ui/config/app_l18n_config.dart';
+import 'package:weatherapp_ui/config/app_layout_config.dart';
 import 'package:weatherapp_ui/dto/response/station/app_station_response_dto.dart';
 import 'package:weatherapp_ui/enums/app_station_type_enum.dart';
 import 'package:weatherapp_ui/providers/station/app_station_provider.dart';
@@ -54,7 +55,9 @@ class AppStationListItemFragment extends StatelessWidget {
   }
 
   Widget _stationNameText(BuildContext context, AppStationResponseDto? station, AppLayoutService layoutService) {
-    return Text(station?.name ?? "", style: Theme.of(context).textTheme.headlineMedium);
+    return Text(station?.name ?? "",
+        style:
+            Theme.of(context).textTheme.headlineMedium!.copyWith(fontSize: AppLayoutConfig.listStationTitleFontSize));
   }
 
   Widget _stationLastActivityText(
@@ -66,7 +69,8 @@ class AppStationListItemFragment extends StatelessWidget {
           duration != null
               ? AppL18nConfig.get(context).station_last_activity(duration)
               : AppL18nConfig.get(context).station_last_activity_unknown,
-          style: Theme.of(context).textTheme.bodySmall),
+          style:
+              Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: AppLayoutConfig.listStationSubtitleFontSize)),
     );
   }
 

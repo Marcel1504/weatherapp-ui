@@ -44,11 +44,11 @@ class AppButtonComponent extends StatelessWidget {
     Color color;
     switch (type) {
       case AppButtonTypeEnum.primary:
-        color = Theme.of(context).colorScheme.primary;
+        color = Theme.of(context).colorScheme.secondary;
         break;
       case AppButtonTypeEnum.secondary:
         color = Color.alphaBlend(
-            Theme.of(context).colorScheme.secondary.withOpacity(0.1), Theme.of(context).colorScheme.surface);
+            Theme.of(context).colorScheme.primary.withOpacity(0.05), Theme.of(context).colorScheme.surface);
         break;
       case AppButtonTypeEnum.normal:
         color = Theme.of(context).colorScheme.surface;
@@ -63,7 +63,7 @@ class AppButtonComponent extends StatelessWidget {
     Color color;
     switch (type) {
       case AppButtonTypeEnum.primary:
-        color = Theme.of(context).colorScheme.onPrimary;
+        color = Theme.of(context).colorScheme.onSecondary;
         break;
       case AppButtonTypeEnum.secondary:
         color = Theme.of(context).colorScheme.onSurface;

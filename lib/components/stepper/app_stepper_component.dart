@@ -18,8 +18,14 @@ class AppStepperComponent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ColorScheme colorScheme = Theme.of(context).colorScheme;
+    Color background = colorScheme.surface;
+    Color onBackground = colorScheme.onBackground;
+    Color primary = colorScheme.secondary;
+    Color onPrimary = colorScheme.onSecondary;
     return Theme(
-        data: Theme.of(context).copyWith(colorScheme: colorScheme.copyWith(background: colorScheme.surface)),
+        data: Theme.of(context).copyWith(
+            colorScheme: colorScheme.copyWith(
+                background: background, onBackground: onBackground, primary: primary, onPrimary: onPrimary)),
         child: Stepper(
           type: StepperType.vertical,
           currentStep: currentStep,

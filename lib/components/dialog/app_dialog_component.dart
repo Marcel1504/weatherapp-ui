@@ -30,7 +30,7 @@ class AppDialogComponent extends StatelessWidget {
       title: Text(title ?? "",
           style: Theme.of(context)
               .textTheme
-              .bodyLarge!
+              .bodyMedium!
               .copyWith(color: titleColor, fontSize: AppLayoutConfig.dialogTitleFontSize)),
       content: ConstrainedBox(
           constraints: BoxConstraints(maxWidth: AppLayoutService().maxWidth()),

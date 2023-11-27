@@ -7,28 +7,46 @@ abstract class AppTheme {
         fontFamily: "Lato",
         textTheme: TextTheme(
           labelSmall: TextStyle(
-              color: onSurfaceColor().withOpacity(AppLayoutConfig.opacityTextLabel), fontWeight: FontWeight.w300),
+              color: onSurfaceColor().withOpacity(AppLayoutConfig.opacityTextLabel),
+              fontSize: AppLayoutConfig.textDefaultLabel,
+              fontWeight: FontWeight.w300),
           labelMedium: TextStyle(
-              color: onSurfaceColor().withOpacity(AppLayoutConfig.opacityTextLabel), fontWeight: FontWeight.w400),
+              color: onSurfaceColor().withOpacity(AppLayoutConfig.opacityTextLabel),
+              fontSize: AppLayoutConfig.textDefaultLabel,
+              fontWeight: FontWeight.w400),
           labelLarge: TextStyle(
-              color: onSurfaceColor().withOpacity(AppLayoutConfig.opacityTextLabel), fontWeight: FontWeight.w900),
+              color: onSurfaceColor().withOpacity(AppLayoutConfig.opacityTextLabel),
+              fontSize: AppLayoutConfig.textDefaultLabel,
+              fontWeight: FontWeight.w900),
           bodySmall: TextStyle(
-              color: onSurfaceColor().withOpacity(AppLayoutConfig.opacityTextBody), fontWeight: FontWeight.w300),
+              color: onSurfaceColor().withOpacity(AppLayoutConfig.opacityTextBody),
+              fontSize: AppLayoutConfig.textDefaultBody,
+              fontWeight: FontWeight.w300),
           bodyMedium: TextStyle(
-              color: onSurfaceColor().withOpacity(AppLayoutConfig.opacityTextBody), fontWeight: FontWeight.w400),
+              color: onSurfaceColor().withOpacity(AppLayoutConfig.opacityTextBody),
+              fontSize: AppLayoutConfig.textDefaultBody,
+              fontWeight: FontWeight.w400),
           bodyLarge: TextStyle(
-              color: onSurfaceColor().withOpacity(AppLayoutConfig.opacityTextBody), fontWeight: FontWeight.w900),
+              color: onSurfaceColor().withOpacity(AppLayoutConfig.opacityTextBody),
+              fontSize: AppLayoutConfig.textDefaultBody,
+              fontWeight: FontWeight.w900),
           headlineSmall: TextStyle(
-              color: onSurfaceColor().withOpacity(AppLayoutConfig.opacityTextHeadline), fontWeight: FontWeight.w300),
+              color: onSurfaceColor().withOpacity(AppLayoutConfig.opacityTextHeadline),
+              fontSize: AppLayoutConfig.textDefaultHeadline,
+              fontWeight: FontWeight.w300),
           headlineMedium: TextStyle(
-              color: onSurfaceColor().withOpacity(AppLayoutConfig.opacityTextHeadline), fontWeight: FontWeight.w400),
+              color: onSurfaceColor().withOpacity(AppLayoutConfig.opacityTextHeadline),
+              fontSize: AppLayoutConfig.textDefaultHeadline,
+              fontWeight: FontWeight.w400),
           headlineLarge: TextStyle(
-              color: onSurfaceColor().withOpacity(AppLayoutConfig.opacityTextHeadline), fontWeight: FontWeight.w900),
+              color: onSurfaceColor().withOpacity(AppLayoutConfig.opacityTextHeadline),
+              fontSize: AppLayoutConfig.textDefaultHeadline,
+              fontWeight: FontWeight.w900),
         ),
         snackBarTheme: SnackBarThemeData(
             backgroundColor: errorColor(), contentTextStyle: TextStyle(color: onErrorColor(), fontSize: 16)),
         scrollbarTheme: ScrollbarThemeData(
-            thumbColor: MaterialStateProperty.all(tertiaryColor()), thickness: MaterialStateProperty.all(8)),
+            thumbColor: MaterialStateProperty.all(secondaryColor()), thickness: MaterialStateProperty.all(8)),
         chipTheme: ChipThemeData(
             selectedColor: secondaryColor(),
             elevation: 0,

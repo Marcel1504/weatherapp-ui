@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weatherapp_ui/config/app_layout_config.dart';
 import 'package:weatherapp_ui/services/layout/app_layout_service.dart';
 
 class AppDataTextComponent extends StatelessWidget {
@@ -11,7 +12,8 @@ class AppDataTextComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextStyle valueStyle = Theme.of(context).textTheme.headlineMedium!;
+    TextStyle valueStyle =
+        Theme.of(context).textTheme.headlineLarge!.copyWith(fontSize: AppLayoutConfig.textDataValueFontSize);
     AppLayoutService layoutService = AppLayoutService();
     return Column(
       children: [
@@ -37,7 +39,7 @@ class AppDataTextComponent extends StatelessWidget {
           padding: EdgeInsets.only(top: layoutService.betweenItemPadding() * 0.5),
           child: Text(
             title ?? "",
-            style: Theme.of(context).textTheme.bodySmall,
+            style: Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: AppLayoutConfig.textDataTitleFontSize),
           ),
         ),
       ],

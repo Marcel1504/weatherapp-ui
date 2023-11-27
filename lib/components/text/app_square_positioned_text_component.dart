@@ -8,6 +8,7 @@ class AppSquarePositionedTextComponent extends StatelessWidget {
   final double? top;
   final double? right;
   final Color color;
+  final FontWeight? fontWeight;
   final double backgroundOpacity;
   final double backgroundDensity;
   final double textDensity;
@@ -25,7 +26,8 @@ class AppSquarePositionedTextComponent extends StatelessWidget {
       this.textDensity = 2,
       this.backgroundDensity = 2,
       this.backgroundOpacity = 0,
-      this.icon});
+      this.icon,
+      this.fontWeight = FontWeight.w400});
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +49,7 @@ class AppSquarePositionedTextComponent extends StatelessWidget {
     return Text(
       text,
       textAlign: TextAlign.center,
-      style: TextStyle(color: color, fontSize: squareSize * (textDensity / 100)),
+      style: TextStyle(color: color, fontWeight: fontWeight, fontSize: squareSize * (textDensity / 100)),
     );
   }
 

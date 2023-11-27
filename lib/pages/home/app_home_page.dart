@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:weatherapp_ui/components/scaffold/app_scaffold_component.dart';
 import 'package:weatherapp_ui/config/app_l18n_config.dart';
+import 'package:weatherapp_ui/config/app_layout_config.dart';
 import 'package:weatherapp_ui/fragments/station/list/app_station_list_fragment.dart';
 import 'package:weatherapp_ui/fragments/station/media/app_station_media_fragment.dart';
 import 'package:weatherapp_ui/fragments/summary/current/app_current_summary_fragment.dart';
@@ -34,7 +35,8 @@ class _AppHomePageState extends State<AppHomePage> {
       title: Consumer<AppStationProvider>(builder: (context, provider, widget) {
         return Text(provider.selectedStation?.name ?? AppL18nConfig.get(context).station_unnamed);
       }),
-      titleTextStyle: Theme.of(context).textTheme.bodyMedium,
+      titleTextStyle:
+          Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: AppLayoutConfig.pageAppBarTitleFontSize),
       actions: _appBarActions(context),
     );
   }
@@ -84,7 +86,7 @@ class _AppHomePageState extends State<AppHomePage> {
           color: Theme.of(context).colorScheme.surface,
           borderRadius: const BorderRadius.only(topLeft: Radius.circular(25), topRight: Radius.circular(25))),
       child: SalomonBottomBar(
-          selectedItemColor: Theme.of(context).colorScheme.primary,
+          selectedItemColor: Theme.of(context).colorScheme.secondary,
           unselectedItemColor: Theme.of(context).colorScheme.onSurface,
           selectedColorOpacity: 0.1,
           items: [

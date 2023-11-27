@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:weatherapp_ui/components/scaffold/app_scaffold_component.dart';
+import 'package:weatherapp_ui/config/app_layout_config.dart';
 
 class AppDetailDataPage extends StatelessWidget {
   final Widget child;
@@ -18,7 +19,8 @@ class AppDetailDataPage extends StatelessWidget {
   AppBar _appBar(BuildContext context) {
     return AppBar(
       title: Text(title ?? ""),
-      titleTextStyle: Theme.of(context).textTheme.bodyMedium,
+      titleTextStyle:
+          Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: AppLayoutConfig.pageAppBarTitleFontSize),
     );
   }
 }

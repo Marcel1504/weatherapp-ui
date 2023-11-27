@@ -21,7 +21,8 @@ class AppAssistantPage extends StatelessWidget {
   AppBar _appBar(BuildContext context) {
     return AppBar(
       title: Text(AppL18nConfig.get(context).page_assistant),
-      titleTextStyle: Theme.of(context).textTheme.bodyMedium,
+      titleTextStyle:
+          Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: AppLayoutConfig.pageAppBarTitleFontSize),
     );
   }
 

@@ -7,6 +7,7 @@ import 'package:photo_view/photo_view_gallery.dart';
 import 'package:provider/provider.dart';
 import 'package:weatherapp_ui/components/button/app_icon_button_component.dart';
 import 'package:weatherapp_ui/config/app_l18n_config.dart';
+import 'package:weatherapp_ui/config/app_layout_config.dart';
 import 'package:weatherapp_ui/enums/app_button_type_enum.dart';
 import 'package:weatherapp_ui/models/app_file_model.dart';
 import 'package:weatherapp_ui/providers/station/app_station_provider.dart';
@@ -86,7 +87,7 @@ class _AppStationMediaFragmentState extends State<AppStationMediaFragment> {
     return Text(
       text ?? "",
       textAlign: TextAlign.center,
-      style: Theme.of(context).textTheme.headlineMedium,
+      style: Theme.of(context).textTheme.labelMedium!.copyWith(fontSize: AppLayoutConfig.textCurrentDataHeaderFontSize),
     );
   }
 

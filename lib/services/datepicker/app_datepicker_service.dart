@@ -7,6 +7,7 @@ class AppDatePickerService {
         context: context,
         initialDate: initial ?? DateTime.now(),
         firstDate: DateTime(2018, 1, 1),
+        builder: (BuildContext context, Widget? child) => Theme(data: _getDatePickerTheme(context), child: child!),
         lastDate: DateTime.now());
   }
 
@@ -27,5 +28,12 @@ class AppDatePickerService {
                 selectedDate: initial ?? DateTime.now(),
               ),
             ));
+  }
+
+  ThemeData _getDatePickerTheme(BuildContext context) {
+    Color primary = Theme.of(context).colorScheme.secondary;
+    Color onPrimary = Theme.of(context).colorScheme.onSecondary;
+    return Theme.of(context)
+        .copyWith(colorScheme: Theme.of(context).colorScheme.copyWith(primary: primary, onPrimary: onPrimary));
   }
 }

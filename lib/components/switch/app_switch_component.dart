@@ -32,8 +32,14 @@ class _AppSwitchComponentState extends State<AppSwitchComponent> {
               widget.onChanged!.call(v);
             }
           }),
-      title: widget.title != null ? Text(widget.title!) : null,
-      subtitle: widget.subtitle != null ? Text(widget.subtitle!) : null,
+      title: widget.title != null
+          ? Text(
+              widget.title!,
+              style: Theme.of(context).textTheme.headlineMedium,
+            )
+          : null,
+      subtitle:
+          widget.subtitle != null ? Text(widget.subtitle!, style: Theme.of(context).textTheme.headlineSmall) : null,
     );
   }
 }

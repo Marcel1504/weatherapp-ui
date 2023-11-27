@@ -105,7 +105,7 @@ class AppCurrentSummaryFragment extends StatelessWidget {
               style: Theme.of(context)
                   .textTheme
                   .labelMedium!
-                  .copyWith(fontSize: AppLayoutConfig.headlineCurrentDurationFontSize),
+                  .copyWith(fontSize: AppLayoutConfig.textCurrentDataHeaderFontSize),
             ),
           )
         : Container();

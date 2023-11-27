@@ -50,7 +50,8 @@ class _AppVentilationStepperPageState extends State<AppVentilationStepperPage> {
   AppBar _appBar(BuildContext context) {
     return AppBar(
       title: Text(AppL18nConfig.get(context).ventilation_page),
-      titleTextStyle: Theme.of(context).textTheme.bodyMedium,
+      titleTextStyle:
+          Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: AppLayoutConfig.pageAppBarTitleFontSize),
     );
   }
 
