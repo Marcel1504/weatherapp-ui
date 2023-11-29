@@ -7,4 +7,6 @@ enum AppChatErrorCodeEnum {
   assistant00002,
   @JsonValue("ASSISTANT00003")
   assistant00003,
+  @JsonValue("ASSISTANT00004")
+  assistant00004,
 }

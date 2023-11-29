@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:weatherapp_ui/components/button/app_icon_text_button_component.dart';
 import 'package:weatherapp_ui/components/chat/message/app_chat_message_component.dart';
+import 'package:weatherapp_ui/config/app_l18n_config.dart';
 import 'package:weatherapp_ui/config/app_layout_config.dart';
 import 'package:weatherapp_ui/enums/app_button_type_enum.dart';
 import 'package:weatherapp_ui/enums/chat/app_chat_error_code_enum.dart';
@@ -20,7 +21,7 @@ class AppChatErrorMessageComponent extends StatelessWidget {
         role: AppChatMessageRoleEnum.assistant,
         child: Column(
           children: [
-            Text("An error occurred while processing your message. Please restart the chat",
+            Text(_getErrorText(context),
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                     fontSize: AppLayoutConfig.chatMessageFontSize, color: Theme.of(context).colorScheme.error)),
             Padding(
@@ -33,5 +34,19 @@ class AppChatErrorMessageComponent extends StatelessWidget {
             )
           ],
         ));
+  }
+
+  String _getErrorText(BuildContext context) {
+    switch (errorCode) {
+      case AppChatErrorCodeEnum.assistant00001:
+        return AppL18nConfig.get(context).chat_assistant_error_timeout;
+      case AppChatErrorCodeEnum.assistant00002:
+        return AppL18nConfig.get(context).chat_assistant_error_data_processing;
+      case AppChatErrorCodeEnum.assistant00004:
+        return AppL18nConfig.get(context).chat_assistant_error_too_many_requests;
+      case AppChatErrorCodeEnum.assistant00003:
+      default:
+        return AppL18nConfig.get(context).chat_assistant_error_connection_failure;
+    }
   }
 }

@@ -23,6 +23,9 @@ class AppLayoutConfig {
   // dialog
   static const double dialogTitleFontSize = 18;
 
+  //
+  static const double iconAssistantIntroSize = 60;
+
   // input
   static const double inputBorderDefaultWidth = 1;
   static const double inputDefaultSize = 45;
@@ -47,6 +50,9 @@ class AppLayoutConfig {
   static const double pickerValueFontSize = 14;
 
   // text
+  static const double textAssistantIntroHeadlineFontSize = 22;
+  static const double textAssistantIntroTextFontSize = 20;
+  static const double textAssistantIntroTextMaxWidth = 300;
   static const double textCurrentDataHeaderFontSize = 16;
   static const double textDefaultBody = 14;
   static const double textDefaultHeadline = 18;

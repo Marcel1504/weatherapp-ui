@@ -19,8 +19,9 @@ import 'package:weatherapp_ui/models/app_chat_message_model.dart';
 class AppChatContainerComponent extends StatefulWidget {
   final List<AppChatMessageModel> messages;
   final Function()? onResetChat;
+  final double sideSpacing;
 
-  const AppChatContainerComponent({super.key, this.messages = const [], this.onResetChat});
+  const AppChatContainerComponent({super.key, this.messages = const [], this.onResetChat, this.sideSpacing = 0});
 
   @override
   State<AppChatContainerComponent> createState() => _AppChatContainerComponentState();
@@ -30,7 +31,7 @@ class _AppChatContainerComponentState extends State<AppChatContainerComponent> {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
-      double width = constraints.maxWidth;
+      double width = constraints.maxWidth - (2 * widget.sideSpacing);
       return ListView(
           shrinkWrap: true, children: widget.messages.map((e) => _mapChatMessage(context, width, e)).toList());
     });
@@ -58,7 +59,10 @@ class _AppChatContainerComponentState extends State<AppChatContainerComponent> {
         message = _getChatWeatherMediaMessage(width, chatMessage);
         break;
     }
-    return Padding(padding: const EdgeInsets.only(top: AppLayoutConfig.chatMessageSpacing), child: message);
+    return Padding(
+        padding: EdgeInsets.only(
+            top: AppLayoutConfig.chatMessageSpacing, right: widget.sideSpacing, left: widget.sideSpacing),
+        child: message);
   }
 
   Widget _getChatTextMessage(double width, AppChatMessageModel chatMessage) {
@@ -101,7 +105,7 @@ class _AppChatContainerComponentState extends State<AppChatContainerComponent> {
 
   Widget _getChatErrorMessage(double width, AppChatMessageModel chatMessage) {
     AppChatErrorCodeEnum? errorCode =
-        AppChatErrorCodeEnum.values.firstWhereOrNull((e) => e.name == chatMessage.content);
+        AppChatErrorCodeEnum.values.firstWhereOrNull((e) => e.name == chatMessage.content?.toLowerCase());
     return AppChatErrorMessageComponent(width: width, onRestart: widget.onResetChat, errorCode: errorCode);
   }
 }

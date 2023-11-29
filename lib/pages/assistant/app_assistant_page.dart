@@ -5,11 +5,17 @@ import 'package:weatherapp_ui/components/input/app_prompt_input_component.dart';
 import 'package:weatherapp_ui/components/scaffold/app_scaffold_component.dart';
 import 'package:weatherapp_ui/config/app_l18n_config.dart';
 import 'package:weatherapp_ui/config/app_layout_config.dart';
+import 'package:weatherapp_ui/fragments/assistant/app_assistant_options_fragment.dart';
 import 'package:weatherapp_ui/providers/assistant/app_assistant_provider.dart';
 
-class AppAssistantPage extends StatelessWidget {
+class AppAssistantPage extends StatefulWidget {
   const AppAssistantPage({super.key});
 
+  @override
+  State<AppAssistantPage> createState() => _AppAssistantPageState();
+}
+
+class _AppAssistantPageState extends State<AppAssistantPage> {
   @override
   Widget build(BuildContext context) {
     return AppScaffoldComponent(
@@ -22,40 +28,71 @@ class AppAssistantPage extends StatelessWidget {
     return AppBar(
       title: Text(AppL18nConfig.get(context).page_assistant),
       titleTextStyle:
-          Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: AppLayoutConfig.pageAppBarTitleFontSize),
+      Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: AppLayoutConfig.pageAppBarTitleFontSize),
     );
   }
 
   Widget _body(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(AppLayoutConfig.pageAssistantSpacing),
-      child: Consumer<AppAssistantProvider>(builder: (context, provider, widget) {
-        return Column(
-          children: [_getChatContainer(context, provider), _getChatInput(context, provider)],
-        );
-      }),
-    );
+    return Consumer<AppAssistantProvider>(builder: (context, provider, widget) {
+      return Column(
+        children: [
+          provider.chatMessages.isNotEmpty ? _getChatContainer(provider) : _getOptions(provider),
+          _getCoolDownText(provider),
+          _getChatInput(provider)
+        ],
+      );
+    });
   }
 
-  Widget _getChatContainer(BuildContext context, AppAssistantProvider assistantProvider) {
+  Widget _getChatContainer(AppAssistantProvider assistantProvider) {
     return Expanded(
       child: Align(
         alignment: Alignment.bottomCenter,
         child: Padding(
-          padding: const EdgeInsets.only(bottom: AppLayoutConfig.pageAssistantSpacing),
+          padding: const EdgeInsets.only(top: AppLayoutConfig.pageAssistantSpacing),
           child: AppChatContainerComponent(
-            onResetChat: () => assistantProvider.clearChat(),
-            messages: assistantProvider.chatMessages,
-          ),
+              onResetChat: () => assistantProvider.clearChat(),
+              messages: assistantProvider.chatMessages,
+              sideSpacing: AppLayoutConfig.pageAssistantSpacing),
         ),
       ),
     );
   }
 
-  Widget _getChatInput(BuildContext context, AppAssistantProvider assistantProvider) {
-    return AppPromptInputComponent(
-        hint: AppL18nConfig.get(context).chat_assistant_type_message,
-        disabled: assistantProvider.isLoading || assistantProvider.hasError,
-        onTextSent: (t) => assistantProvider.sendChatMessage(t));
+  Widget _getOptions(AppAssistantProvider assistantProvider) {
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.all(AppLayoutConfig.pageAssistantSpacing),
+        child: AppAssistantOptionsFragment(optionSelected: (o) => assistantProvider.sendChatMessage(context, o)),
+      ),
+    );
+  }
+
+  Widget _getCoolDownText(AppAssistantProvider assistantProvider) {
+    return assistantProvider.currentCoolDownSeconds <= 0
+        ? Container()
+        : Padding(
+            padding: const EdgeInsets.only(top: AppLayoutConfig.pageAssistantSpacing),
+            child: Text(
+              AppL18nConfig.get(context).chat_assistant_wait(assistantProvider.currentCoolDownSeconds),
+              style: Theme.of(context).textTheme.labelMedium,
+            ),
+          );
+  }
+
+  Widget _getChatInput(AppAssistantProvider assistantProvider) {
+    return Padding(
+      padding: const EdgeInsets.all(AppLayoutConfig.pageAssistantSpacing),
+      child: AppPromptInputComponent(
+          hint: AppL18nConfig.get(context).chat_assistant_type_message,
+          disabled: !assistantProvider.canSendMessage(),
+          onTextSent: (t) => assistantProvider.sendChatMessage(context, t)),
+    );
+  }
+
+  @override
+  void deactivate() {
+    Provider.of<AppAssistantProvider>(context, listen: false).clearChat(notify: false);
+    super.deactivate();
   }
 }

@@ -1,9 +1,14 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
 import 'package:weatherapp_ui/dto/request/chat/app_chat_request_dto.dart';
 import 'package:weatherapp_ui/dto/response/chat/app_chat_response_dto.dart';
+import 'package:weatherapp_ui/dto/response/chat/message/app_chat_message_response_dto.dart';
 import 'package:weatherapp_ui/enums/chat/app_chat_message_role_enum.dart';
 import 'package:weatherapp_ui/enums/chat/app_chat_message_type_enum.dart';
 import 'package:weatherapp_ui/models/app_chat_message_model.dart';
+import 'package:weatherapp_ui/providers/station/app_station_provider.dart';
 import 'package:weatherapp_ui/services/backend/assistant/app_assistant_backend_service.dart';
 
 class AppAssistantProvider extends ChangeNotifier {
@@ -12,11 +17,17 @@ class AppAssistantProvider extends ChangeNotifier {
   int? _chatId;
   bool _isLoading = false;
   bool _hasError = false;
+  Timer? _coolDownTimer;
+  int _currentCoolDownSeconds = 0;
 
-  Future<void> sendChatMessage(String? message) async {
-    if (message != null && !_isLoading) {
+  Future<void> sendChatMessage(BuildContext context, String? message) async {
+    if (message != null && canSendMessage()) {
+      _startCoolDownTimer();
       _isLoading = true;
       notifyListeners();
+
+      // get context station
+      String? stationCode = Provider.of<AppStationProvider>(context, listen: false).selectedStation?.code;
 
       // add new message to chatMessage and also the loading indicator message
       _chatMessages.add(
@@ -25,41 +36,65 @@ class AppAssistantProvider extends ChangeNotifier {
           .add(AppChatMessageModel(role: AppChatMessageRoleEnum.assistant, type: AppChatMessageTypeEnum.loading));
 
       // perform request with the chat message
-      AppChatRequestDto chatRequest = AppChatRequestDto(message: message, chatId: _chatId, contextStationId: 1);
-      AppChatResponseDto? chatResponse = await _backendService.sendChatMessage(chatRequest);
+      AppChatRequestDto chatRequest =
+          AppChatRequestDto(message: message, chatId: _chatId, contextStationCode: stationCode);
+      AppChatResponseDto chatResponse = await _backendService.sendChatMessage(chatRequest);
+      _chatId = chatResponse.chatId;
 
       // remove loading message once the chat request is finished
       _chatMessages.removeWhere((m) => m.type == AppChatMessageTypeEnum.loading);
 
       // handle the chat response
-      chatResponse != null ? _handleChatResponse(chatResponse) : _handleErrorResponse();
+      for (AppChatMessageResponseDto message in chatResponse.messages ?? []) {
+        message.type == AppChatMessageTypeEnum.error ? _handleErrorMessage(message) : _handleChatMessage(message);
+      }
+
       _isLoading = false;
       notifyListeners();
     }
   }
 
-  void clearChat() {
+  void clearChat({bool notify = true}) {
     _chatMessages.clear();
     _chatId = null;
     _hasError = false;
     _isLoading = false;
-    notifyListeners();
+    _coolDownTimer?.cancel();
+    _currentCoolDownSeconds = 0;
+    if (notify) {
+      notifyListeners();
+    }
   }
 
-  void _handleChatResponse(AppChatResponseDto response) {
-    _chatId = response.chatId;
-    response.messages?.map((m) {
-      AppChatMessageRoleEnum? role = m.role;
-      AppChatMessageTypeEnum type = m.type ?? AppChatMessageTypeEnum.text;
-      if (role != null) {
-        _chatMessages.add(AppChatMessageModel(role: role, type: type, content: m.content));
-      }
-    });
+  bool canSendMessage() {
+    return !_isLoading && !_hasError && _currentCoolDownSeconds <= 0;
   }
 
-  void _handleErrorResponse() {
+  void _handleChatMessage(AppChatMessageResponseDto message) {
+    AppChatMessageRoleEnum? role = message.role ?? AppChatMessageRoleEnum.assistant;
+    AppChatMessageTypeEnum type = message.type ?? AppChatMessageTypeEnum.text;
+    _chatMessages.add(AppChatMessageModel(role: role, type: type, content: message.content));
+  }
+
+  void _handleErrorMessage(AppChatMessageResponseDto message) {
     _hasError = true;
-    _chatMessages.add(AppChatMessageModel(role: AppChatMessageRoleEnum.assistant, type: AppChatMessageTypeEnum.error));
+    _chatMessages.add(AppChatMessageModel(
+        role: AppChatMessageRoleEnum.assistant, type: AppChatMessageTypeEnum.error, content: message.content));
+  }
+
+  void _startCoolDownTimer() {
+    if (_coolDownTimer != null) {
+      _coolDownTimer?.cancel();
+    }
+    _currentCoolDownSeconds = 20;
+    _coolDownTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      _currentCoolDownSeconds--;
+      if (_currentCoolDownSeconds <= 0) {
+        timer.cancel();
+        _coolDownTimer == null;
+      }
+      notifyListeners();
+    });
   }
 
   List<AppChatMessageModel> get chatMessages => _chatMessages;
@@ -67,4 +102,6 @@ class AppAssistantProvider extends ChangeNotifier {
   bool get isLoading => _isLoading;
 
   bool get hasError => _hasError;
+
+  int get currentCoolDownSeconds => _currentCoolDownSeconds;
 }

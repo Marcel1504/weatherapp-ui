@@ -23,6 +23,7 @@ dependencies:
   collection: ^1.17.0
   fl_chart: ^0.62.0
   photo_view: ^0.14.0
+  text_scroll: ^0.2.0
 
 dev_dependencies:
   flutter_test:
