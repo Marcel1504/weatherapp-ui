@@ -5,15 +5,8 @@ part 'app_chat_weather_time_response_dto.g.dart';
 
 @JsonSerializable()
 class AppChatWeatherTimeResponseDto {
-  AppChatWeatherTimeResponseDto({
-    this.temperature,
-    this.windMax,
-    this.humidity,
-    this.rainTotal,
-    this.date,
-    this.station,
-    this.type,
-  });
+  AppChatWeatherTimeResponseDto(
+      {this.temperature, this.windMax, this.humidity, this.rainTotal, this.date, this.station, this.aggregation});
 
   double? temperature;
   double? windMax;
@@ -21,7 +14,7 @@ class AppChatWeatherTimeResponseDto {
   double? rainTotal;
   String? date;
   String? station;
-  AppChatWeatherAggregationEnum? type;
+  AppChatWeatherAggregationEnum? aggregation;
 
   factory AppChatWeatherTimeResponseDto.fromJson(Map<String, dynamic> json) =>
       _$AppChatWeatherTimeResponseDtoFromJson(json);

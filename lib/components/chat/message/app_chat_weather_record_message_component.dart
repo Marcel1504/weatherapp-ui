@@ -28,7 +28,8 @@ class AppChatWeatherRecordMessageComponent extends StatelessWidget {
   Widget _station(BuildContext context) {
     return Text(
       " ${weatherRecord!.station!}",
-      style: Theme.of(context).textTheme.headlineMedium,
+      style:
+          Theme.of(context).textTheme.headlineMedium!.copyWith(fontSize: AppLayoutConfig.defaultTextHeadlineFontSize),
     );
   }
 
@@ -47,11 +48,11 @@ class AppChatWeatherRecordMessageComponent extends StatelessWidget {
         break;
     }
     return Padding(
-      padding: const EdgeInsets.only(
-          top: AppLayoutConfig.chatMessageContentSpacing, bottom: AppLayoutConfig.chatMessageContentSpacing),
+      padding: const EdgeInsets.only(top: AppLayoutConfig.defaultSpacing, bottom: AppLayoutConfig.defaultSpacing),
       child: Text(
         AppTimeService().transformISODayString(context, weatherRecord?.date, pattern: datePattern) ?? "?",
-        style: Theme.of(context).textTheme.headlineLarge!.copyWith(fontSize: 18),
+        style:
+            Theme.of(context).textTheme.headlineLarge!.copyWith(fontSize: AppLayoutConfig.defaultTextHeadlineFontSize),
       ),
     );
   }
@@ -76,7 +77,8 @@ class AppChatWeatherRecordMessageComponent extends StatelessWidget {
     return Text(
       text ?? "?",
       style: Theme.of(context).textTheme.headlineLarge!.copyWith(
-          fontSize: 25, color: Color.alphaBlend(color.withOpacity(0.7), Theme.of(context).colorScheme.onSurface)),
+          fontSize: AppLayoutConfig.textAssistantMessageWeatherRecordValueFontSize,
+          color: Color.alphaBlend(color.withOpacity(0.7), Theme.of(context).colorScheme.onSurface)),
     );
   }
 }

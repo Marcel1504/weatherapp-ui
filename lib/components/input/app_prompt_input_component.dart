@@ -11,7 +11,7 @@ class AppPromptInputComponent extends StatefulWidget {
   final double size;
 
   const AppPromptInputComponent(
-      {super.key, this.hint, this.onTextSent, this.size = AppLayoutConfig.inputDefaultSize, this.disabled = false});
+      {super.key, this.hint, this.onTextSent, this.size = AppLayoutConfig.defaultInputSize, this.disabled = false});
 
   @override
   State<AppPromptInputComponent> createState() => _AppPromptInputComponentState();

@@ -1,7 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:weatherapp_ui/components/chip/app_choice_chip_component.dart';
-import 'package:weatherapp_ui/services/layout/app_layout_service.dart';
+import 'package:weatherapp_ui/components/button/app_chip_button_component.dart';
+import 'package:weatherapp_ui/config/app_layout_config.dart';
 
 class AppChoiceChipListComponent extends StatefulWidget {
   final List<String> titles;
@@ -15,50 +15,41 @@ class AppChoiceChipListComponent extends StatefulWidget {
 }
 
 class _AppChoiceChipListComponentState extends State<AppChoiceChipListComponent> {
-  late ScrollController _scrollController;
+  final ScrollController _scrollController = ScrollController();
   int _selectedIndex = 0;
 
   @override
-  void initState() {
-    super.initState();
-    _scrollController = ScrollController();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    AppLayoutService layoutService = AppLayoutService();
-
     return widget.titles.length > 1
         ? Scrollbar(
             controller: _scrollController,
-            child: SingleChildScrollView(
-              controller: _scrollController,
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                  children: _chips()
-                      .map((c) => Padding(
-                    padding: EdgeInsets.only(
-                                right: layoutService.betweenItemPadding(),
-                                bottom: layoutService.betweenItemPadding() * 1.2),
-                            child: c,
-                          ))
-                      .toList()),
-            ),
-          )
+            child:
+                SingleChildScrollView(controller: _scrollController, scrollDirection: Axis.horizontal, child: _chips()))
         : Container();
   }
 
-  List<Widget> _chips() {
-    return widget.titles
-        .mapIndexed((index, title) => AppChoiceChipComponent(
-              selected: _selectedIndex == index,
-              primary: widget.primary,
-              text: title,
-              onTap: () => setState(() {
-                _selectedIndex = index;
-                widget.onTap.call(_selectedIndex);
-              }),
-            ))
-        .toList();
+  Widget _chips() {
+    return Row(
+        children: widget.titles
+            .mapIndexed((index, element) => _chipItem(element, index))
+            .map((c) => Padding(
+                  padding: const EdgeInsets.only(
+                      right: AppLayoutConfig.defaultSpacing, bottom: AppLayoutConfig.defaultSpacing * 1.2),
+                  child: c,
+                ))
+            .toList());
+  }
+
+  Widget _chipItem(String title, int index) {
+    return AppChipButtonComponent(
+      isSelected: _selectedIndex == index,
+      isPrimary: widget.primary,
+      text: title,
+      size: 32,
+      onTap: () => setState(() {
+        _selectedIndex = index;
+        widget.onTap.call(_selectedIndex);
+      }),
+    );
   }
 }

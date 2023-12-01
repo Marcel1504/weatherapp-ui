@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:weatherapp_ui/components/button/app_long_text_button_component.dart';
+import 'package:weatherapp_ui/components/button/app_icon_text_button_component.dart';
 import 'package:weatherapp_ui/config/app_l18n_config.dart';
 import 'package:weatherapp_ui/config/app_layout_config.dart';
 import 'package:weatherapp_ui/enums/app_button_type_enum.dart';
@@ -28,7 +28,7 @@ class AppAssistantOptionsFragment extends StatelessWidget {
         child: Column(
           children: widgets
               .map((w) => Padding(
-                    padding: const EdgeInsets.only(bottom: AppLayoutConfig.pageAssistantSpacing),
+            padding: const EdgeInsets.only(bottom: AppLayoutConfig.defaultSpacing),
                     child: w,
                   ))
               .toList(),
@@ -58,7 +58,7 @@ class AppAssistantOptionsFragment extends StatelessWidget {
     return ConstrainedBox(
       constraints: const BoxConstraints(maxWidth: AppLayoutConfig.textAssistantIntroTextMaxWidth),
       child: Padding(
-        padding: const EdgeInsets.only(bottom: AppLayoutConfig.pageAssistantSpacing * 2),
+        padding: const EdgeInsets.only(bottom: AppLayoutConfig.defaultSpacing * 2),
         child: Text(
           AppL18nConfig.get(context).chat_assistant_intro_text,
           textAlign: TextAlign.center,
@@ -72,9 +72,10 @@ class AppAssistantOptionsFragment extends StatelessWidget {
   }
 
   Widget _option(BuildContext context, String option) {
-    return AppLongTextButtonComponent(
+    return AppIconTextButtonComponent(
       text: option,
       type: AppButtonTypeEnum.secondary,
+      scrollText: true,
       onTap: () => optionSelected?.call(option),
     );
   }

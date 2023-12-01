@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:weatherapp_ui/components/button/app_icon_button_component.dart';
 import 'package:weatherapp_ui/config/app_layout_config.dart';
 import 'package:weatherapp_ui/enums/app_button_type_enum.dart';
-import 'package:weatherapp_ui/services/layout/app_layout_service.dart';
 
 class AppDialogComponent extends StatelessWidget {
   final String? title;
@@ -25,7 +24,7 @@ class AppDialogComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color titleColor = titlePrimary ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.onSurface;
+    Color titleColor = titlePrimary ? Theme.of(context).colorScheme.secondary : Theme.of(context).colorScheme.onSurface;
     return AlertDialog(
       title: Text(title ?? "",
           style: Theme.of(context)
@@ -33,7 +32,7 @@ class AppDialogComponent extends StatelessWidget {
               .bodyMedium!
               .copyWith(color: titleColor, fontSize: AppLayoutConfig.dialogTitleFontSize)),
       content: ConstrainedBox(
-          constraints: BoxConstraints(maxWidth: AppLayoutService().maxWidth()),
+          constraints: const BoxConstraints(maxWidth: AppLayoutConfig.dialogMaxWidth),
           child: SizedBox(height: height, width: width, child: child)),
       actions: _buttons(context),
     );

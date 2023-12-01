@@ -1,43 +1,36 @@
 import 'package:flutter/material.dart';
 
 class AppLayoutConfig {
+  // === DEFAULT VALUES ===
+  static const double defaultBorderRadius = 15;
+  static const double defaultButtonSize = 45;
+  static const double defaultInputBorderWidth = 1;
+  static const double defaultInputSize = 45;
+  static const double defaultMaxWidth = 750;
+  static const double defaultSpacing = 10;
+  static const double defaultTextBodyFontSize = 16;
+  static const double defaultTextLabelFontSize = 14;
+  static const double defaultTextHeadlineFontSize = 18;
+
+  // === CUSTOM VALUES ===
   // button
-  static const double buttonDefaultSize = 45;
   static const double buttonReviewFilterSize = 32;
   static const double buttonPickerClearSize = 32;
 
-  // chart
-  static const double chartBottomTitleFontSize = 16;
-  static const double chartNoDataFontSize = 18;
-  static const double chartTooltipFontSize = 16;
-
   // chat
-  static const double chatMessageBorderRadius = 15;
-  static const double chatMessageContentSpacing = 10;
-  static const double chatMessageFontSize = 18;
-  static const double chatMessageSpacing = 10;
-
-  // chip
-  static const double chipFontSize = 16;
+  static const double chatAssistantWeatherTimeMaxWidth = 220;
 
   // dialog
-  static const double dialogTitleFontSize = 18;
+  static const double dialogAssistantDisclaimerHeight = 400;
+  static const double dialogAssistantDisclaimerWidth = 350;
+  static const double dialogMaxWidth = 500;
+  static const double dialogTitleFontSize = 20;
 
-  //
+  // icon
   static const double iconAssistantIntroSize = 60;
 
-  // input
-  static const double inputBorderDefaultWidth = 1;
-  static const double inputDefaultSize = 45;
-
   // list
-  static const double listSortFontSize = 16;
-  static const double listStationSubtitleFontSize = 14;
-  static const double listStationTitleFontSize = 18;
-  static const double listSummarySoilLabelFontSize = 14;
   static const double listSummarySoilTemperatureFontSize = 25;
-  static const double listSummaryTitleFontSize = 18;
-  static const double listSummaryWeatherRangeFontSize = 16;
   static const double listSummaryWeatherTemperatureFontSize = 30;
 
   // opacity
@@ -45,35 +38,28 @@ class AppLayoutConfig {
   static const double opacityTextBody = 0.9;
   static const double opacityTextHeadline = 1;
 
-  // picker
-  static const double pickerTitleFontSize = 16;
-  static const double pickerValueFontSize = 14;
-
   // text
   static const double textAssistantIntroHeadlineFontSize = 22;
   static const double textAssistantIntroTextFontSize = 20;
   static const double textAssistantIntroTextMaxWidth = 300;
-  static const double textCurrentDataHeaderFontSize = 16;
-  static const double textDefaultBody = 14;
-  static const double textDefaultHeadline = 18;
-  static const double textDefaultLabel = 16;
-  static const double textDataTitleFontSize = 14;
-  static const double textDataValueFontSize = 18;
-  static const double textHeaderFontSize = 18;
-  static const double textRetryConnectionFontSize = 18;
-  static const double textWelcomeHeaderFontSize = 25;
-  static const double textWelcomeItemFontSize = 16;
-
-  // tooltip
-  static const double tooltipFontSize = 14;
-  static const double tooltipBorderRadius = 15;
+  static const double textAssistantMessageWeatherRecordValueFontSize = 22;
+  static const double textInfoHeadlineFontSize = 26;
 
   // page
-  static const double pageAppBarTitleFontSize = 18;
-  static const double pageAssistantSpacing = 10;
-  static const double pageVentilationSpacing = 10;
+  static const double pageInfoContentMaxWidth = 400;
 
   static bool isMobile(BuildContext context) {
     return MediaQuery.of(context).size.width < 769;
+  }
+
+  static Image getImageAsset(BuildContext context, String name) {
+    Brightness brightness = MediaQuery.of(context).platformBrightness;
+    String mode;
+    if (brightness == Brightness.dark) {
+      mode = "dark";
+    } else {
+      mode = "light";
+    }
+    return Image.asset("assets/images/$name-$mode.png");
   }
 }

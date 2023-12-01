@@ -42,7 +42,8 @@ class _AppLineChartComponentState extends State<AppLineChartComponent> {
         widget.valueTitles.isEmpty) {
       return Center(
         child: Text(widget.noDataText ?? "",
-            style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: AppLayoutConfig.chartNoDataFontSize),
+            style:
+                Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: AppLayoutConfig.defaultTextHeadlineFontSize),
             textAlign: TextAlign.center),
       );
     }
@@ -135,7 +136,7 @@ class _AppLineChartComponentState extends State<AppLineChartComponent> {
   List<LineTooltipItem> _toolTipItems(BuildContext context, List<LineBarSpot> spots) {
     return spots
         .mapIndexed((index, s) => LineTooltipItem("${s.y} ${widget.valueUnit}",
-            Theme.of(context).textTheme.headlineMedium!.copyWith(fontSize: AppLayoutConfig.chartTooltipFontSize)))
+            Theme.of(context).textTheme.headlineMedium!.copyWith(fontSize: AppLayoutConfig.defaultTextBodyFontSize)))
         .toList();
   }
 
@@ -175,7 +176,7 @@ class _AppLineChartComponentState extends State<AppLineChartComponent> {
         axisSide: meta.axisSide,
         child: Text(
           i.toStringAsFixed(1),
-          style: Theme.of(context).textTheme.labelMedium!.copyWith(fontSize: AppLayoutConfig.chartBottomTitleFontSize),
+          style: Theme.of(context).textTheme.labelMedium!.copyWith(fontSize: AppLayoutConfig.defaultTextBodyFontSize),
         ),
       ),
       reservedSize: 60,
@@ -193,7 +194,7 @@ class _AppLineChartComponentState extends State<AppLineChartComponent> {
         angle: 1,
         child: Text(
           widget.labels[i.toInt() - 1],
-          style: Theme.of(context).textTheme.labelMedium!.copyWith(fontSize: AppLayoutConfig.chartBottomTitleFontSize),
+          style: Theme.of(context).textTheme.labelMedium!.copyWith(fontSize: AppLayoutConfig.defaultTextBodyFontSize),
         ),
       ),
     );

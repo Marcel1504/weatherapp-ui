@@ -3,7 +3,6 @@ import 'package:weatherapp_ui/config/app_layout_config.dart';
 import 'package:weatherapp_ui/dto/response/summary/aggregation/soil/app_soil_aggregation_summary_response_dto.dart';
 import 'package:weatherapp_ui/fragments/summary/list/item/app_list_summary_item_fragment.dart';
 import 'package:weatherapp_ui/services/color/app_color_service.dart';
-import 'package:weatherapp_ui/services/layout/app_layout_service.dart';
 
 class AppSoilListSummaryItemFragment extends AppListSummaryItemFragment<AppSoilAggregationSummaryResponseDto> {
   const AppSoilListSummaryItemFragment(
@@ -20,13 +19,13 @@ class AppSoilListSummaryItemFragment extends AppListSummaryItemFragment<AppSoilA
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         Padding(
-          padding: EdgeInsets.only(bottom: AppLayoutService().betweenItemPadding()),
+          padding: const EdgeInsets.only(bottom: AppLayoutConfig.defaultSpacing),
           child: Text(
             title ?? "",
             style: Theme.of(context)
                 .textTheme
                 .headlineMedium!
-                .copyWith(fontSize: AppLayoutConfig.listSummaryTitleFontSize),
+                .copyWith(fontSize: AppLayoutConfig.defaultTextHeadlineFontSize),
           ),
         ),
         Row(
@@ -51,16 +50,15 @@ class AppSoilListSummaryItemFragment extends AppListSummaryItemFragment<AppSoilA
     return Column(
       children: [
         Padding(
-          padding: EdgeInsets.only(bottom: AppLayoutService().betweenItemPadding() * 0.5),
+          padding: const EdgeInsets.only(bottom: AppLayoutConfig.defaultSpacing * 0.5),
           child: Text(temperature?.toString() ?? "--",
               style: Theme.of(context)
                   .textTheme
-                  .headlineLarge
+                  .headlineMedium
                   ?.copyWith(color: color, fontSize: AppLayoutConfig.listSummarySoilTemperatureFontSize)),
         ),
         Text(subtitle ?? "",
-            style:
-                Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: AppLayoutConfig.listSummarySoilLabelFontSize))
+            style: Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: AppLayoutConfig.defaultTextLabelFontSize))
       ],
     );
   }

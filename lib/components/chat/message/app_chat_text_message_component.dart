@@ -19,7 +19,7 @@ class AppChatTextMessageComponent extends StatelessWidget {
         role: role,
         child: Text(text ?? "",
             style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                fontSize: AppLayoutConfig.chatMessageFontSize,
+                fontSize: AppLayoutConfig.defaultTextHeadlineFontSize,
                 color: isUserRole
                     ? Theme.of(context).colorScheme.onTertiary.withOpacity(0.9)
                     : Theme.of(context).colorScheme.onSurface.withOpacity(0.9))));

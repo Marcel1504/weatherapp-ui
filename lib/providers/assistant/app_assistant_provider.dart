@@ -22,7 +22,6 @@ class AppAssistantProvider extends ChangeNotifier {
 
   Future<void> sendChatMessage(BuildContext context, String? message) async {
     if (message != null && canSendMessage()) {
-      _startCoolDownTimer();
       _isLoading = true;
       notifyListeners();
 
@@ -50,6 +49,7 @@ class AppAssistantProvider extends ChangeNotifier {
       }
 
       _isLoading = false;
+      _startCoolDownTimer();
       notifyListeners();
     }
   }
@@ -59,8 +59,6 @@ class AppAssistantProvider extends ChangeNotifier {
     _chatId = null;
     _hasError = false;
     _isLoading = false;
-    _coolDownTimer?.cancel();
-    _currentCoolDownSeconds = 0;
     if (notify) {
       notifyListeners();
     }

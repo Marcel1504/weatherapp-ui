@@ -12,13 +12,13 @@ class AppTooltipComponent extends StatelessWidget {
     return Tooltip(
       message: message ?? "",
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(AppLayoutConfig.tooltipBorderRadius),
+          borderRadius: BorderRadius.circular(AppLayoutConfig.defaultBorderRadius),
           color: Theme.of(context).colorScheme.tertiary),
       waitDuration: const Duration(milliseconds: 500),
       textStyle: Theme.of(context)
           .textTheme
           .bodyMedium!
-          .copyWith(color: Theme.of(context).colorScheme.onTertiary, fontSize: AppLayoutConfig.tooltipFontSize),
+          .copyWith(color: Theme.of(context).colorScheme.onTertiary, fontSize: AppLayoutConfig.defaultTextBodyFontSize),
       child: child,
     );
   }

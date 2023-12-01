@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:weatherapp_ui/config/app_layout_config.dart';
-import 'package:weatherapp_ui/services/layout/app_layout_service.dart';
 
 class AppFilterSummaryFragment extends StatelessWidget {
   final String? title;
@@ -12,14 +11,15 @@ class AppFilterSummaryFragment extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextStyle style = Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: AppLayoutConfig.listSortFontSize);
+    TextStyle style =
+        Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: AppLayoutConfig.defaultTextBodyFontSize);
 
     return Material(
       color: Colors.transparent,
       child: InkWell(
         onTap: () => onTap?.call(),
         child: Padding(
-          padding: EdgeInsets.all(AppLayoutService().betweenItemPadding()),
+          padding: const EdgeInsets.all(AppLayoutConfig.defaultSpacing),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [_text(style), _selectionIcon(context, style)],
@@ -34,7 +34,7 @@ class AppFilterSummaryFragment extends StatelessWidget {
       children: [
         icon != null
             ? Padding(
-          padding: EdgeInsets.only(right: AppLayoutService().betweenItemPadding() * 0.5),
+          padding: const EdgeInsets.only(right: AppLayoutConfig.defaultSpacing * 0.5),
                 child: Icon(
                   icon,
                   color: style.color!.withOpacity(0.7),

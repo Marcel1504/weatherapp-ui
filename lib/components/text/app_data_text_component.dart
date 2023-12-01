@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:weatherapp_ui/config/app_layout_config.dart';
-import 'package:weatherapp_ui/services/layout/app_layout_service.dart';
 
 class AppDataTextComponent extends StatelessWidget {
   final IconData? iconData;
@@ -13,8 +12,7 @@ class AppDataTextComponent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextStyle valueStyle =
-        Theme.of(context).textTheme.headlineLarge!.copyWith(fontSize: AppLayoutConfig.textDataValueFontSize);
-    AppLayoutService layoutService = AppLayoutService();
+        Theme.of(context).textTheme.headlineLarge!.copyWith(fontSize: AppLayoutConfig.defaultTextHeadlineFontSize);
     return Column(
       children: [
         Row(
@@ -22,7 +20,7 @@ class AppDataTextComponent extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Padding(
-              padding: EdgeInsets.only(right: layoutService.betweenItemPadding() * 0.5),
+              padding: const EdgeInsets.only(right: AppLayoutConfig.defaultSpacing * 0.5),
               child: Icon(
                 iconData,
                 size: valueStyle.fontSize! * 1.2,
@@ -36,10 +34,10 @@ class AppDataTextComponent extends StatelessWidget {
           ],
         ),
         Padding(
-          padding: EdgeInsets.only(top: layoutService.betweenItemPadding() * 0.5),
+          padding: const EdgeInsets.only(top: AppLayoutConfig.defaultSpacing * 0.5),
           child: Text(
             title ?? "",
-            style: Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: AppLayoutConfig.textDataTitleFontSize),
+            style: Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: AppLayoutConfig.defaultTextLabelFontSize),
           ),
         ),
       ],

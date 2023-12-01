@@ -4,7 +4,6 @@ import 'package:weatherapp_ui/config/app_l18n_config.dart';
 import 'package:weatherapp_ui/config/app_layout_config.dart';
 import 'package:weatherapp_ui/enums/app_button_type_enum.dart';
 import 'package:weatherapp_ui/services/datepicker/app_datepicker_service.dart';
-import 'package:weatherapp_ui/services/layout/app_layout_service.dart';
 import 'package:weatherapp_ui/services/time/app_time_service.dart';
 
 class AppPickerDayComponent extends StatefulWidget {
@@ -44,16 +43,16 @@ class _AppPickerDayComponentState extends State<AppPickerDayComponent> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: EdgeInsets.only(bottom: AppLayoutService().betweenItemPadding() * 0.5),
+          padding: const EdgeInsets.only(bottom: AppLayoutConfig.defaultSpacing * 0.5),
           child: Text(
             widget.title ?? "",
-            style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: AppLayoutConfig.pickerTitleFontSize),
+            style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: AppLayoutConfig.defaultTextBodyFontSize),
           ),
         ),
         Text(
           AppTimeService().transformDateTime(context, _selected, pattern: "dd. MMMM yyyy") ??
               AppL18nConfig.get(context).filter_title_no_day_selected,
-          style: Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: AppLayoutConfig.pickerValueFontSize),
+          style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: AppLayoutConfig.defaultTextLabelFontSize),
         ),
       ],
     );

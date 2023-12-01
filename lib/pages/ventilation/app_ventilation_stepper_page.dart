@@ -12,7 +12,6 @@ import 'package:weatherapp_ui/pages/ventilation/app_ventilation_result_page.dart
 import 'package:weatherapp_ui/providers/station/app_station_provider.dart';
 import 'package:weatherapp_ui/providers/summary/single/app_weather_single_summary_provider.dart';
 import 'package:weatherapp_ui/providers/ventilation/app_ventilation_provider.dart';
-import 'package:weatherapp_ui/services/layout/app_layout_service.dart';
 import 'package:weatherapp_ui/themes/app_icons.dart';
 
 class AppVentilationStepperPage extends StatefulWidget {
@@ -51,7 +50,7 @@ class _AppVentilationStepperPageState extends State<AppVentilationStepperPage> {
     return AppBar(
       title: Text(AppL18nConfig.get(context).ventilation_page),
       titleTextStyle:
-          Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: AppLayoutConfig.pageAppBarTitleFontSize),
+          Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: AppLayoutConfig.defaultTextHeadlineFontSize),
     );
   }
 
@@ -103,7 +102,7 @@ class _AppVentilationStepperPageState extends State<AppVentilationStepperPage> {
 
   Widget _controls(BuildContext context, VoidCallback? onStepContinue, VoidCallback? onStepCancel) {
     return Padding(
-      padding: EdgeInsets.only(top: AppLayoutService().betweenItemPadding()),
+      padding: const EdgeInsets.only(top: AppLayoutConfig.defaultSpacing),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -188,7 +187,7 @@ class _AppVentilationStepperPageState extends State<AppVentilationStepperPage> {
 
   Widget _secondStepHumidityInput() {
     return Padding(
-        padding: const EdgeInsets.only(top: AppLayoutConfig.pageVentilationSpacing),
+        padding: const EdgeInsets.only(top: AppLayoutConfig.defaultSpacing),
         child: AppValueInputComponent(
             type: ValueType.humidity,
             icon: AppIcons.humidity,
@@ -233,7 +232,7 @@ class _AppVentilationStepperPageState extends State<AppVentilationStepperPage> {
 
   Widget _thirdStepHumidityInput() {
     return Padding(
-      padding: const EdgeInsets.only(top: AppLayoutConfig.pageVentilationSpacing),
+      padding: const EdgeInsets.only(top: AppLayoutConfig.defaultSpacing),
       child: AppValueInputComponent(
           type: ValueType.humidity,
           icon: AppIcons.humidity,

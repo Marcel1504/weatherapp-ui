@@ -3,9 +3,9 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:weatherapp_ui/components/text/app_square_positioned_text_component.dart';
 import 'package:weatherapp_ui/config/app_l18n_config.dart';
+import 'package:weatherapp_ui/config/app_layout_config.dart';
 import 'package:weatherapp_ui/dto/response/summary/single/soil/app_soil_single_summary_response_dto.dart';
 import 'package:weatherapp_ui/services/color/app_color_service.dart';
-import 'package:weatherapp_ui/services/layout/app_layout_service.dart';
 
 class AppSoilCurrentSummaryFragment extends StatelessWidget {
   final AppSoilSingleSummaryResponseDto? soil;
@@ -14,10 +14,9 @@ class AppSoilCurrentSummaryFragment extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AppLayoutService layoutService = AppLayoutService();
-
     return ConstrainedBox(
-      constraints: BoxConstraints(maxWidth: layoutService.maxWidth(), maxHeight: layoutService.maxWidth()),
+      constraints:
+          const BoxConstraints(maxWidth: AppLayoutConfig.defaultMaxWidth, maxHeight: AppLayoutConfig.defaultMaxWidth),
       child: LayoutBuilder(
         builder: (context, constraints) {
           return Stack(
@@ -46,7 +45,7 @@ class AppSoilCurrentSummaryFragment extends StatelessWidget {
   }
 
   Widget _displayMainImage(BuildContext context) {
-    return AppLayoutService().getImageAsset(context, "soil-display");
+    return AppLayoutConfig.getImageAsset(context, "soil-display");
   }
 
   Widget _displayDeepnessHeader(BuildContext context, BoxConstraints constraints) {
@@ -128,7 +127,6 @@ class AppSoilCurrentSummaryFragment extends StatelessWidget {
       squareSize: baseSize,
       textDensity: 5,
       backgroundDensity: 7,
-      fontWeight: FontWeight.w900,
       color: AppColorService().temperatureToColor(context, soil?.temperature50cm),
       right: baseSize / 2.7,
       top: baseSize * 0.316,
@@ -142,7 +140,6 @@ class AppSoilCurrentSummaryFragment extends StatelessWidget {
       squareSize: baseSize,
       textDensity: 5,
       backgroundDensity: 7,
-      fontWeight: FontWeight.w900,
       color: AppColorService().temperatureToColor(context, soil?.temperature100cm),
       right: baseSize / 2.7,
       top: baseSize / 2,
@@ -156,7 +153,6 @@ class AppSoilCurrentSummaryFragment extends StatelessWidget {
       squareSize: baseSize,
       textDensity: 5,
       backgroundDensity: 7,
-      fontWeight: FontWeight.w900,
       color: AppColorService().temperatureToColor(context, soil?.temperature200cm),
       right: baseSize / 2.7,
       bottom: baseSize * 0.14,

@@ -8,6 +8,7 @@ class AppButtonComponent extends StatelessWidget {
   final String? tooltip;
   final AppButtonTypeEnum type;
   final double size;
+  final double spacingRatio;
   final Widget Function(BuildContext context, Color foreground, Color background) builder;
 
   const AppButtonComponent(
@@ -15,8 +16,9 @@ class AppButtonComponent extends StatelessWidget {
       this.onTap,
       this.tooltip,
       this.type = AppButtonTypeEnum.normal,
-      this.size = AppLayoutConfig.buttonDefaultSize,
-      required this.builder});
+      this.size = AppLayoutConfig.defaultButtonSize,
+      required this.builder,
+      this.spacingRatio = 0.25});
 
   @override
   Widget build(BuildContext context) {
@@ -27,13 +29,17 @@ class AppButtonComponent extends StatelessWidget {
       message: tooltip,
       child: Material(
         color: background,
-        borderRadius: BorderRadius.circular(size / 2),
+        borderRadius: BorderRadius.circular(size * 0.5),
         child: InkWell(
           onTap: onTap,
-          borderRadius: BorderRadius.circular(size / 2),
+          borderRadius: BorderRadius.circular(size * 0.5),
           child: Padding(
-            padding: EdgeInsets.all(size / 4),
-            child: builder.call(context, foreground, background),
+            padding: EdgeInsets.all(size * spacingRatio),
+            child: SizedBox(
+                height: size * (1 - (2 * spacingRatio)),
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [builder.call(context, foreground, background)])),
           ),
         ),
       ),
@@ -55,6 +61,9 @@ class AppButtonComponent extends StatelessWidget {
         break;
       case AppButtonTypeEnum.transparent:
         return Colors.transparent;
+      case AppButtonTypeEnum.tertiary:
+        color = Theme.of(context).colorScheme.tertiary;
+        break;
     }
     return onTap != null ? color : color.withOpacity(0.1);
   }
@@ -73,6 +82,9 @@ class AppButtonComponent extends StatelessWidget {
         break;
       case AppButtonTypeEnum.transparent:
         color = Theme.of(context).colorScheme.onSurface;
+        break;
+      case AppButtonTypeEnum.tertiary:
+        color = Theme.of(context).colorScheme.onTertiary;
         break;
     }
     return onTap != null ? color : color.withOpacity(0.1);

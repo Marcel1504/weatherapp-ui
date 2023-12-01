@@ -12,7 +12,6 @@ import 'package:weatherapp_ui/enums/app_station_type_enum.dart';
 import 'package:weatherapp_ui/fragments/summary/list/app_soil_list_summary_fragment.dart';
 import 'package:weatherapp_ui/fragments/summary/list/app_weather_list_summary_fragment.dart';
 import 'package:weatherapp_ui/providers/station/app_station_provider.dart';
-import 'package:weatherapp_ui/services/layout/app_layout_service.dart';
 
 class AppListSummaryContainerFragment extends StatefulWidget {
   const AppListSummaryContainerFragment({super.key});
@@ -45,7 +44,7 @@ class _AppListSummaryContainerFragmentState extends State<AppListSummaryContaine
 
   Widget _header(BuildContext context, AppStationProvider provider) {
     return Padding(
-      padding: EdgeInsets.all(AppLayoutService().betweenItemPadding()),
+      padding: const EdgeInsets.all(AppLayoutConfig.defaultSpacing),
       child: Row(
         children: [_headerChoices(context, provider), _headerFilterButton(context, provider)],
       ),
@@ -61,10 +60,9 @@ class _AppListSummaryContainerFragmentState extends State<AppListSummaryContaine
   }
 
   Widget _headerFilterButton(BuildContext context, AppStationProvider provider) {
-    AppLayoutService layoutService = AppLayoutService();
     return Padding(
       padding:
-          EdgeInsets.only(left: layoutService.betweenItemPadding(), bottom: layoutService.betweenItemPadding() * 1.2),
+          const EdgeInsets.only(left: AppLayoutConfig.defaultSpacing, bottom: AppLayoutConfig.defaultSpacing * 1.2),
       child: AppIconButtonComponent(
         icon: Icons.filter_alt,
         size: AppLayoutConfig.buttonReviewFilterSize,

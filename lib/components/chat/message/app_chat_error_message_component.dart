@@ -23,9 +23,9 @@ class AppChatErrorMessageComponent extends StatelessWidget {
           children: [
             Text(_getErrorText(context),
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                    fontSize: AppLayoutConfig.chatMessageFontSize, color: Theme.of(context).colorScheme.error)),
+                    fontSize: AppLayoutConfig.defaultTextHeadlineFontSize, color: Theme.of(context).colorScheme.error)),
             Padding(
-              padding: const EdgeInsets.only(top: AppLayoutConfig.chatMessageContentSpacing),
+              padding: const EdgeInsets.only(top: AppLayoutConfig.defaultSpacing),
               child: AppIconTextButtonComponent(
                   text: "Restart",
                   type: AppButtonTypeEnum.secondary,

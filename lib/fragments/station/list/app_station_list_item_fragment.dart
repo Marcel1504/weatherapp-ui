@@ -5,7 +5,6 @@ import 'package:weatherapp_ui/config/app_layout_config.dart';
 import 'package:weatherapp_ui/dto/response/station/app_station_response_dto.dart';
 import 'package:weatherapp_ui/enums/app_station_type_enum.dart';
 import 'package:weatherapp_ui/providers/station/app_station_provider.dart';
-import 'package:weatherapp_ui/services/layout/app_layout_service.dart';
 import 'package:weatherapp_ui/services/time/app_time_service.dart';
 import 'package:weatherapp_ui/themes/app_icons.dart';
 
@@ -17,8 +16,6 @@ class AppStationListItemFragment extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AppLayoutService layoutService = AppLayoutService();
-
     return ListTile(
       leading: Icon(
         _leadingIcon(station?.type),
@@ -32,10 +29,7 @@ class AppStationListItemFragment extends StatelessWidget {
         children: [
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _stationNameText(context, station, layoutService),
-              _stationLastActivityText(context, station, layoutService)
-            ],
+            children: [_stationNameText(context, station), _stationLastActivityText(context, station)],
           ),
           isSelected ? Icon(Icons.check, color: Theme.of(context).colorScheme.primary) : Container()
         ],
@@ -54,27 +48,28 @@ class AppStationListItemFragment extends StatelessWidget {
     }
   }
 
-  Widget _stationNameText(BuildContext context, AppStationResponseDto? station, AppLayoutService layoutService) {
+  Widget _stationNameText(BuildContext context, AppStationResponseDto? station) {
     return Text(station?.name ?? "",
-        style:
-            Theme.of(context).textTheme.headlineMedium!.copyWith(fontSize: AppLayoutConfig.listStationTitleFontSize));
+        style: Theme.of(context)
+            .textTheme
+            .headlineMedium!
+            .copyWith(fontSize: AppLayoutConfig.defaultTextHeadlineFontSize));
   }
 
-  Widget _stationLastActivityText(
-      BuildContext context, AppStationResponseDto? station, AppLayoutService layoutService) {
+  Widget _stationLastActivityText(BuildContext context, AppStationResponseDto? station) {
     String? duration = AppTimeService().transformISOTimeStringToCurrentDuration(context, station?.lastActivity);
     return Padding(
-      padding: EdgeInsets.only(top: layoutService.betweenItemPadding() / 2),
+      padding: const EdgeInsets.only(top: AppLayoutConfig.defaultSpacing * 0.5),
       child: Text(
           duration != null
               ? AppL18nConfig.get(context).station_last_activity(duration)
               : AppL18nConfig.get(context).station_last_activity_unknown,
-          style:
-              Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: AppLayoutConfig.listStationSubtitleFontSize)),
+          style: Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: AppLayoutConfig.defaultTextLabelFontSize)),
     );
   }
 
   void _selectStation(BuildContext context, AppStationResponseDto? station) {
     Provider.of<AppStationProvider>(context, listen: false).changeSelectedStation(station?.code);
+    Navigator.of(context).pop();
   }
 }

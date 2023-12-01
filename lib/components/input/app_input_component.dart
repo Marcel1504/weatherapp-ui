@@ -15,7 +15,7 @@ class AppInputComponent extends StatelessWidget {
       this.onInputChanged,
       this.inputType = TextInputType.text,
       this.validator,
-      this.size = AppLayoutConfig.inputDefaultSize,
+      this.size = AppLayoutConfig.defaultInputSize,
       this.hint,
       this.controller,
       this.suffix});
@@ -57,7 +57,7 @@ class AppInputComponent extends StatelessWidget {
   InputBorder _getErrorBorder(BuildContext context) {
     return OutlineInputBorder(
         borderSide: BorderSide(
-            width: AppLayoutConfig.inputBorderDefaultWidth,
+            width: AppLayoutConfig.defaultInputBorderWidth,
             color: Theme.of(context).colorScheme.error.withOpacity(0.5)),
         borderRadius: BorderRadius.circular(size * 0.5));
   }
@@ -65,14 +65,14 @@ class AppInputComponent extends StatelessWidget {
   InputBorder _getFocusedErrorBorder(BuildContext context) {
     return OutlineInputBorder(
         borderSide:
-            BorderSide(width: AppLayoutConfig.inputBorderDefaultWidth, color: Theme.of(context).colorScheme.error),
+            BorderSide(width: AppLayoutConfig.defaultInputBorderWidth, color: Theme.of(context).colorScheme.error),
         borderRadius: BorderRadius.circular(size * 0.5));
   }
 
   InputBorder _getEnabledBorder(BuildContext context) {
     return OutlineInputBorder(
         borderSide: BorderSide(
-            width: AppLayoutConfig.inputBorderDefaultWidth,
+            width: AppLayoutConfig.defaultInputBorderWidth,
             color: Theme.of(context).colorScheme.onSurface.withOpacity(0.3)),
         borderRadius: BorderRadius.circular(size * 0.5));
   }
@@ -80,7 +80,7 @@ class AppInputComponent extends StatelessWidget {
   InputBorder _getFocusedBorder(BuildContext context) {
     return OutlineInputBorder(
         borderSide:
-            BorderSide(width: AppLayoutConfig.inputBorderDefaultWidth, color: Theme.of(context).colorScheme.secondary),
+            BorderSide(width: AppLayoutConfig.defaultInputBorderWidth, color: Theme.of(context).colorScheme.secondary),
         borderRadius: BorderRadius.circular(size * 0.5));
   }
 }

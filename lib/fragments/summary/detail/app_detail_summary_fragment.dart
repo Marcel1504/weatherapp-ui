@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:weatherapp_ui/components/chip/app_choice_chip_list_component.dart';
-import 'package:weatherapp_ui/services/layout/app_layout_service.dart';
+import 'package:weatherapp_ui/config/app_layout_config.dart';
 
 class AppDetailSummaryFragment extends StatefulWidget {
   final List<String> chartTitles;
@@ -25,25 +25,23 @@ class _AppDetailSummaryFragmentState extends State<AppDetailSummaryFragment> {
   }
 
   Widget _header() {
-    AppLayoutService layoutService = AppLayoutService();
     return Padding(
-      padding: EdgeInsets.only(
-          top: layoutService.betweenItemPadding(),
-          left: layoutService.betweenItemPadding(),
-          right: layoutService.betweenItemPadding()),
+      padding: const EdgeInsets.only(
+          top: AppLayoutConfig.defaultSpacing,
+          left: AppLayoutConfig.defaultSpacing,
+          right: AppLayoutConfig.defaultSpacing),
       child:
           AppChoiceChipListComponent(titles: widget.chartTitles, onTap: (i) => setState(() => _selectedChartIndex = i)),
     );
   }
 
   Widget _body() {
-    AppLayoutService layoutService = AppLayoutService();
     return Expanded(
         child: Padding(
-      padding: EdgeInsets.only(
-          bottom: layoutService.betweenItemPadding(),
-          left: layoutService.betweenItemPadding(),
-          right: layoutService.betweenItemPadding()),
+      padding: const EdgeInsets.only(
+          bottom: AppLayoutConfig.defaultSpacing,
+          left: AppLayoutConfig.defaultSpacing,
+          right: AppLayoutConfig.defaultSpacing),
       child: widget.chartWidgets[_selectedChartIndex],
     ));
   }

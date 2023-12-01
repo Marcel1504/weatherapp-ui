@@ -12,7 +12,6 @@ import 'package:weatherapp_ui/enums/app_button_type_enum.dart';
 import 'package:weatherapp_ui/models/app_file_model.dart';
 import 'package:weatherapp_ui/providers/station/app_station_provider.dart';
 import 'package:weatherapp_ui/services/datepicker/app_datepicker_service.dart';
-import 'package:weatherapp_ui/services/layout/app_layout_service.dart';
 import 'package:weatherapp_ui/services/time/app_time_service.dart';
 
 class AppStationMediaFragment extends StatefulWidget {
@@ -40,7 +39,7 @@ class _AppStationMediaFragmentState extends State<AppStationMediaFragment> {
         children: [
           Positioned(child: _imageDisplay(provider)),
           Positioned(
-            top: AppLayoutService().betweenItemPadding(),
+            top: AppLayoutConfig.defaultSpacing,
             width: width,
             child: _headerDisplay(provider),
           ),
@@ -87,22 +86,20 @@ class _AppStationMediaFragmentState extends State<AppStationMediaFragment> {
     return Text(
       text ?? "",
       textAlign: TextAlign.center,
-      style: Theme.of(context).textTheme.labelMedium!.copyWith(fontSize: AppLayoutConfig.textCurrentDataHeaderFontSize),
+      style: Theme.of(context).textTheme.labelMedium!.copyWith(fontSize: AppLayoutConfig.defaultTextBodyFontSize),
     );
   }
 
   Widget _quickActionsDisplay() {
-    AppLayoutService layoutService = AppLayoutService();
-
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: _quickActions.entries
           .map((v) => Padding(
-                padding: EdgeInsets.only(
-                    bottom: layoutService.betweenItemPadding() * 2,
-                    right: layoutService.betweenItemPadding(),
-                    left: layoutService.betweenItemPadding()),
-        child: AppIconButtonComponent(
+                padding: const EdgeInsets.only(
+                    bottom: AppLayoutConfig.defaultSpacing * 2,
+                    right: AppLayoutConfig.defaultSpacing,
+                    left: AppLayoutConfig.defaultSpacing),
+                child: AppIconButtonComponent(
                   icon: v.key,
                   type: AppButtonTypeEnum.secondary,
                   onTap: () => v.value.call(),

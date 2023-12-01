@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
-import 'package:weatherapp_ui/pages/welcome/app_welcome_page.dart';
+import 'package:weatherapp_ui/pages/info/app_welcome_info_page.dart';
 import 'package:weatherapp_ui/providers/app_provider.dart';
 import 'package:weatherapp_ui/themes/app_theme_dark.dart';
 import 'package:weatherapp_ui/themes/app_theme_light.dart';
@@ -23,7 +23,7 @@ class WeatherApp extends StatelessWidget {
         theme: AppThemeLight().get(),
         darkTheme: AppThemeDark().get(),
         themeMode: ThemeMode.system,
-        home: const AppWelcomePage(),
+        home: const AppWelcomeInfoPage(),
         localizationsDelegates: const [
           AppLocalizations.delegate,
           GlobalMaterialLocalizations.delegate,

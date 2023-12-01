@@ -16,7 +16,6 @@ import 'package:weatherapp_ui/providers/station/app_station_provider.dart';
 import 'package:weatherapp_ui/providers/summary/single/app_single_summary_provider.dart';
 import 'package:weatherapp_ui/providers/summary/single/app_soil_single_summary_provider.dart';
 import 'package:weatherapp_ui/providers/summary/single/app_weather_single_summary_provider.dart';
-import 'package:weatherapp_ui/services/layout/app_layout_service.dart';
 import 'package:weatherapp_ui/services/time/app_time_service.dart';
 import 'package:weatherapp_ui/themes/app_icons.dart';
 
@@ -48,7 +47,7 @@ class AppCurrentSummaryFragment extends StatelessWidget {
         return _display(
             context,
             provider,
-                (p) => AppWeatherCurrentSummaryFragment(
+            (p) => AppWeatherCurrentSummaryFragment(
                   weather: p.latest,
                 ),
             {
@@ -95,33 +94,28 @@ class AppCurrentSummaryFragment extends StatelessWidget {
 
   Widget _displayDuration(BuildContext context, AppSingleSummaryProvider provider) {
     String? duration = AppTimeService().transformISOTimeStringToCurrentDuration(context, provider.latest.timestamp);
-    AppLayoutService layoutService = AppLayoutService();
     return duration != null
         ? Padding(
-            padding: EdgeInsets.only(
-                bottom: layoutService.betweenItemPadding(), top: layoutService.betweenItemPadding() * 2),
+            padding:
+                const EdgeInsets.only(bottom: AppLayoutConfig.defaultSpacing, top: AppLayoutConfig.defaultSpacing * 2),
             child: Text(
               AppL18nConfig.get(context).weather_current_duration(duration),
-              style: Theme.of(context)
-                  .textTheme
-                  .labelMedium!
-                  .copyWith(fontSize: AppLayoutConfig.textCurrentDataHeaderFontSize),
+              style:
+                  Theme.of(context).textTheme.labelMedium!.copyWith(fontSize: AppLayoutConfig.defaultTextBodyFontSize),
             ),
           )
         : Container();
   }
 
   Widget _displayQuickActions(BuildContext context, Map<IconData, Function()> actions) {
-    AppLayoutService layoutService = AppLayoutService();
-
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: actions.entries
           .map((v) => Padding(
-                padding: EdgeInsets.only(
-                    bottom: layoutService.betweenItemPadding() * 2,
-                    right: layoutService.betweenItemPadding(),
-                    left: layoutService.betweenItemPadding()),
+                padding: const EdgeInsets.only(
+                    bottom: AppLayoutConfig.defaultSpacing * 2,
+                    right: AppLayoutConfig.defaultSpacing,
+                    left: AppLayoutConfig.defaultSpacing),
                 child: AppIconButtonComponent(
                   icon: v.key,
                   type: AppButtonTypeEnum.secondary,

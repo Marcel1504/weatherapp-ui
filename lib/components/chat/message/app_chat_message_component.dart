@@ -19,7 +19,7 @@ class AppChatMessageComponent extends StatelessWidget {
           constraints: BoxConstraints(maxWidth: width * 0.9),
           child: Container(
             decoration: _getBoxDecoration(context, isUserRole),
-            child: Padding(padding: const EdgeInsets.all(AppLayoutConfig.chatMessageContentSpacing), child: child),
+            child: Padding(padding: const EdgeInsets.all(AppLayoutConfig.defaultSpacing), child: child),
           ),
         )
       ],
@@ -30,9 +30,9 @@ class AppChatMessageComponent extends StatelessWidget {
     return BoxDecoration(
         color: isUserRole ? Theme.of(context).colorScheme.tertiary : Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.only(
-            bottomLeft: const Radius.circular(AppLayoutConfig.chatMessageBorderRadius),
-            bottomRight: const Radius.circular(AppLayoutConfig.chatMessageBorderRadius),
-            topLeft: Radius.circular(isUserRole ? AppLayoutConfig.chatMessageBorderRadius : 0),
-            topRight: Radius.circular(isUserRole ? 0 : AppLayoutConfig.chatMessageBorderRadius)));
+            bottomLeft: const Radius.circular(AppLayoutConfig.defaultBorderRadius),
+            bottomRight: const Radius.circular(AppLayoutConfig.defaultBorderRadius),
+            topLeft: Radius.circular(isUserRole ? AppLayoutConfig.defaultBorderRadius : 0),
+            topRight: Radius.circular(isUserRole ? 0 : AppLayoutConfig.defaultBorderRadius)));
   }
 }

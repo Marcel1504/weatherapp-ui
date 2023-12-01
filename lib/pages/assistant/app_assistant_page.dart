@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:weatherapp_ui/components/chat/container/app_chat_container_component.dart';
+import 'package:weatherapp_ui/components/dialog/assistant/app_assistant_disclaimer_dialog.dart';
 import 'package:weatherapp_ui/components/input/app_prompt_input_component.dart';
 import 'package:weatherapp_ui/components/scaffold/app_scaffold_component.dart';
 import 'package:weatherapp_ui/config/app_l18n_config.dart';
 import 'package:weatherapp_ui/config/app_layout_config.dart';
 import 'package:weatherapp_ui/fragments/assistant/app_assistant_options_fragment.dart';
 import 'package:weatherapp_ui/providers/assistant/app_assistant_provider.dart';
+import 'package:weatherapp_ui/services/configuration/app_configuration_service.dart';
 
 class AppAssistantPage extends StatefulWidget {
   const AppAssistantPage({super.key});
@@ -16,6 +18,17 @@ class AppAssistantPage extends StatefulWidget {
 }
 
 class _AppAssistantPageState extends State<AppAssistantPage> {
+  @override
+  void initState() {
+    AppConfigurationService().getAssistantDisclaimerShown().then((shown) {
+      if (!(shown ?? true)) {
+        showDialog(
+            context: context, barrierDismissible: false, builder: (context) => const AppAssistantDisclaimerDialog());
+      }
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return AppScaffoldComponent(
@@ -28,7 +41,7 @@ class _AppAssistantPageState extends State<AppAssistantPage> {
     return AppBar(
       title: Text(AppL18nConfig.get(context).page_assistant),
       titleTextStyle:
-      Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: AppLayoutConfig.pageAppBarTitleFontSize),
+          Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: AppLayoutConfig.defaultTextHeadlineFontSize),
     );
   }
 
@@ -49,11 +62,11 @@ class _AppAssistantPageState extends State<AppAssistantPage> {
       child: Align(
         alignment: Alignment.bottomCenter,
         child: Padding(
-          padding: const EdgeInsets.only(top: AppLayoutConfig.pageAssistantSpacing),
+          padding: const EdgeInsets.only(top: AppLayoutConfig.defaultSpacing),
           child: AppChatContainerComponent(
               onResetChat: () => assistantProvider.clearChat(),
               messages: assistantProvider.chatMessages,
-              sideSpacing: AppLayoutConfig.pageAssistantSpacing),
+              sideSpacing: AppLayoutConfig.defaultSpacing),
         ),
       ),
     );
@@ -62,8 +75,12 @@ class _AppAssistantPageState extends State<AppAssistantPage> {
   Widget _getOptions(AppAssistantProvider assistantProvider) {
     return Expanded(
       child: Padding(
-        padding: const EdgeInsets.all(AppLayoutConfig.pageAssistantSpacing),
-        child: AppAssistantOptionsFragment(optionSelected: (o) => assistantProvider.sendChatMessage(context, o)),
+        padding: const EdgeInsets.all(AppLayoutConfig.defaultSpacing),
+        child: AppAssistantOptionsFragment(optionSelected: (o) {
+          if (assistantProvider.canSendMessage()) {
+            assistantProvider.sendChatMessage(context, o);
+          }
+        }),
       ),
     );
   }
@@ -72,7 +89,7 @@ class _AppAssistantPageState extends State<AppAssistantPage> {
     return assistantProvider.currentCoolDownSeconds <= 0
         ? Container()
         : Padding(
-            padding: const EdgeInsets.only(top: AppLayoutConfig.pageAssistantSpacing),
+      padding: const EdgeInsets.only(top: AppLayoutConfig.defaultSpacing),
             child: Text(
               AppL18nConfig.get(context).chat_assistant_wait(assistantProvider.currentCoolDownSeconds),
               style: Theme.of(context).textTheme.labelMedium,
@@ -82,7 +99,7 @@ class _AppAssistantPageState extends State<AppAssistantPage> {
 
   Widget _getChatInput(AppAssistantProvider assistantProvider) {
     return Padding(
-      padding: const EdgeInsets.all(AppLayoutConfig.pageAssistantSpacing),
+      padding: const EdgeInsets.all(AppLayoutConfig.defaultSpacing),
       child: AppPromptInputComponent(
           hint: AppL18nConfig.get(context).chat_assistant_type_message,
           disabled: !assistantProvider.canSendMessage(),

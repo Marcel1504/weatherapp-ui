@@ -3,9 +3,9 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:weatherapp_ui/components/text/app_square_positioned_text_component.dart';
 import 'package:weatherapp_ui/config/app_l18n_config.dart';
+import 'package:weatherapp_ui/config/app_layout_config.dart';
 import 'package:weatherapp_ui/dto/response/summary/single/weather/app_weather_single_summary_response_dto.dart';
 import 'package:weatherapp_ui/services/color/app_color_service.dart';
-import 'package:weatherapp_ui/services/layout/app_layout_service.dart';
 import 'package:weatherapp_ui/services/time/app_time_service.dart';
 import 'package:weatherapp_ui/themes/app_icons.dart';
 
@@ -16,10 +16,9 @@ class AppWeatherCurrentSummaryFragment extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AppLayoutService layoutService = AppLayoutService();
-
     return ConstrainedBox(
-      constraints: BoxConstraints(maxWidth: layoutService.maxWidth(), maxHeight: layoutService.maxWidth()),
+      constraints:
+          const BoxConstraints(maxWidth: AppLayoutConfig.defaultMaxWidth, maxHeight: AppLayoutConfig.defaultMaxWidth),
       child: LayoutBuilder(
         builder: (context, constraints) {
           return Stack(
@@ -53,13 +52,13 @@ class AppWeatherCurrentSummaryFragment extends StatelessWidget {
   }
 
   Widget _displayMainImage(BuildContext context) {
-    return AppLayoutService().getImageAsset(context, "weather-display");
+    return AppLayoutConfig.getImageAsset(context, "weather-display");
   }
 
   Widget _displayWindDirectionPointerImage(BuildContext context, int windDirection) {
     return RotationTransition(
         turns: AlwaysStoppedAnimation(windDirection / 360),
-        child: AppLayoutService().getImageAsset(context, "weather-display-wind-direction-pointer"));
+        child: AppLayoutConfig.getImageAsset(context, "weather-display-wind-direction-pointer"));
   }
 
   Widget _displayNorthSymbol(BuildContext context, BoxConstraints constraints) {

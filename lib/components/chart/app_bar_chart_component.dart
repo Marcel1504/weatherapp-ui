@@ -36,7 +36,8 @@ class _AppBarChartComponentState extends State<AppBarChartComponent> {
     if (widget.labels.isEmpty || widget.values.isEmpty || widget.values.every((r) => r == null || r == 0)) {
       return Center(
         child: Text(widget.noDataText ?? "",
-            style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: AppLayoutConfig.chartNoDataFontSize),
+            style:
+                Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: AppLayoutConfig.defaultTextHeadlineFontSize),
             textAlign: TextAlign.center),
       );
     }
@@ -114,8 +115,7 @@ class _AppBarChartComponentState extends State<AppBarChartComponent> {
           angle: 1,
           child: Text(
             widget.labels[i.toInt() - 1],
-            style:
-                Theme.of(context).textTheme.labelMedium!.copyWith(fontSize: AppLayoutConfig.chartBottomTitleFontSize),
+            style: Theme.of(context).textTheme.labelMedium!.copyWith(fontSize: AppLayoutConfig.defaultTextBodyFontSize),
           )),
     );
   }
@@ -135,7 +135,7 @@ class _AppBarChartComponentState extends State<AppBarChartComponent> {
   BarTooltipItem _barTooltipItem(
       BuildContext context, BarChartGroupData groupData, int index, BarChartRodData rodData, int index2) {
     return BarTooltipItem(rodData.toY != 0 ? "${rodData.toY}\n${widget.valueUnit}" : "",
-        Theme.of(context).textTheme.headlineMedium!.copyWith(fontSize: AppLayoutConfig.chartTooltipFontSize));
+        Theme.of(context).textTheme.headlineMedium!.copyWith(fontSize: AppLayoutConfig.defaultTextBodyFontSize));
   }
 
   List<BarChartGroupData> _barChartGroupData() {

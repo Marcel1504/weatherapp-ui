@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:weatherapp_ui/services/layout/app_layout_service.dart';
+import 'package:weatherapp_ui/config/app_layout_config.dart';
 import 'package:weatherapp_ui/services/time/app_time_service.dart';
 
 abstract class AppListSummaryItemFragment<DATA> extends StatelessWidget {
@@ -22,8 +22,7 @@ abstract class AppListSummaryItemFragment<DATA> extends StatelessWidget {
         splashColor: tapColor(context).withOpacity(0.1),
         highlightColor: tapColor(context).withOpacity(0.1),
         onTap: () => onTap?.call(),
-        child:
-            Padding(padding: EdgeInsets.all(AppLayoutService().betweenItemPadding()), child: content(context, title)),
+        child: Padding(padding: const EdgeInsets.all(AppLayoutConfig.defaultSpacing), child: content(context, title)),
       ),
     );
   }

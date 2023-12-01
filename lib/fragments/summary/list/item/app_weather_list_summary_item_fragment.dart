@@ -3,7 +3,6 @@ import 'package:weatherapp_ui/config/app_layout_config.dart';
 import 'package:weatherapp_ui/dto/response/summary/aggregation/weather/app_weather_aggregation_summary_response_dto.dart';
 import 'package:weatherapp_ui/fragments/summary/list/item/app_list_summary_item_fragment.dart';
 import 'package:weatherapp_ui/services/color/app_color_service.dart';
-import 'package:weatherapp_ui/services/layout/app_layout_service.dart';
 import 'package:weatherapp_ui/themes/app_icons.dart';
 
 class AppWeatherListSummaryItemFragment extends AppListSummaryItemFragment<AppWeatherAggregationSummaryResponseDto> {
@@ -37,20 +36,20 @@ class AppWeatherListSummaryItemFragment extends AppListSummaryItemFragment<AppWe
             width: 80,
             styleBase: Theme.of(context)
                 .textTheme
-                .headlineLarge!
+                .headlineMedium!
                 .copyWith(fontSize: AppLayoutConfig.listSummaryWeatherTemperatureFontSize)),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: EdgeInsets.only(bottom: AppLayoutService().betweenItemPadding() * 0.5),
+              padding: const EdgeInsets.only(bottom: AppLayoutConfig.defaultSpacing * 0.5),
               child: _temperatureDataItem(context,
                   temperature: weather?.temperatureMax,
                   icon: Icons.arrow_upward,
                   styleBase: Theme.of(context)
                       .textTheme
                       .bodyMedium!
-                      .copyWith(fontSize: AppLayoutConfig.listSummaryWeatherRangeFontSize)),
+                      .copyWith(fontSize: AppLayoutConfig.defaultTextBodyFontSize)),
             ),
             _temperatureDataItem(context,
                 temperature: weather?.temperatureMin,
@@ -58,7 +57,7 @@ class AppWeatherListSummaryItemFragment extends AppListSummaryItemFragment<AppWe
                 styleBase: Theme.of(context)
                     .textTheme
                     .bodyMedium!
-                    .copyWith(fontSize: AppLayoutConfig.listSummaryWeatherRangeFontSize)),
+                    .copyWith(fontSize: AppLayoutConfig.defaultTextBodyFontSize)),
           ],
         )
       ],
@@ -70,15 +69,15 @@ class AppWeatherListSummaryItemFragment extends AppListSummaryItemFragment<AppWe
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         Padding(
-          padding: EdgeInsets.only(bottom: AppLayoutService().betweenItemPadding() * 0.5),
+          padding: const EdgeInsets.only(bottom: AppLayoutConfig.defaultSpacing * 0.5),
           child: Text(title ?? "",
               style: Theme.of(context)
                   .textTheme
                   .headlineMedium!
-                  .copyWith(fontSize: AppLayoutConfig.listSummaryTitleFontSize)),
+                  .copyWith(fontSize: AppLayoutConfig.defaultTextHeadlineFontSize)),
         ),
         Padding(
-          padding: EdgeInsets.only(bottom: AppLayoutService().betweenItemPadding() * 0.5),
+          padding: const EdgeInsets.only(bottom: AppLayoutConfig.defaultSpacing * 0.5),
           child: _windDataItem(context),
         ),
         _rainTotalDataItem(context)
@@ -98,7 +97,7 @@ class AppWeatherListSummaryItemFragment extends AppListSummaryItemFragment<AppWe
         styleBase: Theme.of(context)
             .textTheme
             .headlineMedium!
-            .copyWith(color: color, fontSize: AppLayoutConfig.listSummaryTitleFontSize * 0.8));
+            .copyWith(color: color, fontSize: AppLayoutConfig.defaultTextHeadlineFontSize * 0.8));
   }
 
   Widget _rainTotalDataItem(BuildContext context) {
@@ -112,7 +111,7 @@ class AppWeatherListSummaryItemFragment extends AppListSummaryItemFragment<AppWe
         styleBase: Theme.of(context)
             .textTheme
             .headlineMedium!
-            .copyWith(color: color, fontSize: AppLayoutConfig.listSummaryTitleFontSize * 0.8));
+            .copyWith(color: color, fontSize: AppLayoutConfig.defaultTextHeadlineFontSize * 0.8));
   }
 
   Widget _temperatureDataItem(BuildContext context,

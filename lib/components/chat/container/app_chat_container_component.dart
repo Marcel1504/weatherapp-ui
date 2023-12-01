@@ -60,8 +60,8 @@ class _AppChatContainerComponentState extends State<AppChatContainerComponent> {
         break;
     }
     return Padding(
-        padding: EdgeInsets.only(
-            top: AppLayoutConfig.chatMessageSpacing, right: widget.sideSpacing, left: widget.sideSpacing),
+        padding:
+            EdgeInsets.only(top: AppLayoutConfig.defaultSpacing, right: widget.sideSpacing, left: widget.sideSpacing),
         child: message);
   }
 

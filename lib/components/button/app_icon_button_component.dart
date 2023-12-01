@@ -12,7 +12,7 @@ class AppIconButtonComponent extends StatelessWidget {
 
   const AppIconButtonComponent(
       {super.key,
-      this.size = AppLayoutConfig.buttonDefaultSize,
+      this.size = AppLayoutConfig.defaultButtonSize,
       this.icon,
       this.onTap,
       this.tooltip,

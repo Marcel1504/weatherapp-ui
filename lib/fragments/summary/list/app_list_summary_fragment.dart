@@ -1,9 +1,9 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:weatherapp_ui/components/loading/app_loading_component.dart';
+import 'package:weatherapp_ui/config/app_layout_config.dart';
 import 'package:weatherapp_ui/dto/response/station/app_station_response_dto.dart';
 import 'package:weatherapp_ui/providers/summary/aggregation/app_aggregation_summary_provider.dart';
-import 'package:weatherapp_ui/services/layout/app_layout_service.dart';
 
 class AppListSummaryFragment extends StatefulWidget {
   final AppStationResponseDto? station;
@@ -41,9 +41,9 @@ class _AppListSummaryFragmentState extends State<AppListSummaryFragment> {
               children: [item, index < widget.provider.data.length - 1 ? const Divider() : Container()],
             )),
         widget.provider.loading
-            ? Padding(
-                padding: EdgeInsets.all(AppLayoutService().betweenItemPadding()),
-          child: const AppLoadingComponent(
+            ? const Padding(
+                padding: EdgeInsets.all(AppLayoutConfig.defaultSpacing),
+                child: AppLoadingComponent(
                   size: 30,
                 ),
               )

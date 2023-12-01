@@ -16,7 +16,7 @@ class AppValueInputComponent extends StatefulWidget {
       this.icon,
       required this.type,
       required this.onChanged,
-      this.size = AppLayoutConfig.inputDefaultSize,
+      this.size = AppLayoutConfig.defaultInputSize,
       this.invalidHint});
 
   @override
@@ -54,7 +54,13 @@ class _AppValueInputComponentState extends State<AppValueInputComponent> {
       case ValueType.temperature:
         return (v) => v != null && double.tryParse(v.replaceAll(",", ".")) != null;
       case ValueType.humidity:
-        return (v) => v != null && int.tryParse(v) != null;
+        return (v) {
+          if (v != null) {
+            int? h = int.tryParse(v);
+            return h != null && h >= 0 && h <= 100;
+          }
+          return false;
+        };
       case ValueType.email:
         return (v) => v != null && v.isNotEmpty && RegExp(r'^[^\s@]+@[^\s@]+\.[^\s@]+$').hasMatch(v);
     }

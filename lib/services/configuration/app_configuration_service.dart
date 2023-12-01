@@ -14,12 +14,28 @@ class AppConfigurationService {
     return defaultTargetPlatform == TargetPlatform.android;
   }
 
+  Future<void> saveAssistantDisclaimerShown() {
+    return _setBool("assistantDisclaimerShown", true);
+  }
+
+  Future<bool?> getAssistantDisclaimerShown() {
+    return _getBool("assistantDisclaimerShown");
+  }
+
   Future<void> saveSelectedStationCode(String code) {
     return _setString("selectedStationCode", code);
   }
 
   Future<String?> getSelectedStationCode() {
     return _getString("selectedStationCode");
+  }
+
+  Future<void> saveVersionInfoShown() {
+    return _setBool("3.1.0.VersionInfoShown", true);
+  }
+
+  Future<bool?> getVersionInfoShown() {
+    return _getBool("3.1.0.VersionInfoShown");
   }
 
   Future<void> saveWelcomeInfoShown() {
