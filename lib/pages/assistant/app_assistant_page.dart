@@ -89,10 +89,16 @@ class _AppAssistantPageState extends State<AppAssistantPage> {
     return assistantProvider.currentCoolDownSeconds <= 0
         ? Container()
         : Padding(
-      padding: const EdgeInsets.only(top: AppLayoutConfig.defaultSpacing),
+            padding: const EdgeInsets.only(
+                top: AppLayoutConfig.defaultSpacing,
+                left: AppLayoutConfig.defaultSpacing,
+                right: AppLayoutConfig.defaultSpacing),
             child: Text(
               AppL18nConfig.get(context).chat_assistant_wait(assistantProvider.currentCoolDownSeconds),
-              style: Theme.of(context).textTheme.labelMedium,
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                  color:
+                      Color.alphaBlend(Colors.deepOrange.withOpacity(0.8), Theme.of(context).colorScheme.onBackground)),
             ),
           );
   }

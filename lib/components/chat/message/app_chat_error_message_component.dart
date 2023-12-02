@@ -27,7 +27,7 @@ class AppChatErrorMessageComponent extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(top: AppLayoutConfig.defaultSpacing),
               child: AppIconTextButtonComponent(
-                  text: "Restart",
+                  text: AppL18nConfig.get(context).chat_assistant_retry,
                   type: AppButtonTypeEnum.secondary,
                   icon: Icons.restart_alt,
                   onTap: () => onRestart?.call()),

@@ -17,12 +17,15 @@ class AppAssistantProvider extends ChangeNotifier {
   int? _chatId;
   bool _isLoading = false;
   bool _hasError = false;
+  bool _cancelActiveRequest = false;
   Timer? _coolDownTimer;
   int _currentCoolDownSeconds = 0;
 
   Future<void> sendChatMessage(BuildContext context, String? message) async {
     if (message != null && canSendMessage()) {
       _isLoading = true;
+      _cancelActiveRequest = false;
+      _startCoolDownTimer();
       notifyListeners();
 
       // get context station
@@ -38,9 +41,14 @@ class AppAssistantProvider extends ChangeNotifier {
       AppChatRequestDto chatRequest =
           AppChatRequestDto(message: message, chatId: _chatId, contextStationCode: stationCode);
       AppChatResponseDto chatResponse = await _backendService.sendChatMessage(chatRequest);
-      _chatId = chatResponse.chatId;
+
+      // do nothing if the chat was reset while waiting for the response
+      if (_cancelActiveRequest) {
+        return;
+      }
 
       // remove loading message once the chat request is finished
+      _chatId = chatResponse.chatId;
       _chatMessages.removeWhere((m) => m.type == AppChatMessageTypeEnum.loading);
 
       // handle the chat response
@@ -49,7 +57,6 @@ class AppAssistantProvider extends ChangeNotifier {
       }
 
       _isLoading = false;
-      _startCoolDownTimer();
       notifyListeners();
     }
   }
@@ -59,6 +66,7 @@ class AppAssistantProvider extends ChangeNotifier {
     _chatId = null;
     _hasError = false;
     _isLoading = false;
+    _cancelActiveRequest = true;
     if (notify) {
       notifyListeners();
     }
@@ -84,7 +92,7 @@ class AppAssistantProvider extends ChangeNotifier {
     if (_coolDownTimer != null) {
       _coolDownTimer?.cancel();
     }
-    _currentCoolDownSeconds = 20;
+    _currentCoolDownSeconds = 30;
     _coolDownTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
       _currentCoolDownSeconds--;
       if (_currentCoolDownSeconds <= 0) {

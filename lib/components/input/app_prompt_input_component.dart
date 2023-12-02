@@ -37,7 +37,7 @@ class _AppPromptInputComponentState extends State<AppPromptInputComponent> {
     return AppInputComponent(
       size: widget.size,
       hint: widget.hint,
-      inputType: TextInputType.multiline,
+      inputType: TextInputType.text,
       controller: _controller,
       onInputChanged: (t) => setState(() {}),
     );

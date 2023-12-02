@@ -2,7 +2,7 @@ name: weatherapp_ui
 description: WeatherApp-UI
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 3.0.0+1
+version: 3.1.0+1
 
 environment:
   sdk: '>=2.19.6 <3.0.0'

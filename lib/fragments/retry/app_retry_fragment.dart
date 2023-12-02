@@ -6,9 +6,8 @@ import 'package:weatherapp_ui/enums/app_button_type_enum.dart';
 
 class AppRetryFragment extends StatelessWidget {
   final Function retryAction;
-  final double spacing;
 
-  const AppRetryFragment({super.key, required this.retryAction, this.spacing = 0});
+  const AppRetryFragment({super.key, required this.retryAction});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +15,10 @@ class AppRetryFragment extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Padding(
-          padding: EdgeInsets.only(left: spacing, right: spacing, bottom: spacing),
+          padding: const EdgeInsets.only(
+              left: AppLayoutConfig.defaultSpacing,
+              right: AppLayoutConfig.defaultSpacing,
+              bottom: AppLayoutConfig.defaultSpacing),
           child: Text(
             AppL18nConfig.get(context).error_noConnection,
             textAlign: TextAlign.center,

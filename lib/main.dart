@@ -19,7 +19,7 @@ class WeatherApp extends StatelessWidget {
     return MultiProvider(
       providers: AppProvider().get(),
       child: MaterialApp(
-        title: 'Wetter-App',
+        title: 'WetterApp',
         theme: AppThemeLight().get(),
         darkTheme: AppThemeDark().get(),
         themeMode: ThemeMode.system,
