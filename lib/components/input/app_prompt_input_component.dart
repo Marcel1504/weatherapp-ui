@@ -46,14 +46,14 @@ class _AppPromptInputComponentState extends State<AppPromptInputComponent> {
   Widget _getSendButton(BuildContext context) {
     return AppIconButtonComponent(
       icon: Icons.send,
-      size: widget.size * 0.9,
+      size: widget.size * 1,
       onTap: !widget.disabled && _controller.text.isNotEmpty ? () => _onTextSent(context) : null,
       type: AppButtonTypeEnum.primary,
     );
   }
 
   void _onTextSent(BuildContext context) {
-    widget.onTextSent?.call(_controller.text);
+    widget.onTextSent?.call(_controller.text.trim());
     setState(() => _controller.text = "");
   }
 }

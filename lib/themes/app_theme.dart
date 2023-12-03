@@ -70,9 +70,6 @@ abstract class AppTheme {
             surface: surfaceColor(),
             onSurface: onSurfaceColor()),
         scaffoldBackgroundColor: Colors.transparent,
-        inputDecorationTheme: const InputDecorationTheme(
-          isDense: true,
-        ),
         listTileTheme: const ListTileThemeData(tileColor: Colors.transparent, contentPadding: EdgeInsets.all(10)),
         dividerTheme: DividerThemeData(color: surfaceColor(), space: 0, thickness: 1),
         dialogTheme: DialogTheme(

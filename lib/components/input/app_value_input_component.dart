@@ -32,9 +32,10 @@ class _AppValueInputComponentState extends State<AppValueInputComponent> {
       size: widget.size,
       hint: widget.hint,
       controller: _controller,
-      validator: (v) => !_determineValidator().call(v) ? widget.invalidHint : null,
+      inputType: _determineInputType(),
+      validator: (v) => !_determineValidator().call(v?.trim()) ? widget.invalidHint : null,
       suffix: _determineSuffix(),
-      onInputChanged: (t) => widget.onChanged.call(t, _determineValidator().call(t)),
+      onInputChanged: (t) => widget.onChanged.call(t.trim(), _determineValidator().call(t.trim())),
     );
   }
 
@@ -46,6 +47,16 @@ class _AppValueInputComponentState extends State<AppValueInputComponent> {
         return "%";
       case ValueType.email:
         return null;
+    }
+  }
+
+  TextInputType _determineInputType() {
+    switch (widget.type) {
+      case ValueType.temperature:
+      case ValueType.humidity:
+        return TextInputType.number;
+      case ValueType.email:
+        return TextInputType.emailAddress;
     }
   }
 
