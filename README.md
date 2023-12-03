@@ -6,7 +6,7 @@ User interface of the WeatherApp developed with Flutter
 
 | Release | Date       | Description                                                                                          |
 |---------|------------|------------------------------------------------------------------------------------------------------|
-| 3.1.0   | 2023-12-02 | Introduces WeatherApp-Assistant and adds minor layout changes                                        |
+| 3.1.0   | 2023-12-03 | Introduces WeatherApp-Assistant and adds minor layout changes                                        |
 | 3.0.0   | 2023-08-08 | Remake of the legacy WeatherApp Flutter UI, Add compatibility for the new WeatherApp-Backend 3.0 API |
 
 ## Releases of legacy application
