@@ -52,7 +52,7 @@ class AppSoilCurrentSummaryFragment extends StatelessWidget {
     double baseSize = _baseSize(constraints);
     return AppSquarePositionedTextComponent(
         squareSize: baseSize,
-        text: AppL18nConfig.get(context).soil_deepness,
+        text: AppL18nConfig.get(context).soil_depth,
         left: baseSize / 2,
         top: baseSize * 0.05,
         color: Theme.of(context).colorScheme.onBackground,

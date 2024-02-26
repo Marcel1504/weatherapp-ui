@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:weatherapp_ui/components/scaffold/app_scaffold_component.dart';
+import 'package:weatherapp_ui/config/app_l18n_config.dart';
 import 'package:weatherapp_ui/config/app_layout_config.dart';
 import 'package:weatherapp_ui/fragments/station/list/app_station_list_fragment.dart';
 
@@ -16,7 +17,7 @@ class AppStationPage extends StatelessWidget {
 
   AppBar _appBar(BuildContext context) {
     return AppBar(
-      title: Text("Stationsauswahl"),
+      title: Text(AppL18nConfig.get(context).station_selection),
       titleTextStyle:
           Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: AppLayoutConfig.defaultTextHeadlineFontSize),
     );
